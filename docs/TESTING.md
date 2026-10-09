@@ -1,6 +1,6 @@
 # Testing and verification plan
 
-**Existing automated checks:** `npm ci`, `npm run check:foundation`, `npm run typecheck`, `npm test` in a six-job Node 22/24 x Ubuntu/Windows/macOS CI matrix. 253 tests passed on verified Phase 06 implementation SHA, including 57 new risk engine unit, integration and regression tests. No public CLI, real migration verification or measured production accuracy.
+**Existing automated checks:** `npm ci`, `npm run check:foundation`, `npm run typecheck`, `npm test` in a six-job Node 22/24 x Ubuntu/Windows/macOS CI matrix. 308 tests passed on verified CLI implementation commit d9fcb88d37168492bf065cf749d795fe47da7204, including 55 new CLI unit, process-integration and regression cases. No public CLI, real migration verification or measured production accuracy.
 
 ## Planned test layers
 
@@ -58,3 +58,9 @@ Local Node v22.16.0/TS 5.8.3: `npm run check:foundation`, `npm run typecheck`, `
 Risk engine code: `src/analysis/risk.ts`. Added `tests/unit/risk-analysis.test.mjs` (33 tests), `tests/integration/risk-repository.test.mjs` (16), and `tests/regression/risk-regression.test.mjs` (8). Every versioned rule is exercised with separate severity/confidence expectations; boundaries include forged downgrade, contradictory mapping, duplicate sources, unsafe paths, extra secret-bearing fields, unknown-code prototype injection, dynamic HTTP, syntax failure, resource exhaustion, ignored trees and outside-root symlinks. Whole-repo examples establish true discovery→read→detect→classify→assess flow and stable sorting without executing application code.
 
 Local Node v22.16.0/TypeScript 5.8.3: `npm run typecheck`, `npm run check:foundation` and `npm test` succeeded, 253/253. GitHub Actions https://github.com/HoriSift/HoriSift/actions/runs/38003322270 passed for 9bb554e0eeb33f6240786dda92930135332f37cb on Ubuntu/Windows/macOS × Node 22/24 (six jobs), including pinned TypeScript 6.0.3 typechecking, `npm ci`, foundation validation and all tests. No external mainnet tests, measured real-world accuracy, audited migration outcomes or grant outcomes.
+
+## Checkout CLI acceptance — verified 2026-10-10
+
+Files: `src/cli/main.ts`, `src/cli/entry.ts`, `bin/horisift.mjs`. 55 new tests in `tests/unit/cli.test.mjs`, `tests/integration/cli-process.test.mjs` and `tests/regression/cli-regression.test.mjs`. Tests cover help, version, rules, real process invocation, unknown/duplicate/missing flags, unusual paths, severity presentation vs all-findings thresholds, every exit code 0/1/2/3/4, unallowed/allowed incomplete status, empty and unsupported inputs, malformed syntax, throw-on-import safety, host/path secrecy, symlink refusal, deterministic JSON and real detection integration.
+
+Local Node v22.16.0: `npm test` 308/308, `npm run typecheck`, `npm run check:foundation`, executable help/version and self-scan passed. GitHub Actions run https://github.com/HoriSift/HoriSift/actions/runs/38004114440 completed SUCCESS on d9fcb88d37168492bf065cf749d795fe47da7204 with six matrix jobs (Ubuntu/Windows/macOS × Node 22/24), npm ci, TypeScript typecheck, foundation validation, 308 automated tests and CLI smoke commands. These checks are development CLI evidence, not proof of a published npm package, stable final report schema or real-application precision/recall.

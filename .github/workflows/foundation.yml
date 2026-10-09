@@ -24,5 +24,7 @@ jobs:
         run: npm ci
       - name: Check foundation documents
         run: npm run check:foundation
-      - name: Run foundation and discovery tests
+      - name: Typecheck source
+        run: npm run typecheck
+      - name: Run foundation, discovery and parser tests
         run: npm test

@@ -57,10 +57,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** No code execution; parser diagnostics; stable positions.
 - **Required CI checks:** Parser tests on supported Node/OS.
 - **Known risks:** Parser throughput, syntax version skew.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** 1da388903496e2376fdbe5f07db27063353508cc (source parser, safe reader, pinned dependencies, CI fix).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38000404139 — SUCCESS on 1da388903496e2376fdbe5f07db27063353508cc, six jobs (Ubuntu/Windows/macOS x Node 22/24), including npm ci, typecheck, foundation check and npm test (57/57 tests; 32 parser/reader additions); verified 2026-10-09. Initial CI for e34582b791f0033a5841bcf5fe51c17a66fed891 failed TypeScript 6 typecheck; fixed by explicit Node types in 1da388903496e2376fdbe5f07db27063353508cc. Local Node 22.16.0: npm run check:foundation, npm run typecheck, npm test (57/57, using globally available TS 5.8.3).
+- **Remaining work:** No outstanding blockers within Phase 03 scope. Phase 04 must add proven SDK/HTTP detection and scope-aware symbol resolution; syntax-only import and const-alias facts do not prove APIs are used. Concurrency filesystem race caveat remains documented.
 
 ## Phase 04 — Horizon Usage Detection
 

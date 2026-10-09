@@ -1,15 +1,15 @@
 # HoriSift architecture decision specification
 
-**Status:** File discovery implemented and tested as a library in `src/scanner/discover.ts` (2026-10-09); parsing, Horizon detection, rule evaluation, CLI and report rendering remain planned. API mapping notes were checked against official Stellar guidance on 2026-10-09.
+**Status:** File discovery and syntax-only source parser implemented and tested as library modules (2026-10-09). Horizon detection, rule evaluation, CLI and report rendering remain planned. API mapping notes checked against official Stellar guidance on 2026-10-09.
 
 ## Stack decision
 
 - **Implementation:** TypeScript (strict, `NodeNext`/ESM), targeting Node.js 22.12+ and 24 LTS. Node 24 is Active LTS on this date; Node 22 is Maintenance LTS. Initial platform CI: Ubuntu, Windows, macOS, one Node 24 run each; add Node 22 compatibility coverage.
-- **Parser:** TypeScript Compiler API (`typescript` package), `createSourceFile` with explicit ScriptKind, no compilation or execution of scanned projects. Prefer it over maintaining custom JS/TS syntax parsing. Dependency version and package-lock will be pinned when parser implementation is introduced.
+- **Parser:** Pinned TypeScript Compiler API 6.0.3 (`typescript` runtime dependency; lockfile committed). `src/parser/parse.ts` uses `createSourceFile` with explicit JS, JSX, TS, TSX modes. `src/parser/read.ts` revalidates discovery candidates, rejects symlinks and invalid UTF-8, bounds reads, and never executes source. Syntax-only ESM/CommonJS SDK import facts and const aliases are not semantically resolved.
 - **CLI:** `commander` (supported Node versions), to be installed and locked at CLI implementation; avoid bringing in a web framework or Stellar SDK as runtime dependencies for offline source scanning.
 - **Tests:** Node's built-in `node:test` for no-dependency foundation and deterministic integration tests; consider Vitest later only if fixtures or snapshot ergonomics warrant added upkeep.
 - **Website:** A static accessible site later, in this repository (`site/`), without a framework unless interactivity justifies it.
-- **Dependency policy:** `npm ci` and committed lockfile. No runtime dependency until actual scanner components exist.
+- **Dependency policy:** `npm ci` with committed lockfile and runtime `typescript@6.0.3`, dev `@types/node@22.15.30`; `tsc --noEmit` enforced in CI. Add other dependencies only with evidence.
 
 ## Intended data flow
 
@@ -21,7 +21,7 @@ Each stage must be independently testable; downstream layers accept typed eviden
 
 - `src/cli/`: arguments, validation, status/exit contract.
 - `src/scanner/`: implemented deterministic, bounded directory iterator; eight JS/TS extensions; literal path exclusions; safe symlink skipping; canonical relative paths; incomplete diagnostics; metadata checks only (no source content read).
-- `src/parser/`: AST parse recovery and accurate 1-indexed line/column, import/identifier resolution.
+- `src/parser/`: implemented bounded strict-UTF-8 source reading, AST parser, 1-indexed UTF-16 line/column, syntax errors and dynamic-module diagnostics, syntax-only imports and const aliases. Full symbol/import binding resolution and migration evidence remain future work.
 - `src/analysis/`: supported API usage evidence; risks and uncertainty must remain separate.
 - `src/rules/`: validated, versioned mapping records and official evidence references.
 - `src/reports/`: stable report model, canonical serialization, terminal formatting, security redaction.

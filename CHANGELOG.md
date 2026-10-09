@@ -47,3 +47,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Added 55 CLI unit, end-to-end subprocess and regression tests (308 total), including missing arguments, empty sources, symlink exclusions, incomplete-scan overrides and secret-safe output.
 - Verified six cross-platform GitHub Actions jobs with CLI help/version/rule-list smoke checks.
 - No npm publication, bundled release, dedicated final report engine or actual application migration validation yet.
+
+## Unreleased — Versioned reporting engine
+
+- Added dedicated safe canonical text and JSON renderers with versioned Draft 2020-12 scan/rules schemas, stable key order, deterministic IDs, full JSON findings and explicit incomplete triage.
+- Rebuilds vetted risk/classification metadata, drops secret-bearing extra fields, rejects forged severity/confidence/locations and sanitizes diagnostics instead of exposing source or exception text.
+- Added six byte-exact golden fixtures and 64 schema, rendering, CLI-process and regression tests (372 total); limits each report to 32 MiB.
+- Fixed Windows CRLF checkout differences with `.gitattributes` LF policy; the initial failing Windows CI was retained and the corrected six-job CI passed.
+- Still unpublished; representative application accuracy, full independent schema validation, stress testing and release hardening remain outstanding.

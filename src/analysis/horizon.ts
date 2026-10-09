@@ -176,7 +176,7 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
     return null;
   };
   const mayBeHorizon=(e:ts.Expression,scope:Scope,seen=new Set<Binding>()):boolean=>{
-    if(seen.size>48)return false;const n=unwrap(e);const txt=ts.isIdentifier(n)?n.text:access(n)?.property??'';
+    if(seen.size>48)return false;const n=unwrap(e);const constant=literal(n);if(constant!==null&&/horizon/i.test(constant))return true;const txt=ts.isIdentifier(n)?n.text:access(n)?.property??'';
     if(/horizon/i.test(txt))return true;
     if(ts.isBinaryExpression(n))return mayBeHorizon(n.left,scope,seen)||mayBeHorizon(n.right,scope,seen);
     if(ts.isTemplateExpression(n))return n.head.text.toLowerCase().includes('horizon')||n.templateSpans.some(t=>t.literal.text.toLowerCase().includes('horizon')||mayBeHorizon(t.expression,scope,seen));

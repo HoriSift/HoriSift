@@ -26,8 +26,10 @@ jobs:
         run: npm run check:foundation
       - name: Typecheck source
         run: npm run typecheck
-      - name: Run foundation, discovery and parser tests
+      - name: Run all unit, integration and regression tests
         run: npm test
+      - name: Verify JSON schemas and report golden snapshots
+        run: node --experimental-strip-types --test tests/unit/report-schema.test.mjs tests/integration/report-process.test.mjs
       - name: Smoke executable help
         run: npm run cli -- --help
       - name: Smoke executable version

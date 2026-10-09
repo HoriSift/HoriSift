@@ -9,7 +9,7 @@ test('regression: --severity must not suppress JSON findings',async()=>{
  assert.equal(code,0);assert.ok(JSON.parse(output[0]).findings.length>=1);
 });
 test('regression: --allow-incomplete cannot change JSON status or triage',async()=>{
- const src={...assess(),status:'incomplete',triage:'incomplete'};const out=[];
+ const src={...assessHorizonUsage('src/index.ts','const broken = ('),root:'.',filesInspected:1};const out=[];
  await runCli(['scan','path','--allow-incomplete','--format','json'],{stdout:s=>out.push(s),stderr:()=>{},assess:async()=>src,rules:RULES});
  assert.equal(JSON.parse(out[0]).status,'incomplete');assert.equal(JSON.parse(out[0]).triage,'incomplete');
 });

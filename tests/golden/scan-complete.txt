@@ -1,0 +1,9 @@
+HoriSift scan: complete (review-required)
+Inspected: 1 | Findings: 3 (displayed: 3) | Unknowns: 0 | Diagnostics: 0
+Static triage only; NOT proof of migration readiness.
+high [high] src/café-🚀.ts:4:1 horizon.http.account-list (indexer-required)
+  Review: Build or use a historical account index; the RPC API has no direct account-list equivalent.
+medium [unknown] src/café-🚀.ts:2:20 horizon.unmapped-pattern (unknown)
+  Review: Review this detected Horizon dependency manually. No reviewed migration rule covers its normalized detector pattern.
+medium [unknown] src/café-🚀.ts:3:1 horizon.sdk.account-query (unknown)
+  Review: Inspect subsequent account filters or call builders before choosing account lookup versus list/indexing migration.

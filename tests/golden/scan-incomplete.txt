@@ -1,0 +1,6 @@
+HoriSift scan: incomplete (incomplete)
+Inspected: 1 | Findings: 1 (displayed: 1) | Unknowns: 1 | Diagnostics: 0
+Static triage only; NOT proof of migration readiness.
+high [high] src/café-🚀.ts:1:1 horizon.http.account-list (indexer-required)
+  Review: Build or use a historical account index; the RPC API has no direct account-list equivalent.
+unknown src/café-🚀.ts:2:7 DYNAMIC_HTTP_URL

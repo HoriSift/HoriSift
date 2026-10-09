@@ -3,8 +3,9 @@
  * networking, telemetry, or generated fixes. Full report renderers are separate.
  */
 import { assessHorizonRepository, type RepositoryRiskAssessment } from '../analysis/risk.ts';
-import { RULES, RULE_SET_VERSION, type Severity, type MigrationRule } from '../rules/catalog.ts';
+import { RULES, type Severity, type MigrationRule } from '../rules/catalog.ts';
 import { DiscoveryInputError } from '../scanner/discover.ts';
+import { renderScanJson, renderScanText, renderRulesJson, renderRulesText } from '../reports/render.ts';
 
 export const CLI_VERSION = '0.0.0' as const;
 export type Format = 'text' | 'json';
@@ -72,21 +73,6 @@ export const HELP_MAIN=`HoriSift — local-only Horizon migration inspection (de
 export const HELP_SCAN=`Usage: horisift scan <path> [--format text|json] [--severity info|low|medium|high] [--fail-on info|low|medium|high] [--allow-incomplete]\n\n--severity filters text display only; JSON retains all findings.\n--fail-on sets the CI threshold over ALL findings. Without it, findings do not fail CI.\n--allow-incomplete permits status=incomplete but does not erase it from output.\nExit: 0 completed or allowed, 1 threshold, 2 invalid usage/path, 3 fatal runtime, 4 incomplete.\nThis tool does not certify migration readiness.\n`;
 export const HELP_RULES=`Usage: horisift rules [--format text|json]\n\nList source-backed migration rules. Mapped RPC methods are candidates, not drop-in replacements.\n`;
 
-function rulesText(rules:readonly MigrationRule[]):string {
-  return [`HoriSift rules (catalog ${RULE_SET_VERSION}; ${rules.length} rules)`,
-    'Mappings are advisory; never assume identical Horizon/RPC behavior.',
-    ...rules.map(r=>`${r.id} | ${r.mappingKind} | ${r.rpcMethods.length?r.rpcMethods.join(','):'manual review'}`)].join('\n')+'\n';
-}
-function scanText(report:RepositoryRiskAssessment,level:Severity):string {
-  const displayed=report.findings.filter(f=>SEVERITY[f.severity]>=SEVERITY[level]);
-  const lines=[`HoriSift scan: ${report.status} (${report.triage})`,
-    `Inspected: ${report.filesInspected} | Findings: ${report.summary.findings} (displayed: ${displayed.length}) | Unknowns: ${report.summary.unknowns} | Diagnostics: ${report.summary.diagnostics}`,
-    'Static triage only; NOT proof of migration readiness.'];
-  for(const f of displayed)lines.push(`${f.severity} [${f.confidence}] ${f.location.file}:${f.location.start.line}:${f.location.start.column} ${f.ruleId} (${f.mappingKind})`);
-  for(const u of report.unknowns)lines.push(`unknown ${u.location.file}:${u.location.start.line}:${u.location.start.column} ${u.code}`);
-  for(const d of report.diagnostics)lines.push(`diagnostic ${d.file??'.'} ${d.code}`);
-  return lines.join('\n')+'\n';
-}
 export interface CliIO { stdout:(s:string)=>void; stderr:(s:string)=>void; assess:(root:string)=>Promise<RepositoryRiskAssessment>; rules:readonly MigrationRule[] }
 /** Integration seam for CLI and failure tests; real executable uses safe repo assessor. */
 export async function runCli(args:readonly string[],io:CliIO):Promise<number>{
@@ -95,13 +81,13 @@ export async function runCli(args:readonly string[],io:CliIO):Promise<number>{
   if(cmd.kind==='help'){io.stdout(cmd.topic==='scan'?HELP_SCAN:cmd.topic==='rules'?HELP_RULES:HELP_MAIN);return EXIT.OK;}
   if(cmd.kind==='version'){io.stdout(CLI_VERSION+'\n');return EXIT.OK;}
   if(cmd.kind==='rules'){
-    io.stdout(cmd.format==='json'?JSON.stringify({toolVersion:CLI_VERSION,ruleSetVersion:RULE_SET_VERSION,rules:io.rules})+'\n':rulesText(io.rules));
+    io.stdout(cmd.format==='json'?renderRulesJson(io.rules,CLI_VERSION):renderRulesText(io.rules));
     return EXIT.OK;
   }
   try{
     const report=await io.assess(cmd.path);
     const code=decideScanExit(report,cmd.failOn,cmd.allowIncomplete);
-    const output=cmd.format==='json'?JSON.stringify({toolVersion:CLI_VERSION,...report})+'\n':scanText(report,cmd.severity);
+    const output=cmd.format==='json'?renderScanJson(report,CLI_VERSION):renderScanText(report,cmd.severity);
     io.stdout(output);
     return code;
   }catch(error){

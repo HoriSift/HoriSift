@@ -1,0 +1,409 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/HoriSift/HoriSift/blob/main/schemas/scan-report.v1.schema.json",
+  "title": "HoriSift deterministic scan report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "toolVersion",
+    "ruleSetVersion",
+    "root",
+    "filesInspected",
+    "status",
+    "triage",
+    "summary",
+    "findings",
+    "unknowns",
+    "diagnostics"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "toolVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[a-zA-Z0-9.-]+)?$"
+    },
+    "ruleSetVersion": {
+      "const": "1.0.0"
+    },
+    "root": {
+      "const": "."
+    },
+    "filesInspected": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 20000
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "incomplete"
+      ]
+    },
+    "triage": {
+      "enum": [
+        "incomplete",
+        "review-required",
+        "no-supported-evidence"
+      ]
+    },
+    "summary": {
+      "$ref": "#/$defs/summary"
+    },
+    "findings": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/unknown"
+      }
+    },
+    "diagnostics": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/diagnostic"
+      }
+    }
+  },
+  "$defs": {
+    "position": {
+      "type": "object",
+      "required": [
+        "line",
+        "column"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "location": {
+      "type": "object",
+      "required": [
+        "file",
+        "start",
+        "end"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^/\\\\\\r\\n]+(?:/[^/\\\\\\r\\n]+)*$"
+        },
+        "start": {
+          "$ref": "#/$defs/position"
+        },
+        "end": {
+          "$ref": "#/$defs/position"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "findings",
+        "unknowns",
+        "diagnostics",
+        "highestSeverity",
+        "bySeverity",
+        "byMappingKind",
+        "manualReviewRequired"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "findings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unknowns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "diagnostics": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "highestSeverity": {
+          "enum": [
+            null,
+            "info",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "bySeverity": {
+          "type": "object",
+          "required": [
+            "info",
+            "low",
+            "medium",
+            "high"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "info": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "low": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "medium": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "high": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "byMappingKind": {
+          "type": "object",
+          "required": [
+            "direct",
+            "conditional",
+            "indexer-required",
+            "no-direct-rpc-equivalent",
+            "unknown"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "direct": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "conditional": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "indexer-required": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "no-direct-rpc-equivalent": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unknown": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "manualReviewRequired": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "url",
+        "checkedDate",
+        "note"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "pattern": "^https://developers\\.stellar\\.org/"
+        },
+        "checkedDate": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 400
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "id",
+        "ruleId",
+        "ruleVersion",
+        "detectionKind",
+        "detectorPattern",
+        "location",
+        "mappingKind",
+        "severity",
+        "confidence",
+        "reasonCodes",
+        "recommendedAction",
+        "rpcMethods",
+        "officialSources",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "ruleId": {
+          "type": "string",
+          "maxLength": 180
+        },
+        "ruleVersion": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "detectionKind": {
+          "enum": [
+            "sdk-client",
+            "sdk-call",
+            "http-call",
+            "stream",
+            "response-shape"
+          ]
+        },
+        "detectorPattern": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "location": {
+          "$ref": "#/$defs/location"
+        },
+        "mappingKind": {
+          "enum": [
+            "direct",
+            "conditional",
+            "indexer-required",
+            "no-direct-rpc-equivalent",
+            "unknown"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "unknown"
+          ]
+        },
+        "reasonCodes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "maxLength": 100
+          }
+        },
+        "recommendedAction": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "rpcMethods": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "maxLength": 90
+          }
+        },
+        "officialSources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": {
+            "type": "string",
+            "maxLength": 1000
+          }
+        }
+      }
+    },
+    "unknown": {
+      "type": "object",
+      "required": [
+        "code",
+        "location",
+        "message"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "DYNAMIC_HORIZON_URL",
+            "DYNAMIC_HTTP_URL",
+            "DYNAMIC_HORIZON_CALL",
+            "MUTABLE_SDK_BINDING",
+            "DYNAMIC_HTTP_METHOD"
+          ]
+        },
+        "location": {
+          "$ref": "#/$defs/location"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 300
+        }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "required": [
+        "code",
+        "file",
+        "message"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "file": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1024
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 300
+        }
+      }
+    }
+  }
+}

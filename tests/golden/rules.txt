@@ -1,0 +1,27 @@
+HoriSift rules (catalog 1.0.0; 25 rules)
+Mappings are advisory; never assume identical Horizon/RPC behavior.
+horizon.http.ledger-list | direct | getLedgers
+horizon.http.ledger-detail | direct | getLedgers
+horizon.http.transaction-submit | direct | sendTransaction
+horizon.http.transaction-by-hash | direct | getTransaction
+horizon.http.account-detail | conditional | getLedgerEntries
+horizon.http.account-list | indexer-required | manual review
+horizon.http.operation-list | indexer-required | getTransactions
+horizon.http.operation-by-id | no-direct-rpc-equivalent | manual review
+horizon.http.payments-list | conditional | getEvents,getTransactions
+horizon.http.effects-list | conditional | getEvents,getTransactions
+horizon.http.transactions-list | conditional | getTransactions
+horizon.http.fee-stats | conditional | getFeeStats,simulateTransaction
+horizon.http.claimable-balances | indexer-required | manual review
+horizon.http.offers | indexer-required | manual review
+horizon.sdk.account-query | unknown | manual review
+horizon.sdk.payments | conditional | getEvents,getTransactions
+horizon.sdk.operations | conditional | getTransactions
+horizon.sdk.effects | conditional | getEvents,getTransactions
+horizon.sdk.transactions | conditional | getTransactions
+horizon.sdk.load-account | conditional | getLedgerEntries
+horizon.sdk.submit-transaction | direct | sendTransaction
+horizon.sdk.fee-stats | conditional | getFeeStats,simulateTransaction
+horizon.sdk.streaming | conditional | manual review
+horizon.http.hal-records | conditional | manual review
+horizon.sdk.records | conditional | manual review

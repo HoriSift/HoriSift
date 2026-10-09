@@ -18,7 +18,7 @@ JavaScript and TypeScript maintainers of payment apps, wallets, and Stellar back
 
 No direct RPC network calls, source execution, dependencies installation, AST-based auto-fixes, wallet connection, signing, live migration success checks, non-JS/TS languages, server/indexer implementation, or certainty for opaque wrappers.
 
-## Proposed CLI contract (not yet implemented)
+## Development checkout CLI contract (implemented; npm package unpublished)
 
 - `horisift scan <path> [--format text|json] [--severity info|low|medium|high] [--fail-on info|low|medium|high] [--allow-incomplete]`
 - `horisift rules [--format text|json]`
@@ -26,7 +26,7 @@ No direct RPC network calls, source execution, dependencies installation, AST-ba
 
 `--severity` filters displayed findings only; `--fail-on` sets CI threshold over all detected findings. Report JSON always includes all findings to prevent accidental data loss through presentation filtering. No output snippet containing source text by default.
 
-## Exit codes (planned)
+## Exit codes (implemented in development CLI)
 
 | Code | Meaning |
 |---|---|
@@ -41,3 +41,9 @@ Precedence: fatal (3) or invalid usage/config (2) > incomplete (4) > findings (1
 ## Product success metric (to measure after implementation)
 
 On a documented public evaluation corpus, track rule-level precision, fixture recall, reproducible runtime/resource use, and actionable feedback. There is no measured adoption or detection performance yet.
+
+## Checkout invocation — verified 2026-10-10
+
+After `npm ci`, use `npm run cli -- --help`, `npm run cli -- rules --format json`, or `npm run cli -- scan <path> --format json`. The package is currently private and **not released or installed from npm**. This JS shim launches TypeScript source using Node 22/24's strip-types option; bundling and release belong to separate work.
+
+Default format is text and default presentation threshold is info. **`--fail-on` is opt-in**: without it, complete findings do not cause failure. `--severity` filters **text only**; JSON still includes all findings. With `--allow-incomplete`, the exit decision may proceed but status and triage remain incomplete in the output. Unknown, repeated, malformed and extra positional options are rejected. Missing/non-directory roots return exit 2; unrecoverable errors are sanitized and return 3. Bounded coverage gaps, malformed source and no supported inputs return 4 unless explicitly allowed. The current JSON is a development adapter for risk assessment and is not the final published report schema. See [CLI usage](CLI_USAGE.md).

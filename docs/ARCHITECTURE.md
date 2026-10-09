@@ -1,6 +1,6 @@
 # HoriSift architecture decision specification
 
-**Status:** File discovery and syntax-only source parser implemented and tested as library modules (2026-10-09). Horizon detection, rule evaluation, CLI and report rendering remain planned. API mapping notes checked against official Stellar guidance on 2026-10-09.
+**Status:** Discovery, strict source reading, syntax-only parser and conservative Horizon-usage detection implemented/tested as internal modules (2026-10-09). Migration rule evaluation, severity, CLI and report rendering remain planned. API mapping notes checked against official Stellar guidance on 2026-10-09.
 
 ## Stack decision
 
@@ -22,7 +22,7 @@ Each stage must be independently testable; downstream layers accept typed eviden
 - `src/cli/`: arguments, validation, status/exit contract.
 - `src/scanner/`: implemented deterministic, bounded directory iterator; eight JS/TS extensions; literal path exclusions; safe symlink skipping; canonical relative paths; incomplete diagnostics; metadata checks only (no source content read).
 - `src/parser/`: implemented bounded strict-UTF-8 source reading, AST parser, 1-indexed UTF-16 line/column, syntax errors and dynamic-module diagnostics, syntax-only imports and const aliases. Full symbol/import binding resolution and migration evidence remain future work.
-- `src/analysis/`: supported API usage evidence; risks and uncertainty must remain separate.
+- `src/analysis/`: implemented `horizon.ts`, a local syntax-bound detector producing sorted SDK/HTTP/response-shape evidence and explicit unknowns; DOES NOT classify migration risk. Only known official Horizon hosts are matched in direct HTTP. Scope-aware bindings, import provenance and fixed method names prevent many false positives, not general dataflow or intermodule resolution.
 - `src/rules/`: validated, versioned mapping records and official evidence references.
 - `src/reports/`: stable report model, canonical serialization, terminal formatting, security redaction.
 - `src/utils/`: bounded, platform-independent, narrowly shared helpers.
@@ -150,3 +150,9 @@ Official guidance distinguishes REST/HAL versus JSON-RPC; a one-to-one endpoint 
 ## Decision records
 
 See [ADR 0001](decisions/0001-local-first-static-analysis.md) for platform and safety tradeoffs. This architecture will be revised when verified implementation evidence contradicts assumptions.
+
+## Implemented conservative detector boundary
+
+`detectHorizonUsage(file,source)` accepts a bounded, validated JS/TS path/string, reuses `parseSource` syntax safeguards and returns normalized findings and unknowns without raw source text. `detectHorizonRepository(root,options)` stitches together bounded discovery, safe reads, parser and detector; it is a library interface, **not a public CLI**. Immutable lexical aliases and ESM/CommonJS imports are recognized. Shadowed or reassigned names cannot be promoted to trusted SDK objects; dynamic Horizon URLs, computed methods and uncertain HTTP methods become incomplete. Only selected builder chains are followed, with a 48-level alias recursion budget. HAL `_embedded.records` evidence requires a recognized Horizon HTTP response; plain text or unrelated objects do not qualify. No migration-rule equivalences, severity, confidence or readiness claims are produced by this detector.
+
+Official SDK source reference checked 2026-10-09: https://github.com/stellar/js-stellar-sdk/blob/494cf9e26662ef4ff91afa013d5dfc37bd1f2286/src/horizon/server.ts. Main Horizon-to-RPC migration guide: https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc. Evidence can change with SDK/API versions and must be refreshed for active rules.

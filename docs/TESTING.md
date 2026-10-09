@@ -1,6 +1,6 @@
 # Testing and verification plan
 
-**Existing automated checks:** `npm ci`, `npm run check:foundation`, `npm run typecheck`, `npm test` in a six-job Node 22/24 x Ubuntu/Windows/macOS CI matrix. 57 tests passed on verified Phase 03 SHA, including 32 new source-parser and safe-reader unit/integration/regression tests. **No Horizon detection tests or working CLI exist yet.**
+**Existing automated checks:** `npm ci`, `npm run check:foundation`, `npm run typecheck`, `npm test` in a six-job Node 22/24 x Ubuntu/Windows/macOS CI matrix. 113 tests passed on verified Phase 04 SHA, including 56 new detection, integration and false-positive regression tests. **No Horizon detection tests or working CLI exist yet.**
 
 ## Planned test layers
 
@@ -40,3 +40,9 @@ Implementation: `src/parser/parse.ts` and `src/parser/read.ts`. Tests: `tests/un
 Positive cases: ESM imports/aliases, CommonJS require destructuring, TS import-equals, all eight JS/TS source extensions, safe discovery-to-parse flow, UTF-8 BOM, 1-indexed locations, Unicode filenames and deterministic output. Negative/edge cases: misleading comments/strings, type-only imports, dynamic module expressions, malformed JS/TS, unsafe paths, symlink components and root, outside-root paths, invalid UTF-8/NUL, file-size boundaries, simulated errors, and explicit incomplete diagnostics without raw secret data.
 
 Known scope: syntactic import/alias facts are not proof of binding resolution or Horizon method usage. File-system metadata checks are not an atomic snapshot. Phase 04 must test scope shadowing, reassignment, wrappers and uncertain endpoints explicitly.
+
+## Horizon detection verification — 2026-10-09
+
+`tests/unit/horizon-detector.test.mjs`, `tests/integration/horizon-http.test.mjs`, `tests/integration/horizon-repository.test.mjs`, and `tests/regression/horizon-detector-regression.test.mjs` add 56 detector cases (113 total tests including Phases 01–03). Tests check proven SDK imports/aliases/constructors, methods, streams, supported Horizon fetch/Axios calls, HTTP methods and URL path normalization, response provenance, deterministic ordering, exact 1-based line positions, host impersonation rejection, shadowed identifiers, import-only nonmatches, invalid syntax, dynamic URLs/methods, Windows-compatible read/discovery integration, outside-root symlinks and resource budgets. No source text, API keys, account IDs or POST bodies are serialized by detector output. Real-world precision and false negative rates have NOT been measured.
+
+Local Node 22.16.0: `npm run typecheck` and `npm test` passed (113/113); this local environment uses TS 5.8.3. GitHub Actions: https://github.com/HoriSift/HoriSift/actions/runs/38001525787 completed SUCCESS on 5a8106f62806749363d694da06dde8a4a474d8a6 with pinned TS 6.0.3, `npm ci`, typecheck, foundation and all 113 tests on Ubuntu, Windows, macOS with Node 22 and 24 (6/6). An earlier failed CI run on original detector SHA was caused by inadvertently replacing the explicit `types:["node"]` field; fixed on the verified implementation SHA. No claims of network tests, production adoption or RPC equivalence are made.

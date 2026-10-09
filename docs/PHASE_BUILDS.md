@@ -77,10 +77,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** No unsupported claims and source locations recorded.
 - **Required CI checks:** Detector tests and false-positive regressions.
 - **Known risks:** Missed indirect usage and SDK variants.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** 5a8106f62806749363d694da06dde8a4a474d8a6 (detector and TypeScript configuration fix).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38001525787 — GitHub Actions SUCCESS on 5a8106f62806749363d694da06dde8a4a474d8a6, Ubuntu/Windows/macOS × Node 22/24: 6/6 successful jobs, npm ci, TypeScript 6 typecheck, foundation validation and 113 tests (56 detector/integration/regression additions). Local Node 22.16.0: npm run typecheck and npm test, 113/113 passed. Original detector SHA 678788cc3d8cd1701f7c677992c9751acbe0e3ed failed TypeScript CI because Node typings were omitted from tsconfig; corrected on verified SHA. Checked 2026-10-09.
+- **Remaining work:** Phase 04 acceptance met for declared conservative patterns. Limitations: only known official Horizon hosts for static direct HTTP, limited SDK constructor/call chains, bounded aliases, response-shape evidence with proven provenance, and no custom Horizon provider / arbitrary wrapper resolution. Rules, mapping advice, severity and CLI are NOT implemented; Phase 05 must implement source-backed rule definitions.
 
 ## Phase 05 — Migration Rule Catalog
 

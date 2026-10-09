@@ -21,4 +21,10 @@ All source URLs below were checked on 2026-10-09. The current Stellar documentat
 - How should severity prioritize architectural work without claiming migration certainty?
 - Can bounded AST parsing and symlink policies handle malicious repositories on all supported platforms?
 
-No rule above has been implemented and no repo scan has been verified.
+No migration rule has been activated. Phase 04 repository-level static detection has been verified on synthetic test fixtures, but no independent real-world accuracy/recall evaluation has been completed.
+
+## SDK method/source validation for detector (checked 2026-10-09)
+
+- The upstream Horizon.Server implementation at https://github.com/stellar/js-stellar-sdk/blob/494cf9e26662ef4ff91afa013d5dfc37bd1f2286/src/horizon/server.ts contains collection call builders (`accounts`, `payments`, `operations`, `effects`, `transactions`, `ledgers`, `offers`, `trades`, `claimableBalances`, `liquidityPools`, etc.) plus selected immediate methods (`loadAccount`, `submitTransaction`, `feeStats`, `fetchBaseFee`, `root`). HoriSift only activates a limited subset, and matching a name does not imply a safe RPC replacement.
+- The official migration guide https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc distinguishes REST/HAL semantics, missing direct mappings, recent RPC retention and provider-dependent classic events. Detector evidence has no automatic migration mapping in this milestone.
+- Direct HTTP recognition presently whitelists only the three SDF Horizon hosts above and normalizes path segments without serializing raw account IDs, URL parameters or secrets. Custom provider detection is future work requiring reliable evidence, not hostname guessing.

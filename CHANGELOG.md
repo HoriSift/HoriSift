@@ -39,3 +39,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Sanitizes source locations and diagnostic metadata, rejects forged catalog classifications and unsafe unknown codes.
 - Added 57 unit/integration/regression tests (253 total) and verified six GitHub Actions matrix jobs on the matching implementation SHA.
 - No released CLI, standalone report renderer, production migration verification, hosted site or npm publication.
+
+## Unreleased — Development CLI
+
+- Implemented checkout-only `scan`, `rules`, help and version executable with strict option validation, text/JSON output and explicit CI exit-code precedence.
+- Added portable JS shim to launch local TypeScript source using Node's strip-types support, with no additional third-party CLI runtime dependency.
+- Added 55 CLI unit, end-to-end subprocess and regression tests (308 total), including missing arguments, empty sources, symlink exclusions, incomplete-scan overrides and secret-safe output.
+- Verified six cross-platform GitHub Actions jobs with CLI help/version/rule-list smoke checks.
+- No npm publication, bundled release, dedicated final report engine or actual application migration validation yet.

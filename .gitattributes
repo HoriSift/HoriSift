@@ -1,0 +1,5 @@
+# Byte-exact report fixtures: keep LF even on Windows checkout.
+# The report renderer writes LF on every supported operating system.
+tests/golden/*.json text eol=lf
+tests/golden/*.txt text eol=lf
+schemas/*.json text eol=lf

@@ -12,7 +12,7 @@ Horizon returns REST/HAL resources and indexed history; Stellar RPC uses JSON-RP
 
 ## Scope and limitations
 
-The intended initial analyzer targets JavaScript and TypeScript source files, with conservative findings and explicit uncertainty. It will not execute the inspected repository, transmit source code, rewrite applications, assert that every Horizon API has a direct RPC replacement, or certify migration readiness. The initial implementation is not yet available.
+The intended initial analyzer targets JavaScript and TypeScript source files, with conservative findings and explicit uncertainty. It will not execute the inspected repository, transmit source code, rewrite applications, assert that every Horizon API has a direct RPC replacement, or certify migration readiness. Source-file discovery is now available as an internal library module under `src/scanner/discover.ts`. The Horizon analyzer and CLI are not yet implemented.
 
 ## Documentation
 

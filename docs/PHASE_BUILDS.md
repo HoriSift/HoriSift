@@ -157,10 +157,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Stable schema and secure complete/incomplete status.
 - **Required CI checks:** JSON/text golden tests.
 - **Known risks:** Sensitive source in error paths.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** 5b842fadd9e24bb9a03ce5ac2ca22636b5fdfe0a (report renderers, v1 JSON schemas, six golden snapshots, 64 new tests and Windows LF fix).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38005617297 — completed SUCCESS on 5b842fadd9e24bb9a03ce5ac2ca22636b5fdfe0a, 6/6 jobs on Ubuntu/Windows/macOS × Node 22/24, 372 automated tests (64 new), pinned TypeScript typecheck, foundation checks, dedicated v1 JSON Schema and golden-byte CI step, and CLI smoke; checked 2026-10-10. Prior implementation SHA ab42542ca39d436d5077ec86b8dfda9f39d4a54a had failed Windows snapshot tests due CRLF checkout of golden text, fixed by .gitattributes on verified SHA. Local Node 22.16.0: npm test 372/372, typecheck and golden tests passed.
+- **Remaining work:** Phase 08 accepted for checkout CLI v1 report contract. Remaining: independent full JSON Schema implementation validation, public package/release authorization, high-volume and real-world benchmark hardening in Phase 09, and security audit. A complete clean scan is not migration readiness.
 
 ## Phase 09 — Test Hardening
 

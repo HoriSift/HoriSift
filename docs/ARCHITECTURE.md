@@ -1,6 +1,6 @@
 # HoriSift architecture decision specification
 
-**Status:** Discovery, safe reads, syntax parsing, Horizon detection, 25-rule catalog and deterministic static migration risk evaluator implemented/tested internally (verified 2026-10-10). Checkout-based development CLI implemented; dedicated stable user-facing report rendering remains future work.
+**Status:** Discovery, safe reads, syntax parsing, Horizon detection, 25-rule catalog and deterministic static migration risk evaluator implemented/tested internally (verified 2026-10-10). Checkout development CLI and dedicated versioned text/JSON report rendering are both implemented; npm distribution, independent real-repo validation and release hardening remain future work.
 
 ## Stack decision
 
@@ -24,7 +24,7 @@ Each stage must be independently testable; downstream layers accept typed eviden
 - `src/parser/`: implemented bounded strict-UTF-8 source reading, AST parser, 1-indexed UTF-16 line/column, syntax errors and dynamic-module diagnostics, syntax-only imports and const aliases. Full symbol/import binding resolution and migration evidence remain future work.
 - `src/analysis/`: `horizon.ts` is the local-only detector of SDK/HTTP/response-shape evidence; `risk.ts` is the conservative assessment engine consuming exact vetted classifications. It separates static investigation severity from evidence confidence, preserves unknowns, and produces reproducible prioritized risk results. Neither module certifies RPC compatibility.
 - `src/rules/`: validated, versioned mapping records and official evidence references.
-- `src/reports/`: stable report model, canonical serialization, terminal formatting, security redaction.
+- `src/reports/`: implemented canonical v1 scan/rules JSON and human-readable text renderers; strict vetted-evidence reconstruction, version/summary validation, safe fixed diagnostic messages and 32 MiB output ceiling.
 - `src/utils/`: bounded, platform-independent, narrowly shared helpers.
 
 ## Scanner threat model
@@ -172,3 +172,7 @@ See `docs/RISK_ANALYSIS.md` for detailed schema and limitations. Cross-platform 
 ## Development CLI (implemented)
 
 `scan <path>` supports `--format text|json`, text-only `--severity`, optional all-findings `--fail-on` and `--allow-incomplete`; `rules` exposes the source-backed catalog with text/JSON, and help/version require no repository access. Invalid options and roots produce exit 2, unexpected fatal errors produce exit 3 with sanitized messages, incomplete takes precedence at exit 4 unless expressly allowed, and applicable CI finding thresholds produce exit 1. JSON always preserves all findings. The current CLI serializes the internal deterministic risk assessment; the dedicated final public report renderer/schema remains out of scope until the reporting milestone. No network access, application code execution, telemetry, source upload or automatic rewrite. Full grammar in `docs/CLI_USAGE.md`.
+
+## Versioned reporting engine — implemented
+
+`src/reports/render.ts` owns `REPORT_SCHEMA_VERSION=1.0.0` and exact JSON output key order, deterministic serialized normalized relative paths, separate severity/confidence, and static triage warnings. Two Draft 2020-12 JSON Schemas in `schemas/` define scan and rules envelopes. All caller-supplied risk findings are verified against the 25 vetted rules and reconstructed; unsafe fields or mismatched IDs/summary/status fail closed, while untrusted diagnostic messages are replaced with fixed safe text. Text output shows reviewed recommended actions; `--severity` changes text only and never hides JSON evidence. Reporting itself is local-only and does not execute target code or make network requests. Six byte-exact golden files under `tests/golden/` are protected from Windows CRLF checkout by `.gitattributes`; integration and schema tests run explicitly in CI. See `docs/REPORTING.md` and verified https://github.com/HoriSift/HoriSift/actions/runs/38005617297. Historical specification sections above are design sketches, not current wire-format examples.

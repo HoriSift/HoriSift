@@ -4,7 +4,7 @@
 
 HoriSift is a planned local-first command-line analyzer for JavaScript and TypeScript Stellar applications. Its goal is to identify supported Horizon SDK and HTTP usage, distinguish straightforward API changes from indexing or data-model work, and produce evidence-backed migration findings.
 
-**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI** is now available, but a published npm installation, final report renderer and actual application migration verification are **not yet implemented**. Do not treat the proposed examples in the product specification as working commands.
+**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. Published npm installation, independent real-application validation and migration certification are **not yet available**. Do not treat the proposed examples in the product specification as working commands.
 
 ## Why this matters
 
@@ -21,6 +21,7 @@ The intended initial analyzer targets JavaScript and TypeScript source files, wi
 - [Rule catalog and evidence policy](docs/RULE_CATALOG.md)
 - [Risk-triage contract and limits](docs/RISK_ANALYSIS.md)
 - [Development CLI usage and exit codes](docs/CLI_USAGE.md)
+- [Versioned report schema and security contract](docs/REPORTING.md)
 - [Testing approach](docs/TESTING.md)
 - [Known limitations](docs/LIMITATIONS.md)
 - [Contributing](CONTRIBUTING.md) and [security](SECURITY.md)
@@ -36,7 +37,7 @@ npm run typecheck
 npm run check:foundation
 ```
 
-These commands verify foundation, discovery, parsing, bounded Horizon detection, advisory rules, static risk triage and the development CLI. They do not prove application migration readiness or publish an npm release.
+These commands verify foundation, discovery, parsing, bounded Horizon detection, advisory rules, static risk triage and the development CLI. They do not prove application migration readiness or publish an npm release. Report JSON v1 is now schema-versioned and checked against committed golden outputs.
 
 To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
 

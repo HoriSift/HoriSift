@@ -17,10 +17,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Docs and safeguards merged; foundation checks pass on Node 22/24 CI; SHA and run links recorded.
 - **Required CI checks:** Foundation CI on Ubuntu, Windows, macOS and Node 22/24.
 - **Known risks:** Stale SDK examples, uncontrolled scope.
-- **Status:** IN PROGRESS.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Initial GitHub write access restored on 2026-10-09; upload architecture and tests, inspect six CI matrix checks for matching commit, and record exact SHA/run links before marking VERIFIED.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** fd66579eef212d7973dfd3d8901633f72e89e20f (foundation tests and documents).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/37997210979 — successful push run for fd66579eef212d7973dfd3d8901633f72e89e20f: foundation document check, `npm ci`, and five foundation unit tests across Ubuntu, Windows, macOS on Node 22 and 24 (six jobs, each concluded success); reviewed 2026-10-09.
+- **Remaining work:** None for Phase 01 acceptance; implement bounded discovery and adversarial fixtures in Phase 02. Scanner functionality and detection rules remain unimplemented.
 
 ## Phase 02 — Repository Discovery
 

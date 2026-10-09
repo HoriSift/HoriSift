@@ -137,10 +137,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Stable exit codes and useful errors.
 - **Required CI checks:** CLI smoke and argument tests.
 - **Known risks:** Windows shell differences.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** d9fcb88d37168492bf065cf749d795fe47da7204.
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38004114440 — SUCCESS on d9fcb88d37168492bf065cf749d795fe47da7204; six Ubuntu/Windows/macOS x Node 22/24 jobs with npm ci, typecheck, foundation validation, 308 tests (55 new CLI cases) and CLI help/version/rules smoke steps; verified 2026-10-10. Local Node 22.16.0: npm test 308/308, npm run typecheck and foundation validation passed.
+- **Remaining work:** No Phase 07 scope blocker. This is a checkout-based development CLI, not a published npm package or bundled executable. Phase 08 still owns stable text/JSON report renderer and golden tests. Real-world validation and release approvals remain outstanding.
 
 ## Phase 08 — Reporting Engine
 

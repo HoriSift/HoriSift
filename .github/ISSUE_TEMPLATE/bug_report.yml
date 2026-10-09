@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a reproducible defect (do not disclose security issues here)
+title: "fix: "
+labels: [bug]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Reproduction and expected behavior
+      description: Please share a minimal public fixture with no secrets.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Platform, version and reproduction logs
+      description: Provide command, Node version, tool commit/version and redacted logs.

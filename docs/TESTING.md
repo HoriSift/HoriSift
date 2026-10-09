@@ -1,6 +1,6 @@
 # Testing and verification plan
 
-**Existing automated checks:** Foundation metadata/documentation tests (`npm test`; `npm run check:foundation`). **No scanner detection tests or working CLI exist yet.** Passing foundation tests must never be represented as detector correctness.
+**Existing automated checks:** Foundation tests and file-discovery tests (`npm test`; `npm run check:foundation`). Twenty discovery and regression cases cover extensions, exclusions, symlinks, permission errors, limits, Unicode, and path escapes. **No Horizon detection tests or working CLI exist yet.** File enumeration does not establish migration readiness.
 
 ## Planned test layers
 

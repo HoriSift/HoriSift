@@ -1,6 +1,6 @@
 # HoriSift architecture decision specification
 
-**Status:** Proposed interfaces and flow, checked against current official Stellar guidance on 2026-10-09. Nothing below implies shipped scanner behavior.
+**Status:** File discovery implemented and tested as a library in `src/scanner/discover.ts` (2026-10-09); parsing, Horizon detection, rule evaluation, CLI and report rendering remain planned. API mapping notes were checked against official Stellar guidance on 2026-10-09.
 
 ## Stack decision
 
@@ -20,7 +20,7 @@ Each stage must be independently testable; downstream layers accept typed eviden
 ## Module responsibilities (planned, create only when substantive)
 
 - `src/cli/`: arguments, validation, status/exit contract.
-- `src/scanner/`: ignore rules, directory iterator, file size, recursion and symlink safety, scanner statistics.
+- `src/scanner/`: implemented deterministic, bounded directory iterator; eight JS/TS extensions; literal path exclusions; safe symlink skipping; canonical relative paths; incomplete diagnostics; metadata checks only (no source content read).
 - `src/parser/`: AST parse recovery and accurate 1-indexed line/column, import/identifier resolution.
 - `src/analysis/`: supported API usage evidence; risks and uncertainty must remain separate.
 - `src/rules/`: validated, versioned mapping records and official evidence references.

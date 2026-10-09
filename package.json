@@ -7,7 +7,7 @@
   "type": "module",
   "engines": { "node": "^22.12.0 || ^24.0.0" },
   "scripts": {
-    "test": "node --test tests/unit/*.test.mjs",
+    "test": "node --experimental-strip-types --test tests/unit/*.test.mjs tests/integration/*.test.mjs tests/regression/*.test.mjs",
     "check:foundation": "node scripts/check-foundation.mjs"
   }
 }

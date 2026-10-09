@@ -26,5 +26,11 @@ jobs:
         run: npm run check:foundation
       - name: Typecheck source
         run: npm run typecheck
-      - name: Run foundation, discovery, parser, Horizon detector, rule and risk tests
+      - name: Run foundation, discovery and parser tests
         run: npm test
+      - name: Smoke executable help
+        run: npm run cli -- --help
+      - name: Smoke executable version
+        run: npm run cli -- --version
+      - name: Smoke rule listing
+        run: npm run cli -- rules --format json

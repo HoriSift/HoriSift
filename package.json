@@ -11,12 +11,16 @@
   "scripts": {
     "test": "node --experimental-strip-types --test tests/unit/*.test.mjs tests/integration/*.test.mjs tests/regression/*.test.mjs",
     "check:foundation": "node scripts/check-foundation.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "cli": "node bin/horisift.mjs"
   },
   "dependencies": {
     "typescript": "6.0.3"
   },
   "devDependencies": {
     "@types/node": "22.15.30"
+  },
+  "bin": {
+    "horisift": "./bin/horisift.mjs"
   }
 }

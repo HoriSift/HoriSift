@@ -97,10 +97,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Every active rule linked to official source and tests.
 - **Required CI checks:** Rule validation and all individual rule tests.
 - **Known risks:** Rapid protocol/API changes.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** 06e9651fad5cd51df27d488117e8a53d527b3d21 (catalog, exact classification, regression fix for dynamic URL heuristic, 83 added tests).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38002363095 — SUCCESS on 06e9651fad5cd51df27d488117e8a53d527b3d21, six CI jobs across Ubuntu/Windows/macOS × Node 22 and 24; npm ci, foundation check, TypeScript 6 typecheck, and 196 tests passed (83 new tests, 25 real detector rule fixtures); reviewed 2026-10-09. Local Node v22.16.0/TS 5.8.3: npm run check:foundation, npm run typecheck, npm test 196/196. Official Stellar migration guide verified 2026-10-09 (page last updated 2026-08-18): https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc.
+- **Remaining work:** Phase 05 acceptance met for 25 exact, source-backed classifications and conservative unmapped fallback. Limits: no runtime risk assessment (Phase 06), CLI, release, empirical precision/recall, custom Horizon provider recognition, or automatic migration; SDK builder endpoints can be ambiguous and remain unknown when insufficient. Revalidate official API changes before release.
 
 ## Phase 06 — Risk Analysis Engine
 

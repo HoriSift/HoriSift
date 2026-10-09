@@ -4,7 +4,7 @@
 
 HoriSift is a planned local-first command-line analyzer for JavaScript and TypeScript Stellar applications. Its goal is to identify supported Horizon SDK and HTTP usage, distinguish straightforward API changes from indexing or data-model work, and produce evidence-backed migration findings.
 
-**Current availability:** This repository has internal local-first discovery, JS/TS parsing, and conservative Horizon SDK/HTTP usage detection libraries. A public `horisift` CLI, evidence-backed migration-rule evaluation and an installation command are **not yet implemented**. Do not treat the proposed examples in the product specification as working commands.
+**Current availability:** This repository includes internal local-first file discovery, JS/TS parsing, conservative Horizon usage detection, and a versioned evidence-backed migration guidance catalog. A public `horisift` CLI, per-application risk evaluator, final reports and installation command are **not yet implemented**. Do not treat the proposed examples in the product specification as working commands.
 
 ## Why this matters
 
@@ -34,7 +34,7 @@ npm run typecheck
 npm run check:foundation
 ```
 
-These commands check the foundation, discovery, parsing and narrowly scoped Horizon usage detection. They do not validate migration-rule correctness, app readiness, production compatibility or a published CLI. They do not install or run the proposed CLI.
+These commands verify foundation checks, discovery, parsing, narrowly scoped Horizon detection and the advisory rule catalog. They do not establish application migration readiness, production compatibility or a published CLI. They do not install or run the proposed CLI.
 
 ## License
 

@@ -21,10 +21,14 @@ All source URLs below were checked on 2026-10-09. The current Stellar documentat
 - How should severity prioritize architectural work without claiming migration certainty?
 - Can bounded AST parsing and symlink policies handle malicious repositories on all supported platforms?
 
-No migration rule has been activated. Phase 04 repository-level static detection has been verified on synthetic test fixtures, but no independent real-world accuracy/recall evaluation has been completed.
+25 exact source-backed advisory migration rules are now implemented and verified with individual synthetic and real detector fixtures. Independent real-world accuracy/recall and actual migration outcomes have NOT been measured.
 
 ## SDK method/source validation for detector (checked 2026-10-09)
 
 - The upstream Horizon.Server implementation at https://github.com/stellar/js-stellar-sdk/blob/494cf9e26662ef4ff91afa013d5dfc37bd1f2286/src/horizon/server.ts contains collection call builders (`accounts`, `payments`, `operations`, `effects`, `transactions`, `ledgers`, `offers`, `trades`, `claimableBalances`, `liquidityPools`, etc.) plus selected immediate methods (`loadAccount`, `submitTransaction`, `feeStats`, `fetchBaseFee`, `root`). HoriSift only activates a limited subset, and matching a name does not imply a safe RPC replacement.
 - The official migration guide https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc distinguishes REST/HAL semantics, missing direct mappings, recent RPC retention and provider-dependent classic events. Detector evidence has no automatic migration mapping in this milestone.
 - Direct HTTP recognition presently whitelists only the three SDF Horizon hosts above and normalizes path segments without serializing raw account IDs, URL parameters or secrets. Custom provider detection is future work requiring reliable evidence, not hostname guessing.
+
+## Activated catalog primary evidence (2026-10-09)
+
+Official guide: https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc (last updated 2026-08-18) distinguishes `/accounts` and `/operations/{id}` without direct equivalents, `/accounts/{address}` via `getLedgerEntries` without joined trustlines, `POST /transactions` via `sendTransaction`, and several event+XDR cases. CAP-67 classic asset events (Protocol 23) require `EMIT_CLASSIC_EVENTS=true`; earlier ledger backfill may require `BACKFILL_STELLAR_ASSET_EVENTS=true`. RPC is not a drop-in historical indexer; see https://developers.stellar.org/docs/data/apis/rpc. All rule records include URL, checked date, limitations and qualified advice. Rule and fixture list: `docs/RULE_CATALOG.md`. This material should be rechecked for SDK/API upgrades before an external release.

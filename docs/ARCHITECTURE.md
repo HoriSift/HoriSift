@@ -1,6 +1,6 @@
 # HoriSift architecture decision specification
 
-**Status:** Discovery, strict source reading, syntax-only parser and conservative Horizon-usage detection implemented/tested as internal modules (2026-10-09). Migration rule evaluation, severity, CLI and report rendering remain planned. API mapping notes checked against official Stellar guidance on 2026-10-09.
+**Status:** Discovery, safe reads, syntax parsing, conservative Horizon detection and a 25-rule versioned migration-classification catalog are implemented/tested internally (2026-10-09). Dynamic risk evaluation, CLI and report rendering remain future milestones.
 
 ## Stack decision
 
@@ -156,3 +156,9 @@ See [ADR 0001](decisions/0001-local-first-static-analysis.md) for platform and s
 `detectHorizonUsage(file,source)` accepts a bounded, validated JS/TS path/string, reuses `parseSource` syntax safeguards and returns normalized findings and unknowns without raw source text. `detectHorizonRepository(root,options)` stitches together bounded discovery, safe reads, parser and detector; it is a library interface, **not a public CLI**. Immutable lexical aliases and ESM/CommonJS imports are recognized. Shadowed or reassigned names cannot be promoted to trusted SDK objects; dynamic Horizon URLs, computed methods and uncertain HTTP methods become incomplete. Only selected builder chains are followed, with a 48-level alias recursion budget. HAL `_embedded.records` evidence requires a recognized Horizon HTTP response; plain text or unrelated objects do not qualify. No migration-rule equivalences, severity, confidence or readiness claims are produced by this detector.
 
 Official SDK source reference checked 2026-10-09: https://github.com/stellar/js-stellar-sdk/blob/494cf9e26662ef4ff91afa013d5dfc37bd1f2286/src/horizon/server.ts. Main Horizon-to-RPC migration guide: https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc. Evidence can change with SDK/API versions and must be refreshed for active rules.
+
+## Implemented versioned rule catalog
+
+`src/rules/catalog.ts` exports 25 immutable exact-match rules (`RULE_SET_VERSION=1.0.0`), dated official source attribution, conservative mapping kinds (`direct`, `conditional`, `indexer-required`, `no-direct-rpc-equivalent`, `unknown`), candidate RPC methods, static triage defaults, limitations and qualified recommendations. `classifyHorizonFindings` matches exact validated `HorizonKind` plus normalized detector pattern; no wildcard/path-prefix or approximate match is permitted. Otherwise the safe fallback `horizon.unmapped-pattern` preserves `unknown`; `classifyHorizonDetection` preserves incomplete status, unknowns and diagnostics. Rule defaults are not evaluated per-application risks. No post-processing of detected source text into outputs, and no raw credentials/URLs in classifications. Catalog validation rejects invalid method names, unsupported mapping kinds, missing official source references, duplicate IDs/matches and unsafe patterns. Each of the 25 rules has a real detector fixture in tests.
+
+Versioned catalog and full source register: `docs/RULE_CATALOG.md`. Implementation commit 06e9651fad5cd51df27d488117e8a53d527b3d21 (CI https://github.com/HoriSift/HoriSift/actions/runs/38002363095).

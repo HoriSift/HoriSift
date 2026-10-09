@@ -23,3 +23,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Added 56 unit/integration/regression tests (113 total), including cross-file repository scan integration. Verified on Ubuntu, Windows and macOS with Node 22/24.
 - Fixed dropped Node typings detected by an initially failed TypeScript 6 CI run; the corrected commit is green.
 - Migration rules, severity, CLI, npm release and hosted site remain unimplemented.
+
+## Unreleased — Versioned migration guidance catalog
+
+- Implemented 25 exact-match, versioned, dated-official-source-backed rules with five classification kinds and explicit RPC candidate methods, caveats and unknown fallback.
+- Implemented strict catalog schema validation and deterministically ordered, sanitized classification output without executing target source.
+- Added 83 unit, integration and regression tests, including a real detector fixture for every activated rule (196 total tests).
+- Corrected uncertain dynamically composed Horizon URL detection to preserve incomplete diagnostics.
+- No CLI, final risk evaluation, npm release or actual migration verification yet.

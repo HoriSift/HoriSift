@@ -36,3 +36,7 @@ jobs:
         run: npm run cli -- --version
       - name: Smoke rule listing
         run: npm run cli -- rules --format json
+
+      - name: Bounded stress and performance budgets (Ubuntu Node 24)
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 24
+        run: npm run test:stress

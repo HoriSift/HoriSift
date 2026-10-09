@@ -12,7 +12,8 @@
     "test": "node --experimental-strip-types --test tests/unit/*.test.mjs tests/integration/*.test.mjs tests/regression/*.test.mjs",
     "check:foundation": "node scripts/check-foundation.mjs",
     "typecheck": "tsc --noEmit",
-    "cli": "node bin/horisift.mjs"
+    "cli": "node bin/horisift.mjs",
+    "test:stress": "node --experimental-strip-types --test tests/stress/*.test.mjs"
   },
   "dependencies": {
     "typescript": "6.0.3"

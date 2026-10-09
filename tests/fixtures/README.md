@@ -1,0 +1,7 @@
+# Synthetic Stellar application fixture corpus
+
+This directory contains **synthetic application-like snippets**, not reproduced production repositories, measurements of user adoption, independent validation of any live Stellar application, or tests of the live Horizon/RPC networks. Scenarios and expected outcomes are encoded in `application-corpus.json` and exercised through the real discovery → safe read → parser → detector → rule catalog → risk evaluator → text/JSON reporter pipeline.
+
+The categories intentionally cover account reads, transaction submission, SDK streaming, historical account indexing, `.tsx`, `.mjs`, `.cjs`, `.mts`, negative comments/string matches, shadowed `fetch`, dynamically constructed URLs, and malformed syntax. API distinction was cross-checked against the [official Stellar migration guide](https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc) on **2026-10-10**. This does not mean any test app itself was derived from the guide or verified on a live network.
+
+For each future fixture: state an independent engineering purpose and realistic user workflow; use made-up accounts and tokens only; avoid keys/addresses from users or third-party repositories; include positive, negative, incomplete and secret-safe regression coverage; keep assertions about **supported evidence**, never migration readiness or 100% detection recall. Follow `AGENTS.md` and `docs/TEST_HARDENING.md`.

@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "note": "Synthetic application-like source fixtures, NOT copied from verified real-world repositories. Patterns were reviewed against official Stellar API guidance on 2026-10-10.",
+  "cases": [
+    {
+      "id": "wallet-account-reader",
+      "expectedStatus": "complete",
+      "requiredRuleIds": ["horizon.sdk.load-account"],
+      "files": {
+        "src/wallet/account.ts": "import { Horizon as Legacy } from '@stellar/stellar-sdk';\nexport async function getAccount(accountId: string) {\n  const client = new Legacy.Server('https://horizon.stellar.org');\n  return client.loadAccount(accountId);\n}\n",
+        "src/ui/AccountCard.tsx": "export function AccountCard({balance}:{balance:string}) { return <strong>{balance}</strong> }\n"
+      }
+    },
+    {
+      "id": "payments-processing",
+      "expectedStatus": "complete",
+      "requiredRuleIds": ["horizon.http.transaction-submit", "horizon.sdk.streaming"],
+      "files": {
+        "src/payments/submit.mjs": "export async function submit(body) { return fetch('https://horizon.stellar.org/transactions', {method:'POST',body}); }\n",
+        "src/payments/live.cjs": "const {Horizon} = require('@stellar/stellar-sdk');\nconst client = new Horizon.Server('https://horizon.stellar.org');\nclient.payments().stream({onmessage() {}});\n"
+      }
+    },
+    {
+      "id": "indexer-service",
+      "expectedStatus": "complete",
+      "requiredRuleIds": ["horizon.http.account-list"],
+      "files": {
+        "src/history/accounts.ts": "export const accounts = () => fetch('https://horizon.stellar.org/accounts');\n",
+        "src/history/unrelated.js": "const label = 'https://horizon.stellar.org/operations';\n// fetch('https://horizon.stellar.org/payments');\nexport const list = [label];\n"
+      }
+    },
+    {
+      "id": "conditional-and-malformed",
+      "expectedStatus": "incomplete",
+      "requiredRuleIds": ["horizon.http.account-list"],
+      "requiredDiagnosticCodes": ["INVALID_SYNTAX"],
+      "files": {
+        "src/known.ts": "fetch('https://horizon.stellar.org/accounts');\n",
+        "src/invalid.ts": "const incomplete = (\n"
+      }
+    },
+    {
+      "id": "opaque-wrapper",
+      "expectedStatus": "incomplete",
+      "requiredRuleIds": [],
+      "requiredUnknownCodes": ["DYNAMIC_HTTP_URL"],
+      "files": {
+        "src/client.mts": "declare const resource: string;\nconst apiUrl = `https://horizon.stellar.org/${resource}`;\nfetch(apiUrl);\n"
+      }
+    },
+    {
+      "id": "negative-literal-noise",
+      "expectedStatus": "complete",
+      "requiredRuleIds": [],
+      "files": {
+        "src/strings.js": "const secret = 'horizon.stellar.org/accounts';\nconst words = 'Horizon.Server payments stream';\nexport {secret, words};\n",
+        "src/comment.jsx": "// fetch('https://horizon.stellar.org/accounts');\nexport const Banner = () => <div>Horizon migration</div>;\n",
+        "src/shadowed.ts": "function run(fetch: (s:string)=>unknown) { return fetch('https://horizon.stellar.org/accounts'); }\n"
+      }
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 HoriSift is a planned local-first command-line analyzer for JavaScript and TypeScript Stellar applications. Its goal is to identify supported Horizon SDK and HTTP usage, distinguish straightforward API changes from indexing or data-model work, and produce evidence-backed migration findings.
 
-**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. Published npm installation, independent real-application validation and migration certification are **not yet available**. Do not treat the proposed examples in the product specification as working commands.
+**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. A public npm package, bundled distribution, and independent real-application migration validation are **not yet implemented**. Do not treat the proposed examples in the product specification as working commands.
 
 ## Why this matters
 

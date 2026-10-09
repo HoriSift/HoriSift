@@ -1,0 +1,13 @@
+{
+  "name": "horisift",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Engineering foundation for a local-first Horizon migration analyzer",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": "^22.12.0 || ^24.0.0" },
+  "scripts": {
+    "test": "node --test tests/unit/*.test.mjs",
+    "check:foundation": "node scripts/check-foundation.mjs"
+  }
+}

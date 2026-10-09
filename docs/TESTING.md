@@ -1,6 +1,6 @@
 # Testing and verification plan
 
-**Existing automated checks:** `npm ci`, `npm run check:foundation`, `npm run typecheck`, `npm test` in a six-job Node 22/24 x Ubuntu/Windows/macOS CI matrix. 196 tests passed on verified Phase 05 implementation SHA, including 83 new rule catalog, invalid-schema, detector-fixture and regression tests. No public CLI, real migration verification or measured production accuracy.
+**Existing automated checks:** `npm ci`, `npm run check:foundation`, `npm run typecheck`, `npm test` in a six-job Node 22/24 x Ubuntu/Windows/macOS CI matrix. 253 tests passed on verified Phase 06 implementation SHA, including 57 new risk engine unit, integration and regression tests. No public CLI, real migration verification or measured production accuracy.
 
 ## Planned test layers
 
@@ -52,3 +52,9 @@ Local Node 22.16.0: `npm run typecheck` and `npm test` passed (113/113); this lo
 25 active exact detector-pattern rules plus an unknown fallback; all 25 are covered by real detector-to-classifier fixture tests. Test paths: `tests/unit/rule-catalog.test.mjs`, `tests/integration/rule-fixtures.test.mjs`, `tests/integration/migration-rule-integration.test.mjs`, `tests/regression/rule-regression.test.mjs`. Negative tests include unsupported/wrong HTTP methods, unrecognized endpoints, wrong SDK symbols, unsafe paths, duplicate pattern/ID, forged RPC method, missing source citation, secret-bearing metadata, dynamic URL, malformed source and deterministic ordering. We fixed the Phase 04 dynamic literal prefix heuristic to report uncertain Horizon URLs as incomplete rather than silently complete.
 
 Local Node v22.16.0/TS 5.8.3: `npm run check:foundation`, `npm run typecheck`, `npm test` all passed (196/196). GitHub verified https://github.com/HoriSift/HoriSift/actions/runs/38002363095 on 06e9651fad5cd51df27d488117e8a53d527b3d21 — six successful matrix jobs (Ubuntu/Windows/macOS × Node 22/24) running `npm ci`, pinned TypeScript 6.0.3 typecheck, foundation checks and tests. No external mainnet integration tests, independent accuracy benchmark, migration approvals or live transaction testing.
+
+## Risk and uncertainty evaluator — verification on 2026-10-10
+
+Risk engine code: `src/analysis/risk.ts`. Added `tests/unit/risk-analysis.test.mjs` (33 tests), `tests/integration/risk-repository.test.mjs` (16), and `tests/regression/risk-regression.test.mjs` (8). Every versioned rule is exercised with separate severity/confidence expectations; boundaries include forged downgrade, contradictory mapping, duplicate sources, unsafe paths, extra secret-bearing fields, unknown-code prototype injection, dynamic HTTP, syntax failure, resource exhaustion, ignored trees and outside-root symlinks. Whole-repo examples establish true discovery→read→detect→classify→assess flow and stable sorting without executing application code.
+
+Local Node v22.16.0/TypeScript 5.8.3: `npm run typecheck`, `npm run check:foundation` and `npm test` succeeded, 253/253. GitHub Actions https://github.com/HoriSift/HoriSift/actions/runs/38003322270 passed for 9bb554e0eeb33f6240786dda92930135332f37cb on Ubuntu/Windows/macOS × Node 22/24 (six jobs), including pinned TypeScript 6.0.3 typechecking, `npm ci`, foundation validation and all tests. No external mainnet tests, measured real-world accuracy, audited migration outcomes or grant outcomes.

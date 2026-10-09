@@ -117,10 +117,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Deterministic risk result with qualified advice.
 - **Required CI checks:** Risk engine test suite.
 - **Known risks:** Subjective severity and false certainty.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** 9bb554e0eeb33f6240786dda92930135332f37cb (risk evaluator and 57 new unit/integration/regression tests).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38003322270 — SUCCESS for 9bb554e0eeb33f6240786dda92930135332f37cb, 6/6 jobs on Ubuntu/Windows/macOS × Node 22/24, npm ci, pinned TypeScript typecheck, foundation checks, and 253 automated tests. Local Node v22.16.0/TS5.8.3: npm run typecheck, npm run check:foundation, npm test (253/253). Official migration/API guidance checked 2026-10-10.
+- **Remaining work:** Phase 06 accepted within static-risk scope. Future work: Phase 07 CLI command/exit precedence, Phase 08 final report renderer, real-repo recall/precision, provider capability validation. Static severity and confidence are not measured production risk or approval; zero findings is not migration-ready.
 
 ## Phase 07 — CLI & Developer Experience
 

@@ -1,6 +1,6 @@
 # HoriSift architecture decision specification
 
-**Status:** Discovery, safe reads, syntax parsing, conservative Horizon detection and a 25-rule versioned migration-classification catalog are implemented/tested internally (2026-10-09). Dynamic risk evaluation, CLI and report rendering remain future milestones.
+**Status:** Discovery, safe reads, syntax parsing, Horizon detection, 25-rule catalog and deterministic static migration risk evaluator implemented/tested internally (verified 2026-10-10). CLI and user-facing report rendering remain future milestones.
 
 ## Stack decision
 
@@ -22,7 +22,7 @@ Each stage must be independently testable; downstream layers accept typed eviden
 - `src/cli/`: arguments, validation, status/exit contract.
 - `src/scanner/`: implemented deterministic, bounded directory iterator; eight JS/TS extensions; literal path exclusions; safe symlink skipping; canonical relative paths; incomplete diagnostics; metadata checks only (no source content read).
 - `src/parser/`: implemented bounded strict-UTF-8 source reading, AST parser, 1-indexed UTF-16 line/column, syntax errors and dynamic-module diagnostics, syntax-only imports and const aliases. Full symbol/import binding resolution and migration evidence remain future work.
-- `src/analysis/`: implemented `horizon.ts`, a local syntax-bound detector producing sorted SDK/HTTP/response-shape evidence and explicit unknowns; DOES NOT classify migration risk. Only known official Horizon hosts are matched in direct HTTP. Scope-aware bindings, import provenance and fixed method names prevent many false positives, not general dataflow or intermodule resolution.
+- `src/analysis/`: `horizon.ts` is the local-only detector of SDK/HTTP/response-shape evidence; `risk.ts` is the conservative assessment engine consuming exact vetted classifications. It separates static investigation severity from evidence confidence, preserves unknowns, and produces reproducible prioritized risk results. Neither module certifies RPC compatibility.
 - `src/rules/`: validated, versioned mapping records and official evidence references.
 - `src/reports/`: stable report model, canonical serialization, terminal formatting, security redaction.
 - `src/utils/`: bounded, platform-independent, narrowly shared helpers.
@@ -162,3 +162,9 @@ Official SDK source reference checked 2026-10-09: https://github.com/stellar/js-
 `src/rules/catalog.ts` exports 25 immutable exact-match rules (`RULE_SET_VERSION=1.0.0`), dated official source attribution, conservative mapping kinds (`direct`, `conditional`, `indexer-required`, `no-direct-rpc-equivalent`, `unknown`), candidate RPC methods, static triage defaults, limitations and qualified recommendations. `classifyHorizonFindings` matches exact validated `HorizonKind` plus normalized detector pattern; no wildcard/path-prefix or approximate match is permitted. Otherwise the safe fallback `horizon.unmapped-pattern` preserves `unknown`; `classifyHorizonDetection` preserves incomplete status, unknowns and diagnostics. Rule defaults are not evaluated per-application risks. No post-processing of detected source text into outputs, and no raw credentials/URLs in classifications. Catalog validation rejects invalid method names, unsupported mapping kinds, missing official source references, duplicate IDs/matches and unsafe patterns. Each of the 25 rules has a real detector fixture in tests.
 
 Versioned catalog and full source register: `docs/RULE_CATALOG.md`. Implementation commit 06e9651fad5cd51df27d488117e8a53d527b3d21 (CI https://github.com/HoriSift/HoriSift/actions/runs/38002363095).
+
+## Static risk evaluator — implemented
+
+`src/analysis/risk.ts` exports `assessHorizonUsage`, `assessClassifiedDetection` and `assessHorizonRepository`; all are internal library APIs. `RISK_SCHEMA_VERSION=1.0.0`. The evaluator uses vetted rule metadata, then adds consistent priority floors: indexer-required or no-direct-equivalent at least `high`, unknown mapping at least `medium`, and streaming at least `high`. Evidence confidence remains independent; unknown mapping implies `confidence=unknown`. Proven method mapping does **not** demonstrate response parity or readiness. Findings are sorted by descending severity, then evidence uncertainty, normalized path/line and rule ID; stable SHA-256-derived IDs depend only on normalized evidence and catalog version. Unknowns and diagnostics are validated, stripped of arbitrary source-provided messages and sorted; duplicate exact evidence is deduplicated. All inputs are read-only, and static assessment never runs source code. `status=incomplete` prevails over findings if relevant coverage is lost; empty-with-no-findings is `no-supported-evidence`, not `safe`.
+
+See `docs/RISK_ANALYSIS.md` for detailed schema and limitations. Cross-platform evidence: https://github.com/HoriSift/HoriSift/actions/runs/38003322270 on implementation 9bb554e0eeb33f6240786dda92930135332f37cb.

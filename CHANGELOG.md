@@ -31,3 +31,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Added 83 unit, integration and regression tests, including a real detector fixture for every activated rule (196 total tests).
 - Corrected uncertain dynamically composed Horizon URL detection to preserve incomplete diagnostics.
 - No CLI, final risk evaluation, npm release or actual migration verification yet.
+
+## Unreleased — Static migration risk triage
+
+- Implemented conservative, explainable, read-only migration investigation scoring, with severity distinct from evidence confidence, deterministic stable finding identifiers, and explicit incomplete/unknown precedence.
+- Prioritizes indexer-dependent and no-direct-RPC-equivalent findings without claiming production impact or automatic migration success.
+- Sanitizes source locations and diagnostic metadata, rejects forged catalog classifications and unsafe unknown codes.
+- Added 57 unit/integration/regression tests (253 total) and verified six GitHub Actions matrix jobs on the matching implementation SHA.
+- No released CLI, standalone report renderer, production migration verification, hosted site or npm publication.

@@ -26,5 +26,5 @@ jobs:
         run: npm run check:foundation
       - name: Typecheck source
         run: npm run typecheck
-      - name: Run foundation, discovery, parser, Horizon detector and migration rule tests
+      - name: Run foundation, discovery, parser, Horizon detector, rule and risk tests
         run: npm test

@@ -24,8 +24,23 @@ test('only fixed repository and documented candidate version are admissible', ()
 test('a fabricated green CI URL is not accepted without appropriate origin',()=>{
   assert.throws(()=>evaluateReadiness(change(e=>{e.verifiedCandidateCi='https://example.org/great';return e;}),manifest));
 });
-test('unpublished state must be explicitly retained in review metadata',()=>{
-  for(const key of Object.keys(evidence.publication)) assert.throws(()=>evaluateReadiness(change(e=>{e.publication[key]=true;return e;}),manifest));
+test('public npm, GitHub release and site remain explicitly unpublished',()=>{
+  for(const key of ['npmPublished','githubReleaseCreated','siteDeployed']) assert.throws(()=>evaluateReadiness(change(e=>{e.publication[key]=true;return e;}),manifest));
+});
+test('maintainer screenshot records submission pending review, never organizer approval',()=>{
+  const result=evaluateReadiness(evidence,manifest);
+  assert.equal(result.decision,'HOLD');
+  assert.deepEqual(result.waveApplication,{
+    submitted:true,status:'pending-review',evidenceKind:'user-provided screenshot',organizerApproved:false
+  });
+  assert.match(result.statement,/pending organizer review/);
+});
+test('submission record cannot fabricate acceptance or omit screenshot provenance',()=>{
+  for(const value of ['approved','accepted','not-submitted','']) {
+    assert.throws(()=>evaluateReadiness(change(e=>{e.publication.waveApplicationStatus=value;return e;}),manifest),/wave review status/);
+  }
+  assert.throws(()=>evaluateReadiness(change(e=>{e.publication.waveApplicationEvidence=null;return e;}),manifest),/wave submission evidence/);
+  assert.throws(()=>evaluateReadiness(change(e=>{e.publication.waveApplicationSubmitted=false;return e;}),manifest),/wave review status/);
 });
 test('missing check, duplicate check, and rogue ID are refused',()=>{
   assert.throws(()=>evaluateReadiness(change(e=>{e.checks.pop();return e;}),manifest));

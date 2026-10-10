@@ -9,7 +9,9 @@
     "npmPublished": false,
     "githubReleaseCreated": false,
     "siteDeployed": false,
-    "waveApplicationSubmitted": false
+    "waveApplicationSubmitted": true,
+    "waveApplicationStatus": "pending-review",
+    "waveApplicationEvidence": "user-supplied-Drips-dashboard-screenshot-2026-10-10-07:15-Africa/Lagos"
   },
   "checks": [
     {
@@ -46,7 +48,7 @@
       "id": "wave-policy-review",
       "status": "unverified",
       "evidence": "https://docs.drips.network/wave/maintainers/participating-in-a-wave/",
-      "note": "Official docs reviewed but org onboarding, current submission limits and organizer approval remain unverified."
+      "note": "Drips maintainer dashboard screenshot supplied 2026-10-10 shows HoriSift/HoriSift to Stellar pending review. This is user-supplied evidence, not an authenticated provider API status or organizer acceptance."
     }
   ]
 }

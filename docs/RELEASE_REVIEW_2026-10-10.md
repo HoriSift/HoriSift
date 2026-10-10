@@ -1,5 +1,7 @@
 # HoriSift public release and Stellar Wave evidence review
 
+> **Application-status addendum — 2026-10-10 (supersedes pre-submission wording):** The maintainer supplied a Drips dashboard screenshot displaying **HoriSift/HoriSift → Stellar — Pending review** at approximately 07:15 Africa/Lagos. This is a **USER-REPORTED FACT supported by the screenshot**, not authenticated organizer approval. Submission and public npm release are separate decisions; public release remains HOLD. The 15 scoped issues exist, with 14 open and #9 completed. Historic statements below that no application had been submitted describe the earlier review moment and are no longer current.
+
 **Review date:** 2026-10-10 (Africa/Lagos). **Decision: HOLD — NOT READY FOR PUBLIC RELEASE OR APPLICATION.**
 
 This is an evidence-review record and draft submission aid. It is **not** a release approval, grant decision, application submission, signed independent security review or permission to publish. The accompanying `RELEASE_READINESS.json` and `scripts/release-readiness.mjs` provide a deliberately nonzero CLI gate while blocking evidence remains. The JSON is a manually reviewed snapshot, not live approval attestation; changing it cannot authorize any external action.

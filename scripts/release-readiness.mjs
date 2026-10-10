@@ -30,9 +30,18 @@ export function evaluateReadiness(evidence, manifest) {
   assert(manifest && manifest.name === 'horisift' && manifest.private === true, 'private npm candidate');
   assert(manifest.version === evidence.candidateVersion, 'candidateVersion');
   assert(evidence.publication && typeof evidence.publication === 'object', 'publication');
-  for (const k of ['npmPublished','githubReleaseCreated','siteDeployed','waveApplicationSubmitted']) {
+  for (const k of ['npmPublished','githubReleaseCreated','siteDeployed']) {
     assert(evidence.publication[k] === false, 'publication '+k);
   }
+  const submitted = evidence.publication.waveApplicationSubmitted;
+  assert(typeof submitted === 'boolean', 'wave submission type');
+  assert(evidence.publication.waveApplicationStatus === (submitted ? 'pending-review' : 'not-submitted'), 'wave review status');
+  const submissionEvidence = evidence.publication.waveApplicationEvidence;
+  assert(submitted
+    ? typeof submissionEvidence === 'string' && submissionEvidence.startsWith('user-supplied-Drips-dashboard-screenshot-') && submissionEvidence.length <= 150
+    : submissionEvidence === null, 'wave submission evidence');
+  // This records a maintainer-supplied screenshot, never authenticated Drips approval.
+
   assert(Array.isArray(evidence.checks) && evidence.checks.length === REQUIRED_GATES.length, 'checks');
   const checks = new Map();
   for (const row of evidence.checks) {
@@ -53,8 +62,9 @@ export function evaluateReadiness(evidence, manifest) {
     decision: blockers.length ? 'HOLD' : 'REVIEW_READY_NOT_RELEASED',
     blockers,
     released: false,
+    waveApplication: { submitted, status: evidence.publication.waveApplicationStatus, evidenceKind: submitted ? 'user-provided screenshot' : null, organizerApproved: false },
     statement: blockers.length
-      ? 'Release and Wave submission are on hold. No authorization is inferred.'
+      ? (submitted ? 'Public release remains on HOLD. Wave application is pending organizer review; no approval or release authorization is inferred.' : 'Release and Wave submission are on hold. No authorization is inferred.')
       : 'Local checklist reviewed. Manual authorization and independent confirmation are still required; no release has been made.',
   };
 }

@@ -1,6 +1,6 @@
 # HoriSift — Stellar Wave application evidence pack
 
-**Prepared:** 2026-10-10. **Submission:** Not submitted. **Organizer approval:** Not verified. **Public npm release:** None.
+**Prepared:** 2026-10-10. **Application submission:** USER-REPORTED, screenshot-supported (HoriSift/HoriSift → Stellar). **Drips status shown:** Pending review at approximately 07:15 Africa/Lagos, 2026-10-10. **Organizer approval:** Not verified. **Public npm/GitHub release:** None.
 
 ## Project identity
 
@@ -28,7 +28,7 @@ The problem is migration discovery: finding source locations that use Horizon an
 
 ## Contributor-ready issue queue
 
-15 distinct open GitHub issues are documented in [WAVE_ISSUES.md](WAVE_ISSUES.md) with acceptance criteria, non-goals and targeted test requirements. They are **not yet Wave-funded or organizer-approved**. Wave issue eligibility, point budgets and application slots are determined by Drips and the program organizer, not this repository.
+15 distinct scoped GitHub issues were created (#1–#15, of which 14 are currently open and #9 is completed/closed) and are documented in [WAVE_ISSUES.md](WAVE_ISSUES.md) with acceptance criteria, non-goals and targeted test requirements. They are **not yet Wave-funded or organizer-approved**. Wave issue eligibility, point budgets and application slots are determined by Drips and the program organizer, not this repository.
 
 ## Reviewer questions and transparent answers
 
@@ -76,3 +76,7 @@ Implementation/docs commit `6da7ae7db99aa7c6ce0503ac8cfd138589e542bd` has succes
 ## Additional production-preparation evidence
 
 PR #29 is merged; main CI https://github.com/HoriSift/HoriSift/actions/runs/38019076338 passed. Fifteen open issues were verified live. Three full fixed-commit public repository checkouts now have actual bounded JS/TS scans (203 files), all incomplete, with repeated byte-identical reports and licensing/provenance. See [production preparation](PRODUCTION_REVIEW.md). Independent Ajv implementation validates report schemas and rejects malformed/traversal inputs; this is automated validation, not an independent human audit. The corpus is not representative precision/recall, and public npm release remains HOLD. Apply using accurate repository/CLI/documentation claims rather than asserting production migration certification.
+
+## Submission confirmation update — 2026-10-10
+
+The maintainer provided a screenshot from their logged-in Drips Wave dashboard showing **HoriSift/HoriSift → Stellar — Pending review** (approximately 07:15 Africa/Lagos). This is evidence of a submitted application visible to the maintainer, **not** an API-confirmed organizer approval. Earlier statements in this preparation file saying no Wave application was submitted are historical and superseded by this update. No repeat application should be sent unless Drips explicitly requests it. The original fifteen scoped GitHub issues exist; issue #9 is closed after implementation, leaving fourteen open. Do not invent point allocations or claim Wave admission for individual issues.

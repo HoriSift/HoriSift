@@ -68,3 +68,7 @@ The historical constructor correction on code commit `3955813e40e8ab828f32607829
 ## Build/docs recovery update (2026-10-10)
 
 The build has been reproduced on Node 24.19.0 with pinned TypeScript 6.0.3. An additional conservative fix covers legacy named/destructured constructor aliases, with 520 passing standard tests locally. All seven GitBook pages now have repository sources; root `gitbook-docs.yaml` resolves the missing configuration shown in the pending sync setup. Follow [GitBook sync instructions](GITBOOK_SYNC.md) to finish initialization. Broader historical SDK coverage, representative whole-repository accuracy and independent security review remain open and must be disclosed. This update is application preparation, not an npm release or Drips submission.
+
+## Verified recovery commit
+
+Implementation/docs commit `6da7ae7db99aa7c6ce0503ac8cfd138589e542bd` has successful six-job CI: https://github.com/HoriSift/HoriSift/actions/runs/38018782224 (Windows/macOS/Ubuntu × Node 22/24). All 520 standard tests and package consumer checks passed. Local tested Git tree exactly matched remote tree `a758cc3dbc459514dd1b7eba4f1a330f526033cf`. Reviewable PR: https://github.com/HoriSift/HoriSift/pull/29, clean and unmerged when checked. Automatic approval review rejected direct default-branch push; a review branch was created instead. Owner approval to merge is the remaining repository gate. GitBook connection remains pending; no npm release or Wave submission occurred.

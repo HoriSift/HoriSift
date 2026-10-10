@@ -63,10 +63,12 @@
       "upstreamPath": "app/stellar/index.js",
       "snapshot": "stellar-wind-legacy.js.source",
       "license": "MIT",
-      "expectedStatus": "complete",
-      "expectedExit": 0,
+      "expectedStatus": "incomplete",
+      "expectedExit": 4,
       "expectedFindings": 0,
-      "expectedUnknowns": [],
+      "expectedUnknowns": [
+        "LEGACY_SDK_SERVER"
+      ],
       "expectedRules": [],
       "expectedPatterns": [],
       "historicalGap": true,

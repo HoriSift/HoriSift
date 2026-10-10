@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { detectHorizonUsage } from '../../src/analysis/horizon.ts';
+const scan = source => detectHorizonUsage('demo.js', source);
+const uncertain = source => {
+  const r=scan(source);
+  assert.equal(r.status,'incomplete');
+  assert.deepEqual(r.unknowns.map(u=>u.code), ['LEGACY_SDK_SERVER']);
+  assert.equal(r.findings.length,0);
+};
+test('old default SDK import triggers conservative manual review',()=>uncertain("import SDK from 'stellar-sdk'; new SDK.Server('https://horizon.stellar.org');"));
+test('old CommonJS binding triggers manual review',()=>uncertain("const SDK=require('stellar-sdk'); new SDK.Server('https://horizon.stellar.org');"));
+test('renamed old namespace import triggers manual review',()=>uncertain("import * as OldSDK from 'stellar-sdk'; new OldSDK.Server('https://horizon.stellar.org');"));
+test('computed literal constructor triggers manual review',()=>uncertain("import SDK from 'stellar-sdk'; new SDK['Server']('https://horizon.stellar.org');"));
+test('const alias to old SDK triggers manual review',()=>uncertain("const SDK=require('stellar-sdk'); const alias=SDK; new alias.Server('https://horizon.stellar.org');"));
+test('unrelated Server property is not inferred',()=>{const r=scan("const X = {Server: class {}}; new X.Server('https://horizon.stellar.org');");assert.equal(r.unknowns.length,0)});
+test('shadowed historical SDK is not inferred',()=>{const r=scan("import SDK from 'stellar-sdk'; function run(SDK){ new SDK.Server('https://horizon.stellar.org') }");assert.equal(r.unknowns.length,0)});
+test('reassigned legacy SDK cannot claim immutable constructor',()=>{const r=scan("let SDK=require('stellar-sdk'); SDK=other; new SDK.Server('https://horizon.stellar.org')");assert.ok(!r.unknowns.some(u=>u.code==='LEGACY_SDK_SERVER'))});
+test('type-only import is not a runtime SDK',()=>{const r=scan("import type SDK from 'stellar-sdk'; new SDK.Server('https://horizon.stellar.org');");assert.ok(!r.unknowns.some(u=>u.code==='LEGACY_SDK_SERVER'))});
+test('unrelated module is never treated as SDK',()=>{const r=scan("import SDK from 'other'; new SDK.Server('https://horizon.stellar.org');");assert.equal(r.unknowns.length,0)});
+test('modern Horizon Server still produces supported finding',()=>{const r=scan("import {Horizon} from '@stellar/stellar-sdk'; new Horizon.Server('https://horizon.stellar.org');");assert.equal(r.findings[0]?.pattern,'sdk.Horizon.Server')});

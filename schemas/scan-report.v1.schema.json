@@ -367,7 +367,8 @@
             "DYNAMIC_HTTP_URL",
             "DYNAMIC_HORIZON_CALL",
             "MUTABLE_SDK_BINDING",
-            "DYNAMIC_HTTP_METHOD"
+            "DYNAMIC_HTTP_METHOD",
+            "LEGACY_SDK_SERVER"
           ]
         },
         "location": {

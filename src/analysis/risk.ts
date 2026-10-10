@@ -75,6 +75,7 @@ const UNKNOWN_MESSAGES: Readonly<Record<HorizonUnknown['code'], string>> = {
   DYNAMIC_HORIZON_CALL: 'Computed Horizon method cannot be determined statically.',
   MUTABLE_SDK_BINDING: 'A mutable SDK binding cannot be trusted statically.',
   DYNAMIC_HTTP_METHOD: 'Horizon HTTP method cannot be determined statically.',
+  LEGACY_SDK_SERVER: 'Legacy Stellar SDK Server requires manual Horizon dependency assessment.',
 };
 const ALLOWED_DIAGNOSTICS = new Set([
   'INVALID_SYNTAX', 'UNSUPPORTED_EXTENSION', 'INVALID_SOURCE', 'SOURCE_TOO_LARGE', 'DYNAMIC_MODULE',

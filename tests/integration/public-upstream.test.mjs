@@ -71,7 +71,8 @@ for (const row of entries) {
       assert.doesNotMatch(json, /SOROSWAP_ADMIN_SECRET_KEY|keypair\.secret|Private key|Bearer |TOP_SECRET/);
       if (row.historicalGap) {
         assert.match(checkedSource(row).toString('utf8'), /StellarSdk\.Server\("https:\/\/horizon\.stellar\.org"\)/);
-        assert.equal(assessed.triage, 'no-supported-evidence');
+        assert.equal(assessed.triage, 'incomplete');
+        assert.deepEqual(assessed.unknowns.map(u=>u.code), ['LEGACY_SDK_SERVER']);
       }
     } finally { await import('node:fs/promises').then(fs => fs.rm(root, { recursive:true, force:true })); }
   });
@@ -91,14 +92,14 @@ test('allow-incomplete explicitly preserves the real corpus uncertain status', (
   assert.equal(JSON.parse(result.stdout).status, 'incomplete');
 });
 
-test('historical upstream source is an evidenced false negative, not evidence of a Horizon-free app', () => {
+test('historical upstream source is flagged incomplete for manual migration review', () => {
   const historical = entries.find(x => x.historicalGap);
   assert.ok(historical);
   const content = checkedSource(historical).toString('utf8');
   assert.ok(content.includes('import StellarSdk from "stellar-sdk"'));
   assert.ok(content.includes('new StellarSdk.Server("https://horizon.stellar.org")'));
   assert.equal(historical.expectedFindings, 0);
-  assert.equal(historical.expectedStatus, 'complete');
+  assert.equal(historical.expectedStatus, 'incomplete');
 });
 
 test('sample runner does not run arbitrary target JavaScript and never runs shell syntax', () => {

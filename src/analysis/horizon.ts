@@ -11,11 +11,11 @@ import { readSourceFile } from '../parser/read.ts';
 
 export type HorizonKind = 'sdk-client' | 'sdk-call' | 'http-call' | 'stream' | 'response-shape';
 export interface HorizonFinding { kind: HorizonKind; pattern: string; location: Location; }
-export interface HorizonUnknown { code: 'DYNAMIC_HORIZON_URL' | 'DYNAMIC_HTTP_URL' | 'DYNAMIC_HORIZON_CALL' | 'MUTABLE_SDK_BINDING' | 'DYNAMIC_HTTP_METHOD'; location: Location; message: string; }
+export interface HorizonUnknown { code: 'DYNAMIC_HORIZON_URL' | 'DYNAMIC_HTTP_URL' | 'DYNAMIC_HORIZON_CALL' | 'MUTABLE_SDK_BINDING' | 'DYNAMIC_HTTP_METHOD' | 'LEGACY_SDK_SERVER'; location: Location; message: string; }
 export interface HorizonDetection { file: string; status: 'complete' | 'incomplete'; findings: HorizonFinding[]; unknowns: HorizonUnknown[]; diagnostics: {code: string; file: string | null; message: string}[]; }
 export interface HorizonRepositoryDetection { root: '.'; status: 'complete' | 'incomplete'; summary: { filesInspected: number; findings: number; unknowns: number; diagnostics: number }; findings: HorizonFinding[]; unknowns: HorizonUnknown[]; diagnostics: {code: string; file: string | null; message: string}[]; }
 
-type Value = 'unknown'|'sdk'|'horizon'|'server'|'client'|'builder'|'httpResponse'|'httpPayload'|'axios'|'axiosResponse'|'sdkPage';
+type Value = 'unknown'|'sdk'|'legacySdk'|'legacyServer'|'horizon'|'server'|'client'|'builder'|'httpResponse'|'httpPayload'|'axios'|'axiosResponse'|'sdkPage';
 interface Binding { initializer?: ts.Expression | undefined; literal?: Value; propertyOf?: { source: ts.Expression; key: string }; declaration: ts.Node; mutable: boolean; mutated: boolean; }
 interface Scope { parent?: Scope; bindings: Map<string, Binding>; }
 const SDK_NAMES = new Set(['@stellar/stellar-sdk', 'stellar-sdk']);
@@ -61,6 +61,7 @@ const incompleteMessage:Record<HorizonUnknown['code'],string>={
   DYNAMIC_HORIZON_CALL:'Horizon request uses a computed method name that cannot be verified.',
   MUTABLE_SDK_BINDING:'A Stellar SDK-related binding is reassigned or mutated; its identity is unverified.',
   DYNAMIC_HTTP_METHOD:'Horizon HTTP request method is dynamic or otherwise unknown.',
+  LEGACY_SDK_SERVER:'Older stellar-sdk Server constructor detected; verify its Horizon calls manually.',
 };
 
 export function detectHorizonUsage(file:string,source:string):HorizonDetection{
@@ -85,9 +86,9 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
     if(ts.isImportDeclaration(n)&&ts.isStringLiteral(n.moduleSpecifier)&&n.importClause){
       const module=n.moduleSpecifier.text;const c=n.importClause;
       const declareImport=(local:string,val:Value,node:ts.Node):void=>declare(scope,local,{literal:val,declaration:node,mutable:false,mutated:false});
-      if(c.name)declareImport(c.name.text,!c.isTypeOnly&&module==='axios'?'axios':'unknown',c.name);
+      if(c.name)declareImport(c.name.text,!c.isTypeOnly&&module==='axios'?'axios':!c.isTypeOnly&&module==='stellar-sdk'?'legacySdk':'unknown',c.name);
       const bindings=c.namedBindings;
-      if(bindings&&ts.isNamespaceImport(bindings))declareImport(bindings.name.text,SDK_NAMES.has(module)&&!c.isTypeOnly?'sdk':'unknown',bindings.name);
+      if(bindings&&ts.isNamespaceImport(bindings))declareImport(bindings.name.text,SDK_NAMES.has(module)&&!c.isTypeOnly?(module==='stellar-sdk'?'legacySdk':'sdk'):'unknown',bindings.name);
       if(bindings&&ts.isNamedImports(bindings))for(const el of bindings.elements){
         const imported=el.propertyName?.text??el.name.text;
         declareImport(el.name.text,SDK_NAMES.has(module)&&imported==='Horizon'&&!el.isTypeOnly&&!c.isTypeOnly?'horizon':module==='axios'&&imported==='default'&&!c.isTypeOnly?'axios':'unknown',el.name);
@@ -95,7 +96,7 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
     }
     if(ts.isImportEqualsDeclaration(n)){
       const e=n.moduleReference;
-      const val=ts.isExternalModuleReference(e)&&e.expression&&ts.isStringLiteral(e.expression)&&SDK_NAMES.has(e.expression.text)?'sdk':'unknown';
+      const val=ts.isExternalModuleReference(e)&&e.expression&&ts.isStringLiteral(e.expression)&&SDK_NAMES.has(e.expression.text)?(e.expression.text==='stellar-sdk'?'legacySdk':'sdk'):'unknown';
       declare(scope,n.name.text,{literal:val,declaration:n,mutable:false,mutated:false});
     }
     if(ts.isVariableDeclaration(n)){
@@ -111,7 +112,7 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
       const init=n.initializer?unwrap(n.initializer):null;
       if(init&&ts.isCallExpression(init)&&ts.isIdentifier(init.expression)&&init.expression.text==='require'&&!binding(scope,'require')&&init.arguments.length===1&&ts.isStringLiteral(init.arguments[0]!)){
         const mod=init.arguments[0]!.text;
-        if(ts.isIdentifier(n.name)&&SDK_NAMES.has(mod))declare(scope,n.name.text,{literal:'sdk',declaration:n,mutable:!(n.parent.flags&ts.NodeFlags.Const),mutated:false});
+        if(ts.isIdentifier(n.name)&&SDK_NAMES.has(mod))declare(scope,n.name.text,{literal:mod==='stellar-sdk'?'legacySdk':'sdk',declaration:n,mutable:!(n.parent.flags&ts.NodeFlags.Const),mutated:false});
         if(ts.isIdentifier(n.name)&&mod==='axios')declare(scope,n.name.text,{literal:'axios',declaration:n,mutable:!(n.parent.flags&ts.NodeFlags.Const),mutated:false});
         if(ts.isObjectBindingPattern(n.name))for(const item of n.name.elements){
           const original=item.propertyName?name(item.propertyName):ts.isIdentifier(item.name)?item.name.text:null;
@@ -159,7 +160,7 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
     if(ts.isPrefixUnaryExpression(node)||ts.isPostfixUnaryExpression(node))if(node.operator===ts.SyntaxKind.PlusPlusToken||node.operator===ts.SyntaxKind.MinusMinusToken){const v=unwrap(node.operand);if(ts.isIdentifier(v)){const b=binding(s,v.text);if(b)b.mutated=true;}}
     ts.forEachChild(node,markMutable);
   };markMutable(ast);
-  const sdkNames=new Set(['sdk','horizon','server','client','builder','sdkPage']);
+  const sdkNames=new Set(['sdk','legacySdk','horizon','server','client','builder','sdkPage']);
   const unknownKeys=new Set<string>();const findingKeys=new Set<string>();
   const addUnknown=(code:HorizonUnknown['code'],node:ts.Node):void=>{
     const loc=location(node),key=`${code}:${loc.start.line}:${loc.start.column}`;
@@ -196,7 +197,8 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
     }
     const m=access(e);
     if(m){const recv=resolve(m.receiver,scope,stack);
-      if(recv==='sdk'&&m.property==='Horizon')return 'horizon';
+      if((recv==='sdk'||recv==='legacySdk')&&m.property==='Horizon')return 'horizon';
+      if(recv==='legacySdk'&&m.property==='Server')return 'legacyServer';
       if(recv==='horizon'&&m.property==='Server')return 'server';
       if(recv==='axiosResponse'&&m.property==='data')return 'httpPayload';
       return 'unknown';}
@@ -219,7 +221,11 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
     const scope=scopeByNode.get(node)!;
     if(ts.isVariableDeclaration(node)&&ts.isIdentifier(node.name)){
       const b=binding(scope,node.name.text);
-      if(b&&(b.mutable||b.mutated)&&(b.literal==='sdk'||b.literal==='horizon'||(b.initializer&&sdkNames.has(resolve(b.initializer,scope)))))addUnknown('MUTABLE_SDK_BINDING',node.name);
+      if(b&&(b.mutable||b.mutated)&&(b.literal==='sdk'||b.literal==='legacySdk'||b.literal==='horizon'||(b.initializer&&sdkNames.has(resolve(b.initializer,scope)))))addUnknown('MUTABLE_SDK_BINDING',node.name);
+    }
+    if(ts.isNewExpression(node)&&resolve(node.expression,scope)==='legacyServer'){
+      // Historical SDK constructor is recognized, but not mapped to modern Horizon semantics.
+      addUnknown('LEGACY_SDK_SERVER',node.expression);
     }
     if(ts.isNewExpression(node)&&resolve(node.expression,scope)==='server'){
       add('sdk-client','sdk.Horizon.Server',node.expression);

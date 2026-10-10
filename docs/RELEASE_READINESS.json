@@ -3,8 +3,8 @@
   "repository": "HoriSift/HoriSift",
   "reviewDate": "2026-10-10",
   "candidateVersion": "0.1.0-rc.1",
-  "verifiedCandidateCommit": "83a5b20ff7f987da70a34f2c58e9bedc18cda670",
-  "verifiedCandidateCi": "https://github.com/HoriSift/HoriSift/actions/runs/38013261184",
+  "verifiedCandidateCommit": "432e9ec694db232eb871d48921e703be65e2643e",
+  "verifiedCandidateCi": "https://github.com/HoriSift/HoriSift/actions/runs/38019729027",
   "publication": {
     "npmPublished": false,
     "githubReleaseCreated": false,
@@ -15,8 +15,8 @@
     {
       "id": "candidate-install",
       "status": "verified",
-      "evidence": "https://github.com/HoriSift/HoriSift/actions/runs/38013261184",
-      "note": "All six OS/Node jobs installed revised private 12-file tarball; Ubuntu24 package digest and bytes recorded in release review."
+      "evidence": "https://github.com/HoriSift/HoriSift/actions/runs/38019729027",
+      "note": "All six OS/Node jobs installed the current private 12-file candidate. Local Node24 artifact: 29,067 bytes; SHA256 85de1150850d39ce01f7eb448ab90ca8bdf66f176d87753ea773e8a0e7125778. Public release remains HOLD."
     },
     {
       "id": "historical-sdk-coverage",

@@ -1,5 +1,15 @@
 # HoriSift canonical engineering handoff
 
+## Current verified state — 2026-10-10
+
+PRs #29 and #30 are merged. Production implementation `432e9ec694db232eb871d48921e703be65e2643e` passed all six Ubuntu/macOS/Windows × Node22/24 jobs: https://github.com/HoriSift/HoriSift/actions/runs/38019729027. Merge commit `7d42f870a6eec38ed0516d590df7917e6d23ee5f` contains the same implementation tree. Standard suite: 532/532; clean private candidate installation, schema validation and quality gates passed. Current tested package SHA256: `85de1150850d39ce01f7eb448ab90ca8bdf66f176d87753ea773e8a0e7125778` (29,067 bytes, 12 files).
+
+All 15 scoped issues exist; #9 is completed and closed, 14 remain open. GitBook change request #4 was published as revision `Cvl7U6P9D98qZIwSAE6q`; getting-started and whole-checkout evidence pages were re-read successfully. Repository Git Sync remains pending, independently of published content. Root configuration exists on main; owner must initialize GitHub-to-GitBook sync using the existing Git Sync dialog.
+
+Stable public release remains HOLD: historical/representative accuracy coverage, independent human security review, verified disclosure/support contact and explicit version/publication authorization remain outstanding. No npm/GitHub release, deployment or Wave application submission occurred. Older ledger entries below are historical snapshots, superseded by this current state.
+
+## Historical milestone ledger
+
 - **Last authored:** 2026-10-10
 - **Canonical repository:** https://github.com/HoriSift/HoriSift
 - **Purpose:** Local-first JS/TS static analyzer to surface Horizon API dependencies and migration work, without certifying readiness.

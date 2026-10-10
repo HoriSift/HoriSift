@@ -19,7 +19,9 @@
     "build": "tsc -p tsconfig.build.json",
     "smoke:build": "node scripts/check-build.mjs",
     "security:check": "node scripts/check-security.mjs",
-    "verify:gates": "node --test tests/quality/*.test.mjs"
+    "verify:gates": "node --test tests/quality/*.test.mjs",
+    "example": "node scripts/public-example.mjs",
+    "test:public": "node --experimental-strip-types --test tests/integration/public-upstream.test.mjs"
   },
   "dependencies": {
     "typescript": "6.0.3"

@@ -46,6 +46,8 @@ jobs:
         run: npm test
       - name: Verify JSON schemas and report golden snapshots
         run: node --experimental-strip-types --test tests/unit/report-schema.test.mjs tests/integration/report-process.test.mjs
+      - name: Verify pinned public-source examples and golden CLI outputs
+        run: npm run test:public
       - name: Smoke executable help
         run: npm run cli -- --help
       - name: Smoke executable version

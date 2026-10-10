@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "checkedDate": "2026-10-10",
+  "corpus": "verbatim-public-upstream-files",
+  "entries": [
+    {
+      "id": "axelar-faucet",
+      "repo": "axelarnetwork/axelar-contract-deployments",
+      "commit": "240b43ea89286b32a3a031933f64a96fe733bce2",
+      "upstreamPath": "stellar/generate-keypair.js",
+      "snapshot": "axelar-faucet.js.source",
+      "license": "MIT",
+      "expectedStatus": "incomplete",
+      "expectedExit": 4,
+      "expectedFindings": 2,
+      "expectedUnknowns": [
+        "DYNAMIC_HORIZON_URL"
+      ],
+      "expectedRules": [
+        "horizon.unmapped-pattern"
+      ],
+      "expectedPatterns": [
+        "sdk.Horizon.Server",
+        "sdk.Horizon.Server.friendbot"
+      ],
+      "historicalGap": false,
+      "gitBlobSha1": "e4b0565d9d27bee13447b0969048754ead7c73de",
+      "sha256": "80829a05a54283710379481ea009df888513aed9d3f603419a0afa122b301f24",
+      "sourceUrl": "https://github.com/axelarnetwork/axelar-contract-deployments/blob/240b43ea89286b32a3a031933f64a96fe733bce2/stellar/generate-keypair.js",
+      "licenseUrl": "https://github.com/axelarnetwork/axelar-contract-deployments/blob/240b43ea89286b32a3a031933f64a96fe733bce2/LICENSE",
+      "byteLength": 1722
+    },
+    {
+      "id": "soroswap-config",
+      "repo": "soroswap/core",
+      "commit": "6eade008ee6794075ad941609e0fef0d1124d3eb",
+      "upstreamPath": "utils/env_config.ts",
+      "snapshot": "soroswap-env.ts.source",
+      "license": "Apache-2.0",
+      "expectedStatus": "incomplete",
+      "expectedExit": 4,
+      "expectedFindings": 1,
+      "expectedUnknowns": [
+        "DYNAMIC_HORIZON_URL"
+      ],
+      "expectedRules": [
+        "horizon.unmapped-pattern"
+      ],
+      "expectedPatterns": [
+        "sdk.Horizon.Server"
+      ],
+      "historicalGap": false,
+      "gitBlobSha1": "f45091308c64072bc6437ba5ae8895ac16de15ad",
+      "sha256": "131bdb18f73590bca710054956e8ee1ea21971ca00c22b677b53c208586c50c9",
+      "sourceUrl": "https://github.com/soroswap/core/blob/6eade008ee6794075ad941609e0fef0d1124d3eb/utils/env_config.ts",
+      "licenseUrl": "https://github.com/soroswap/core/blob/6eade008ee6794075ad941609e0fef0d1124d3eb/LICENSE",
+      "byteLength": 3211
+    },
+    {
+      "id": "stellar-wind-legacy",
+      "repo": "remarcable/stellar-wind",
+      "commit": "55b51ae1e099f619b6a2da4c341aa96cf1e79cf0",
+      "upstreamPath": "app/stellar/index.js",
+      "snapshot": "stellar-wind-legacy.js.source",
+      "license": "MIT",
+      "expectedStatus": "complete",
+      "expectedExit": 0,
+      "expectedFindings": 0,
+      "expectedUnknowns": [],
+      "expectedRules": [],
+      "expectedPatterns": [],
+      "historicalGap": true,
+      "gitBlobSha1": "d3cbe48cf7704759a14cd81302894f44800aa345",
+      "sha256": "4b0df8ba8216b2ab18fd1ca813507eb36776a3355d1c337f7bffb343e8481b7c",
+      "sourceUrl": "https://github.com/remarcable/stellar-wind/blob/55b51ae1e099f619b6a2da4c341aa96cf1e79cf0/app/stellar/index.js",
+      "licenseUrl": "https://github.com/remarcable/stellar-wind/blob/55b51ae1e099f619b6a2da4c341aa96cf1e79cf0/LICENSE",
+      "byteLength": 1497
+    },
+    {
+      "id": "stellar-wind-control",
+      "repo": "remarcable/stellar-wind",
+      "commit": "55b51ae1e099f619b6a2da4c341aa96cf1e79cf0",
+      "upstreamPath": "app/helpers/queue.js",
+      "snapshot": "stellar-wind-queue.js.source",
+      "license": "MIT",
+      "expectedStatus": "complete",
+      "expectedExit": 0,
+      "expectedFindings": 0,
+      "expectedUnknowns": [],
+      "expectedRules": [],
+      "expectedPatterns": [],
+      "historicalGap": false,
+      "gitBlobSha1": "11669d010745148c7386affd03b18ee6372aa601",
+      "sha256": "eee242320981fda4e1efefcd54a139cf9f785cb9d05f9f314f2ad639a8d090c5",
+      "sourceUrl": "https://github.com/remarcable/stellar-wind/blob/55b51ae1e099f619b6a2da4c341aa96cf1e79cf0/app/helpers/queue.js",
+      "licenseUrl": "https://github.com/remarcable/stellar-wind/blob/55b51ae1e099f619b6a2da4c341aa96cf1e79cf0/LICENSE",
+      "byteLength": 510
+    }
+  ]
+}

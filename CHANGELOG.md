@@ -55,3 +55,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Added six byte-exact golden fixtures and 64 schema, rendering, CLI-process and regression tests (372 total); limits each report to 32 MiB.
 - Fixed Windows CRLF checkout differences with `.gitattributes` LF policy; the initial failing Windows CI was retained and the corrected six-job CI passed.
 - Still unpublished; representative application accuracy, full independent schema validation, stress testing and release hardening remain outstanding.
+
+## Unreleased — Adversarial test hardening
+
+- Added six synthetic Stellar application-like fixtures (wallet, payment service, history indexing, unresolved dynamic request, malformed and misleading source) with explicit provenance; did not claim real-app benchmarking.
+- Added 55 application-corpus, deterministic-report and adversarial property regression tests (427 in the standard suite).
+- Added a separate eight-case bounded stress suite, including 20,001 simulated file entries, 100,005 simulated directory entries, 256 actual test files, Unicode/encoding, symlink cycles and size/depth boundaries.
+- Runs the full standard suite on Ubuntu/Windows/macOS × Node 22/24 and dedicated stress gates on Ubuntu/Node 24, with actual measurements and limits documented.
+- No public npm package, representative real-application accuracy study, peak memory guarantee, or claim of migration readiness.

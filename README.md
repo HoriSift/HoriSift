@@ -22,6 +22,7 @@ The intended initial analyzer targets JavaScript and TypeScript source files, wi
 - [Risk-triage contract and limits](docs/RISK_ANALYSIS.md)
 - [Development CLI usage and exit codes](docs/CLI_USAGE.md)
 - [Versioned report schema and security contract](docs/REPORTING.md)
+- [Test hardening, fixture provenance and stress limits](docs/TEST_HARDENING.md)
 - [Testing approach](docs/TESTING.md)
 - [Known limitations](docs/LIMITATIONS.md)
 - [Contributing](CONTRIBUTING.md) and [security](SECURITY.md)
@@ -35,9 +36,11 @@ npm ci
 npm test
 npm run typecheck
 npm run check:foundation
+# Optional bounded stress suite (also runs in the Ubuntu/Node 24 CI job)
+npm run test:stress
 ```
 
-These commands verify foundation, discovery, parsing, bounded Horizon detection, advisory rules, static risk triage and the development CLI. They do not prove application migration readiness or publish an npm release. Report JSON v1 is now schema-versioned and checked against committed golden outputs.
+These commands verify foundation, discovery, parsing, bounded Horizon detection, advisory rules, static risk triage and the development CLI. The application-style fixtures are synthetic; successful tests do not prove application migration readiness or publish an npm release. Report JSON v1 is now schema-versioned and checked against committed golden outputs.
 
 To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
 

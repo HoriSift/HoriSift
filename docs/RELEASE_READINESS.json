@@ -22,7 +22,7 @@
       "id": "historical-sdk-coverage",
       "status": "open",
       "evidence": "https://github.com/HoriSift/HoriSift/issues/1",
-      "note": "A real historic StellarSdk.Server source is missed and reported as no-supported-evidence."
+      "note": "Verified conservative mitigation on 3955813e40e8ab828f32607829b28d91af87f758: legacy default SDK constructor is detected as LEGACY_SDK_SERVER unknown/incomplete (not complete semantics). Historical alias support remains open in issue #1."
     },
     {
       "id": "full-repository-accuracy",

@@ -101,3 +101,10 @@ All meaningful public releases will be recorded here. No public release has been
 - Added read-only local readiness preflight with fail-closed HOLD exit, six-platform `--expect-hold` CI verification and 11 malicious/invalid evidence regression cases (35 total CI-gate tests). No publish/apply/deploy action is included.
 - Documented historical SDK false negative issue #1 and created full-repository measurement issue #2; no representative accuracy metric claimed.
 - Fixed stale public README carried into the earlier candidate; a newly built tarball needs a new SHA-256 since README bytes are packaged. Public release, GitHub tag, deployment and Wave application remain on HOLD.
+
+## Unreleased — GitBook and Wave preparation with conservative historical SDK signal
+
+- Made [GitBook](https://oobayemi.gitbook.io/horisift-documentation/) the primary public documentation; no Vercel deployment or npm release.
+- Added 15 scoped open GitHub issues (including existing #1 historical SDK work and #2 whole-repo benchmark), a transparent docs/WAVE_APPLICATION.md evidence pack and issues registry.
+- Conservatively detect trusted historical `stellar-sdk` `.Server` constructors as unknown/incomplete, mitigating the previously measured false-clean baseline; updated report schema, pinned upstream golden and 11 positive/negative tests (503 standard cases).
+- Six-platform GitHub Actions successful on 3955813e40e8ab828f32607829b28d91af87f758; full historical semantics and broad application accuracy remain unverified, Drips admission/submission not claimed.

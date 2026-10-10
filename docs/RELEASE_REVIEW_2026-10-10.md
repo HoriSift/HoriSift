@@ -74,3 +74,9 @@ npm run verify:gates           # tests malicious/invalid readiness evidence too
 ```
 
 The gate is local and read-only. It never calls npm publish, git tag, a host or Drips APIs. It rejects invalid evidence and requires URLs for evidence marked verified, but URLs and human assertions are **not cryptographic or independent approval proof**. The owner must review actual linked materials before changing any gate state.
+
+## Contributor and GitBook readiness update (2026-10-10)
+
+The project now has public [GitBook documentation](https://oobayemi.gitbook.io/horisift-documentation/) with seven verified documentation pages. The maintainership backlog contains **15 actually created open GitHub issues** #1 through #15: [issue index](https://github.com/HoriSift/HoriSift/blob/main/docs/WAVE_ISSUES.md). None is claimed approved or funded by a Wave Program; no Drips application was submitted.
+
+At 3955813e40e8ab828f32607829b28d91af87f758, a known historical SDK constructor that previously yielded `complete/zero` now yields `incomplete`, one `LEGACY_SDK_SERVER` unknown and exit4, with updated pinned golden and 11 regression tests. Six-platform CI https://github.com/HoriSift/HoriSift/actions/runs/38014903027 SUCCESS (503 standard tests). This removes one confirmed silent false certainty; **full historical SDK semantics and population-level whole-repository accuracy are not evidenced**. Application summary and user-required onboarding steps: docs/WAVE_APPLICATION.md. An npm/public GitHub release remains on HOLD, distinct from preparing a credible Drips repository application.

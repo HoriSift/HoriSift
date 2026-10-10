@@ -4,7 +4,7 @@
 
 HoriSift is a local-first development command-line analyzer for JavaScript and TypeScript Stellar applications. Its goal is to identify supported Horizon SDK and HTTP usage, distinguish straightforward API changes from indexing or data-model work, and produce evidence-backed migration findings.
 
-**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. A **private, unpublished `0.1.0-rc.1` compiled npm tarball candidate** passes six-platform packaging smoke checks. Public registry installation, an approved release, and representative whole-application migration validation are **not yet implemented**. **Known limitation:** historical `StellarSdk.Server` Horizon usage was missed in a real public sample; an empty scan is never a Horizon-free or migration-ready certification. Do not treat the proposed examples in the product specification as working commands.
+**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. A **private, unpublished `0.1.0-rc.1` compiled npm tarball candidate** passes six-platform packaging smoke checks. Public registry installation, an approved release, and representative whole-application migration validation are **not yet implemented**. **Known limitation:** HoriSift previously missed historical `StellarSdk.Server` usage in a public sample. The current CLI conservatively reports this form as **incomplete/manual review**, not as a mapped migration; unsupported patterns may still be missed. An empty scan is never a Horizon-free or migration-ready certification. Do not treat the proposed examples in the product specification as working commands.
 
 ## Why this matters
 
@@ -26,7 +26,8 @@ The intended initial analyzer targets JavaScript and TypeScript source files, wi
 - [Reproduced public Stellar source examples and known detection gaps](docs/PUBLIC_VALIDATION.md)
 - [Reproducible CI and security-focused quality gates](docs/CI_HARDENING.md)
 - [Release and Stellar Wave evidence review](docs/RELEASE_REVIEW_2026-10-10.md) — **HOLD, not released or submitted**
-- [Static landing page source](site/index.html) and [brand/accessibility checks](docs/BRAND_SITE.md) — source-only, not deployed
+- **[Public GitBook documentation](https://oobayemi.gitbook.io/horisift-documentation/)** — the maintained documentation destination; no Vercel site deployment
+- [Wave application evidence](docs/WAVE_APPLICATION.md) and [15 scoped contributor issues](docs/WAVE_ISSUES.md) — organizer acceptance not yet verified
 - [Testing approach](docs/TESTING.md)
 - [Known limitations](docs/LIMITATIONS.md)
 - [Contributing](CONTRIBUTING.md) and [security](SECURITY.md)
@@ -54,7 +55,7 @@ npm run test:stress
 
 These commands verify foundation, discovery, parsing, bounded Horizon detection, advisory rules, static risk triage and the development CLI. The application-style fixtures are synthetic; successful tests do not prove application migration readiness or publish an npm release. Report JSON v1 is now schema-versioned and checked against committed golden outputs.
 
-For review, `npm run readiness:check` intentionally exits 2 while public release is on HOLD; it does not publish or apply. To preview the static source-only landing page, run `npm run site:build` and serve `dist-site/` locally; there is no public website deployment. To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. To reproduce a pinned public example (without executing scanned code), run `npm run example -- axelar-faucet --format json --allow-incomplete` or `npm run test:public`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
+For review, `npm run readiness:check` intentionally exits 2 while public release is on HOLD; it does not publish or apply. Use the public [GitBook](https://oobayemi.gitbook.io/horisift-documentation/) for documentation. A legacy static site remains in the repository only as unhosted source and is not a Vercel deployment. To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. To reproduce a pinned public example (without executing scanned code), run `npm run example -- axelar-faucet --format json --allow-incomplete` or `npm run test:public`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
 
 ## License
 

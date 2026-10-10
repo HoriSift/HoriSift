@@ -53,3 +53,7 @@ The problem is migration discovery: finding source locations that use Horizon an
 Official policy (checked 2026-10-10): https://docs.drips.network/wave/maintainers/participating-in-a-wave/ ; https://docs.drips.network/wave/maintainers/repo-application-limits/ ; https://docs.drips.network/wave/maintainers/points-budgets/ ; https://docs.drips.network/wave/terms-and-rules/ .
 
 **Decision:** An evidence pack and issue backlog are prepared; actual **application eligibility, remaining slots and acceptance are unverified** until dashboard review. No submission is claimed.
+
+## Verified follow-up evidence
+
+The historical constructor correction on code commit `3955813e40e8ab828f32607829b28d91af87f758` is CI-verified (https://github.com/HoriSift/HoriSift/actions/runs/38014903027, six successful jobs, 503 standard tests). The public Stellar Wind example now yields explicit incomplete/manual review rather than an incorrect clean scan. This **does not close issue #1**, which covers broader historical SDK semantics. GitBook was publicly published at https://oobayemi.gitbook.io/horisift-documentation/; user account onboarding/Drips approval still require confirmation.

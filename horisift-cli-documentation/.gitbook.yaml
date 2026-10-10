@@ -1,0 +1,4 @@
+root: ./
+structure:
+  readme: horisift-start-here.md
+  summary: SUMMARY.md

@@ -25,6 +25,14 @@ test('empty repository reports incomplete exit 4; allow preserves incomplete',()
  const a=processCli(['scan',root,'--format','json']);assert.equal(a.status,4,a.stderr);assert.equal(JSON.parse(a.stdout).status,'incomplete');
  const b=processCli(['scan',root,'--allow-incomplete','--format','json']);assert.equal(b.status,0,b.stderr);assert.equal(JSON.parse(b.stdout).triage,'incomplete');
 }));
+test('legacy named and destructured Server imports propagate incomplete to CLI',()=>fixture(root=>{
+ writeFileSync(join(root,'named.ts'),"import {Server as Old} from 'stellar-sdk'; new Old('https://horizon.stellar.org');");
+ writeFileSync(join(root,'destructured.js'),"const {Server}=require('stellar-sdk'); new Server('https://horizon.stellar.org');");
+ const a=processCli(['scan',root,'--format','json']);assert.equal(a.status,4,a.stderr);
+ const report=JSON.parse(a.stdout);assert.equal(report.status,'incomplete');assert.equal(report.unknowns.length,2);assert.equal(report.findings.length,0);
+ assert.ok(report.unknowns.every(u=>u.code==='LEGACY_SDK_SERVER'));
+ const b=processCli(['scan',root,'--format','json','--allow-incomplete']);assert.equal(b.status,0,b.stderr);assert.equal(b.stdout,a.stdout);
+}));
 test('unsupported-only repository reports incomplete instead of safe',()=>fixture(root=>{
  writeFileSync(join(root,'README.txt'),'nothing');
  const a=processCli(['scan',root]);assert.equal(a.status,4,a.stderr);assert.match(a.stdout,/incomplete/);

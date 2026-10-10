@@ -21,3 +21,14 @@
 Update this handoff after every meaningful verified milestone. Do not treat prior chat summaries as live evidence.
 
 **Artifact warning:** Package README bytes changed after earlier release candidate builds. For the source reviewed at cedf8e94ed9abaf8beb660f717393ce0dbdd474d, the private Ubuntu24 CI tarball SHA-256 is 16ca86f5b381f7e894875b5fd326c3272cc05743b943e22a05da13ded7b5afb3 (28,832 bytes). Do not distribute an artifact using older checksums. No npm publish/GitHub release/tag/Drips submission occurred.
+
+## Build and GitBook recovery — 2026-10-10
+
+Baseline read from live main `eec638e3e5e1a0e9f3185e2fd9f4251f8ba1bab8`, successful CI https://github.com/HoriSift/HoriSift/actions/runs/38015332780.
+The existing Oobayemi site `site_4yg8l` and space `qM8nglo1Un8c20mQ6OmL` were read through the GitBook connector. Seven published pages were recovered into `horisift-cli-documentation/`, preserving titles and slugs, and the stale getting-started verification note was corrected. Root `gitbook-docs.yaml` validates against the official schema fetched 2026-10-10. Site/space Git Sync is pending; repository source preparation does not prove initialization. See `docs/GITBOOK_SYNC.md` for the root project directory and GitHub-to-GitBook direction.
+
+Legacy named `Server` imports, CommonJS destructuring, immutable aliases and TypeScript import-equals now conservatively produce manual-review uncertainty. Shadowed/type-only/unrelated/rest/fallback bindings are rejected; mutable destructured constructors are incomplete. This is a narrow mitigation within open issue #1, not full historical semantics. Official v10.4.1 import evidence is recorded in `docs/API_RESEARCH.md`.
+
+Local Node 24.19.0 with pinned TS6.0.3: 520 standard tests passed (17 new regression/integration/docs cases), 35 quality gates, 15 pinned public tests, 8 stress tests, 33 static-site tests; typecheck, format, lint, foundation, supply-chain policy, emitted CLI smoke, private consumer installation/repack, and npm audit (0 vulnerabilities) passed. Current private tarball: 12 files, 29,052 bytes, SHA256 `ee8fb68e2cc8d99b951bd975dcec4d8f7721ace1620585e869ebecc157e9f792`. Older hashes identify older contents. CI for this new change is not claimed until observed on its exact SHA.
+
+The owner requested completion of the build/docs so they can submit the application themselves. This authorizes repository fixes and documentation work; it does not request npm publication or a Drips submission on their behalf. Public npm release remains HOLD for broader accuracy and independent review; the seven-page GitBook is already public. Remaining work: verify pushed CI, finish pending Git Sync, and have the maintainer review dashboard eligibility/slots and submit the repository.

@@ -64,3 +64,7 @@ The historical constructor correction on code commit `3955813e40e8ab828f32607829
 - Ubuntu/Node24 produced the corrected source/README `0.1.0-rc.1` private tarball with **12 entries, 28,832 bytes**, SHA-256 `16ca86f5b381f7e894875b5fd326c3272cc05743b943e22a05da13ded7b5afb3`. This digest identifies that specific build. Earlier package hashes from older README/code are not current.
 - Public GitBook: https://oobayemi.gitbook.io/horisift-documentation/ ; 7 pages; 15 open issues #1–#15, with no Wave approval or application submission.
 - **Assessment:** source, docs, tests, GitBook and contributor queue are prepared for maintainer-controlled Drips *repository application review*. The private npm/GitHub release gate remains HOLD and whole-repo precision/recall remains unmeasured (issue #2); these must be disclosed and not represented as completed.
+
+## Build/docs recovery update (2026-10-10)
+
+The build has been reproduced on Node 24.19.0 with pinned TypeScript 6.0.3. An additional conservative fix covers legacy named/destructured constructor aliases, with 520 passing standard tests locally. All seven GitBook pages now have repository sources; root `gitbook-docs.yaml` resolves the missing configuration shown in the pending sync setup. Follow [GitBook sync instructions](GITBOOK_SYNC.md) to finish initialization. Broader historical SDK coverage, representative whole-repository accuracy and independent security review remain open and must be disclosed. This update is application preparation, not an npm release or Drips submission.

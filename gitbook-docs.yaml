@@ -1,0 +1,12 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+version: 1
+site:
+  title: HoriSift Documentation
+  structure:
+    - type: space
+      key: space-horisift-cli
+      title: HoriSift CLI Documentation
+      path: horisift-cli-documentation
+      default: true
+      content:
+        directory: ./horisift-cli-documentation

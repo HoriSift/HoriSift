@@ -36,3 +36,11 @@ Official guide: https://developers.stellar.org/docs/data/apis/migrate-from-horiz
 ## Risk semantics review — 2026-10-10
 
 The [official Horizon-to-RPC guide](https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc) and [RPC overview](https://developers.stellar.org/docs/data/apis/rpc) were rechecked on 2026-10-10. These support high-priority *investigation* of functions without an RPC counterpart or requiring historical indexing, but do not supply calibrated application risk probabilities or universal data-shape equivalence. Phase 06 therefore implements explicit static triage heuristics rather than pretending to quantify production failure risk. See `docs/RISK_ANALYSIS.md`; no real-world accuracy study has been completed.
+# Historical constructor import evidence (2026-10-10)
+
+The official SDK v10.4.1 entry point exports `Server` as a named export and exposes its
+CommonJS module as the default export: https://github.com/stellar/js-stellar-sdk/blob/v10.4.1/src/index.ts.
+Checked directly against the official source on 2026-10-10. HoriSift recognizes proven named,
+namespace and CommonJS/destructured constructor bindings as `LEGACY_SDK_SERVER` uncertainty.
+This adds no migration-rule mapping and does not assert equivalence with modern Horizon methods.
+Type-only, shadowed, unrelated, rest and fallback destructured bindings confer no constructor identity.

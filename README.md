@@ -10,6 +10,18 @@ HoriSift is a local-first development command-line analyzer for JavaScript and T
 
 Horizon returns REST/HAL resources and indexed history; Stellar RPC uses JSON-RPC and retains a bounded recent history. The APIs cannot be exchanged merely by changing the server URL. Consult the [official migration guidance](https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc) before modifying an application.
 
+## Quick start
+
+With Node.js 22.12+ or 24.x, run the CLI from this checkout:
+
+```bash
+npm ci --ignore-scripts
+npm run cli -- --help
+npm run cli -- scan /path/to/your/stellar-app --format json
+```
+
+Exit 4 means the scan is incomplete and requires manual review. Try the preserved public sample with `npm run example -- stellar-wind-legacy --format json`; it intentionally produces this exit code. Read the [GitBook guide](https://oobayemi.gitbook.io/horisift-documentation/) for installation, reports, and examples.
+
 ## Scope and limitations
 
 The intended initial analyzer targets JavaScript and TypeScript source files, with conservative findings and explicit uncertainty. It will not execute the inspected repository, transmit source code, rewrite applications, assert that every Horizon API has a direct RPC replacement, or certify migration readiness. Source-file discovery (`src/scanner/discover.ts`), syntax-only parsing (`src/parser/parse.ts`), safe source reading (`src/parser/read.ts`) and conservative Horizon usage detection (`src/analysis/horizon.ts`) are available internally. These are internal libraries, now joined by versioned advisory migration rules (`src/rules/catalog.ts`) and a static risk-triage engine (`src/analysis/risk.ts`). Its severities prioritize manual investigation, not guaranteed application compatibility; the developer CLI is now accessible from this repository checkout, but no npm package has been released.

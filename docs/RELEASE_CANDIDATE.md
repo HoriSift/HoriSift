@@ -32,9 +32,18 @@ The tarball includes the HoriSift MIT license and repository README, not copied 
 
 **Known blocker:** historical default import `StellarSdk.Server(...)` is missed in [GitHub issue #1](https://github.com/HoriSift/HoriSift/issues/1). This candidate demonstrates packaging/invocation mechanics only, not detection completeness, migration correctness, external independent security auditing or ready-to-publish acceptance. Before authorizing any release, resolve the issue, benchmark real repositories, review disclosure/support ownership and recheck official program rules.
 
-## Evidence to record after CI
+## Verified build and CI evidence — 2026-10-10
 
 - Exact code SHA, all six job status results and action run URLs.
 - Candidate version, tar entries count, and verified SHA-256 from the CI runners (not assumed identical across operating systems).
 - Local test outcomes and any environment-specific failures.
 - Explicit distinction between successful private package testing and an approved public release.
+
+### Verified candidate outcome
+
+- Code commit: `e150397fbcda54609581265df7e75a3760b6522e`; verified all six GitHub jobs at https://github.com/HoriSift/HoriSift/actions/runs/38011820467 (Ubuntu/Windows/macOS × Node 22/24, each successful).
+- Candidate manifest: `private: true`, `0.1.0-rc.1`, exactly 12 entries: nine compiled JS modules, README, license and package metadata; no source maps or raw TypeScript/test/site assets.
+- Each CI job executed reproducible two-pack archive/checksum comparison, `npm install` of local tarball into an isolated fresh consumer, npm-generated bin shim version `0.1.0-rc.1`, rule-list count 25 and real installed scan returning exit 1 with a high finding. Standard test suite 492/492; 17 new release tests; 24 negative quality checks; site 33, pinned public-source 15 and Ubuntu24 stress 8/8.
+- Local Node22.16/TS5.8.3 produced two byte-identical tarballs, 27,494 bytes with SHA-256 `c49c1e2a15fd9535cffd1eb16eecb24e942a85a481e8a0ba73cc95b54c7aa8fa`. Ubuntu24 pinned TypeScript6 CI independently reported the same hash/size. This is the hash of that candidate build, not a guarantee for altered code/tooling.
+- **Local clean npm registry-backed install not run** (registry inaccessible in model container); six successful online CI consumer installs are the verification evidence.
+- No npm registry package, git tag, GitHub release, deployment or Wave application has been published/submitted.

@@ -257,10 +257,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Release candidate meets documented gate.
 - **Required CI checks:** Final commit CI and artifact checks.
 - **Known risks:** Package registry mismatch.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED (private tarball candidate only; publishing on HOLD).
+- **Verified implementation commit:** e150397fbcda54609581265df7e75a3760b6522e (private v0.1.0-rc.1 candidate, 12-file compiled tarball, reproducible SHA-256, clean install and CLI smoke on all six OS×Node jobs, 17 new package regression tests).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38011820467 — completed SUCCESS on e150397fbcda54609581265df7e75a3760b6522e, six matrix jobs Ubuntu/Windows/macOS × Node 22/24. Every job passed pinned npm ci/audit, format/lint/security, TypeScript6 typecheck/emitted build, 12-file tarball manifest checks, two-pack byte-for-byte SHA-256 reproduction, **isolated clean npm tarball consumer install with real npm bin shim version/rules**, installed CLI real scan/exit and privacy checks, 492 standard tests (17 new package cases), 24 negative-gate tests, 33 static-site tests, 15 pinned public examples and report golden/schema CI; Ubuntu/Node24 also passed 8 stress tests. Local Node22.16/TS5.8.3: npm test 492/492, verify:gates 24/24, site:verify 33/33, test:public 15/15, test:stress 8/8, typecheck, build/smoke, security/format and two-pack SHA256. SHA-256 for local and Ubuntu24 candidate: c49c1e2a15fd9535cffd1eb16eecb24e942a85a481e8a0ba73cc95b54c7aa8fa (27,494 bytes). Checked 2026-10-10.
+- **Remaining work:** Engineering candidate scope VERIFIED, but public publication/Release & Wave readiness remain **HOLD**: historical Horizon SDK constructor false negative (issue #1), representative full-app accuracy tests, independent security/schema/host accessibility audit and explicit owner release authorization. Private true; no npm publish, GitHub release/tag, website deployment or grant submission. Candidate checksum is a build-specific artifact digest; verify before use, do not assume all future rebuilds share it.
 
 ## Phase 14 — Public Release & Wave Readiness
 

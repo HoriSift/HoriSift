@@ -86,3 +86,10 @@ All meaningful public releases will be recorded here. No public release has been
 - Added deterministic four-file offline site build (ignored dist-site/) without JavaScript, trackers, remote fonts, hosted infrastructure or deployment, and linked current checkout-only usage and historical false negative (issue #1).
 - Added static accessibility/semantic/link/contrast/security/responsiveness checks and 33 adversarial/regression tests (475 standard tests). Every Ubuntu/Windows/macOS × Node 22/24 CI job builds and verifies the site independently; pinned npm audit/CLI/golden tests remain intact.
 - Browser-rendered/assistive-technology audit, hosting HTTP headers, public site deployment and npm release **not** completed. Further live accessibility/hosting review requires owner approval before deployment.
+
+## Unreleased — Private compiled npm release candidate
+
+- Added `0.1.0-rc.1` candidate manifest with `private:true`, an exact 12-file tarball allowlist and a compiled JS npm binary (`dist/cli/entry.js`) preserving the Node shebang. No install/pack lifecycle scripts; TypeScript remains a pinned runtime parser dependency.
+- Added reproducible `release:pack` script writing ignored local tarball and SHA-256; `release:verify` checks two identical packs, payload allowlist, clean temporary consumer install, npm executable shim help/version/rules and actual scan/CI threshold/privacy on all six OS×Node jobs.
+- Added 17 archive, lockfile, bin, path, security and checksum negative/positive tests (492 standard cases), retaining 24 CI-negative, 33 site, 15 public-source and 8 bounded stress tests.
+- Real-world historical SDK false negative remains issue #1; private candidate verified, **no publication, tag, release, website deployment or Stellar Wave submission**.

@@ -115,3 +115,10 @@ All meaningful public releases will be recorded here. No public release has been
 - Preserve the seven existing GitBook pages in Git, add schema-valid site-level Git Sync configuration and documentation navigation/link/version checks.
 - Correct stale documentation verification wording and add source-checkout quick-start instructions.
 - Keep public release and Wave acceptance claims unchanged; no publication or submission performed.
+
+## Unreleased — production preparation validation (2026-10-10)
+
+- Validate report schemas with pinned development-only Ajv Draft2020-12 instead of a partial custom validator.
+- Align schema path constraints with existing runtime traversal/control checks; preserve v1 output fields and Unicode paths.
+- Record and reproduce complete fixed-commit scans of three licensed public checkouts (203 JS/TS files), with honest incompleteness and known misses.
+- Update contributor/security and GitBook evidence; keep stable public-release and Wave-admission claims gated.

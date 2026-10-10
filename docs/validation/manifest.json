@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "checkedDate": "2026-10-10",
+  "toolCommit": "09bb684a641e31c1abb61741587334305f9d8e09",
+  "toolVersion": "0.1.0-rc.1",
+  "nodeVersion": "24.19.0",
+  "scope": "default bounded JS/TS scan of complete fixed-commit checkouts; convenience sample, not population accuracy",
+  "entries": [
+    {
+      "id": "stellar-wind",
+      "repository": "remarcable/stellar-wind",
+      "commit": "55b51ae1e099f619b6a2da4c341aa96cf1e79cf0",
+      "license": "MIT",
+      "licenseSha256": "04a6555d9c7895c094ddc760d66b1192aea92a99930fb42fe7f54f0a4673c1a9",
+      "report": "stellar-wind.json",
+      "reportSha256": "1b203a3f2c0e933fda78ddcda722fb8c3c45cd21883d174fec3bc8d5fd7bf64a",
+      "expectedExit": 4,
+      "filesInspected": 13,
+      "status": "incomplete",
+      "findings": 0,
+      "unknowns": 1,
+      "diagnostics": 0
+    },
+    {
+      "id": "soroswap-core",
+      "repository": "soroswap/core",
+      "commit": "6eade008ee6794075ad941609e0fef0d1124d3eb",
+      "license": "Apache-2.0",
+      "licenseSha256": "1d8e79dfd4c7a8702e6fa49e45a2f1b4b553a9507b29b2dc14d3656b7c47862f",
+      "report": "soroswap-core.json",
+      "reportSha256": "cf3fbd5015ccd7c24e622904d73298a05186b94a1d24f56a2adaae9bc437d121",
+      "expectedExit": 4,
+      "filesInspected": 31,
+      "status": "incomplete",
+      "findings": 1,
+      "unknowns": 3,
+      "diagnostics": 0
+    },
+    {
+      "id": "axelar-contract-deployments",
+      "repository": "axelarnetwork/axelar-contract-deployments",
+      "commit": "240b43ea89286b32a3a031933f64a96fe733bce2",
+      "license": "MIT",
+      "licenseSha256": "242a6f5cf7a8e807e50f1a5bd926480883e1da697ab4be70ae3764fe5364627d",
+      "report": "axelar-contract-deployments.json",
+      "reportSha256": "d2bd379c8134b0e15db242ef1c208647698b1dd0d219af985b3b978b4d9bdb33",
+      "expectedExit": 4,
+      "filesInspected": 159,
+      "status": "incomplete",
+      "findings": 8,
+      "unknowns": 5,
+      "diagnostics": 5
+    }
+  ]
+}

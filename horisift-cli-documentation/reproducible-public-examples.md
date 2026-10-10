@@ -24,3 +24,9 @@ npm run test:public
 Original Git commits, licenses, source blob hashes and exact current JSON goldens: [public source evidence](https://github.com/HoriSift/HoriSift/blob/main/docs/PUBLIC_VALIDATION.md). A representative whole-repository benchmark is [issue #2](https://github.com/HoriSift/HoriSift/issues/2).
 
 Neither these examples nor the existence of 15 scoped GitHub issues establishes Drips organizer admission.
+
+## Additional whole-checkout observations
+
+Three complete fixed-commit public checkouts were also scanned with the default bounded JS/TS policy on 2026-10-10: Stellar Wind (13 files), Soroswap core (31), and Axelar contract deployments (159). All three reports are incomplete. These 203 files are a small convenience sample, not measured population accuracy or validated migrations.
+
+Exact reports, license hashes, reproducible commands and known missed call sites are recorded in the [production preparation review](https://github.com/HoriSift/HoriSift/blob/main/docs/PRODUCTION_REVIEW.md). Tests validate the reports with the external Ajv JSON Schema implementation; this is not an independent human security audit. Issue #2 remains open for broader, independently adjudicated accuracy evaluation.

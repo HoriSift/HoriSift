@@ -22,25 +22,25 @@
       "id": "historical-sdk-coverage",
       "status": "open",
       "evidence": "https://github.com/HoriSift/HoriSift/issues/1",
-      "note": "Verified conservative mitigation on 3955813e40e8ab828f32607829b28d91af87f758: legacy default SDK constructor is detected as LEGACY_SDK_SERVER unknown/incomplete (not complete semantics). Historical alias support remains open in issue #1."
+      "note": "Conservative legacy default, named and destructured aliases verified in merged PR #29; full historical call semantics remain open in issue #1."
     },
     {
       "id": "full-repository-accuracy",
       "status": "unverified",
-      "evidence": "https://github.com/HoriSift/HoriSift/blob/main/docs/PUBLIC_VALIDATION.md",
-      "note": "Only four isolated real source files were sampled, not representative full repositories."
+      "evidence": "https://github.com/HoriSift/HoriSift/blob/main/docs/PRODUCTION_REVIEW.md",
+      "note": "Complete fixed-commit checkouts of three public repositories were scanned: 203 JS/TS files, all incomplete. Repeated reports are byte-stable. A convenience corpus is not representative population precision/recall; independently adjudicated ground truth remains open in issue #2."
     },
     {
       "id": "security-schema-review",
       "status": "unverified",
       "evidence": "https://github.com/HoriSift/HoriSift/blob/main/docs/LIMITATIONS.md",
-      "note": "Independent security/schema and published artifact review are not evidenced."
+      "note": "Schemas now use pinned development-only Ajv in strict Draft 2020-12 tests; an independent human security audit and verified private disclosure contact are still not evidenced."
     },
     {
       "id": "maintainer-authorization",
       "status": "not-authorized",
       "evidence": null,
-      "note": "Maintainer has not separately authorized an npm publish, GitHub release, or Wave submission."
+      "note": "Owner explicitly authorized PR #29 merge and production preparation. No specific public version/npm destination or Drips submission was requested; evidence blockers remain."
     },
     {
       "id": "wave-policy-review",

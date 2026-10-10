@@ -106,7 +106,8 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 1024,
-          "pattern": "^[^/\\\\\\r\\n]+(?:/[^/\\\\\\r\\n]+)*$"
+          "pattern": "^(?!\\.{1,2}(?:/|$))[^/\\\\\\x00-\\x1f\\x7f]+(?:/(?!\\.{1,2}(?:/|$))[^/\\\\\\x00-\\x1f\\x7f]+)*$",
+          "description": "Normalized relative POSIX path; no empty, dot, traversal, backslash or control-character segments."
         },
         "start": {
           "$ref": "#/$defs/position"
@@ -398,7 +399,10 @@
             "string",
             "null"
           ],
-          "maxLength": 1024
+          "maxLength": 1024,
+          "pattern": "^(?!\\.{1,2}(?:/|$))[^/\\\\\\x00-\\x1f\\x7f]+(?:/(?!\\.{1,2}(?:/|$))[^/\\\\\\x00-\\x1f\\x7f]+)*$",
+          "minLength": 1,
+          "description": "Normalized relative POSIX path; no empty, dot, traversal, backslash or control-character segments."
         },
         "message": {
           "type": "string",

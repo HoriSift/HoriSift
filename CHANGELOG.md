@@ -63,3 +63,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Added a separate eight-case bounded stress suite, including 20,001 simulated file entries, 100,005 simulated directory entries, 256 actual test files, Unicode/encoding, symlink cycles and size/depth boundaries.
 - Runs the full standard suite on Ubuntu/Windows/macOS × Node 22/24 and dedicated stress gates on Ubuntu/Node 24, with actual measurements and limits documented.
 - No public npm package, representative real-application accuracy study, peak memory guarantee, or claim of migration readiness.
+
+## Unreleased — Reproducible CI quality gates
+
+- Pinned official checkout/setup-node GitHub Actions to full verified commits, disabled persisted credentials and retained read-only workflow permissions and all six OS×Node matrix jobs.
+- Added npm audit high/critical gate, locked `npm ci --ignore-scripts`, LF/UTF-8/JSON formatting policy, security-focused TypeScript AST lint and workflow/lock integrity checks without new dependencies.
+- Added strict TypeScript emitted-JS build and compiled CLI smokes, with 24 isolated deliberately failing input checks (missing-lock npm ci, invalid type, unsafe imports, mutable action refs, insecure permissions, whitespace and invalid JSON).
+- Existing 427 standard tests and Ubuntu Node24 eight stress tests all remain enforced. Initial TS6-only negative-fixture failure was fixed using a temporary isolated tsconfig; the successful six-job CI is linked in the handoff.
+- No npm release, representative real-app migration study, full external lint/SAST/security audit or published binary.

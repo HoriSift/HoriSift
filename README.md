@@ -23,6 +23,7 @@ The intended initial analyzer targets JavaScript and TypeScript source files, wi
 - [Development CLI usage and exit codes](docs/CLI_USAGE.md)
 - [Versioned report schema and security contract](docs/REPORTING.md)
 - [Test hardening, fixture provenance and stress limits](docs/TEST_HARDENING.md)
+- [Reproducible CI and security-focused quality gates](docs/CI_HARDENING.md)
 - [Testing approach](docs/TESTING.md)
 - [Known limitations](docs/LIMITATIONS.md)
 - [Contributing](CONTRIBUTING.md) and [security](SECURITY.md)
@@ -36,6 +37,12 @@ npm ci
 npm test
 npm run typecheck
 npm run check:foundation
+npm run format:check
+npm run lint
+npm run security:check
+npm run build
+npm run smoke:build
+npm run verify:gates
 # Optional bounded stress suite (also runs in the Ubuntu/Node 24 CI job)
 npm run test:stress
 ```

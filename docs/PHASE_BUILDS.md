@@ -197,10 +197,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** CI run links reflect exact SHA on declared matrix.
 - **Required CI checks:** Ubuntu/Windows/macOS Node 22/24 plus security checks.
 - **Known risks:** Slow builds, workflow permission creep.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** 13a4908cc8214cce462006f4934edf48d8a8453b (pinned actions, explicit audit/format/lint/security/build gates, compiled smoke and 24 new negative-gate tests).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38007863106 — SUCCESS on 13a4908cc8214cce462006f4934edf48d8a8453b, 6/6 jobs Ubuntu/Windows/macOS × Node 22/24. Every job passed npm ci --ignore-scripts, npm audit --audit-level=high, formatting policy, AST security lint, locked-dependency/workflow policy, TypeScript 6 typecheck and JS emit, compiled smoke, 24 deliberate failure-signal tests, 427 standard tests, JSON schemas/golden snapshots and checkout CLI smoke. Ubuntu Node24 additionally passed 8 stress checks. First implementation SHA 433e17ba48500f0bf1b1de9e4e6314f67e3b1cbc had TS6-specific failure in the negative compiler test, corrected to test a temporary project; earlier failed run https://github.com/HoriSift/HoriSift/actions/runs/38007808263. Checked 2026-10-10.
+- **Remaining work:** Phase 10 accepted for current development repo scope. Narrow in-house whitespace/AST policy gates are not full Prettier/ESLint or an external security audit. Online npm audit reflects advisory availability, not proof of zero vulnerabilities. Build output runs from checkout; packaged/npm release, app accuracy and independent security review remain unverified. Next Phase 11.
 
 ## Phase 11 — Documentation & Real-world Validation
 

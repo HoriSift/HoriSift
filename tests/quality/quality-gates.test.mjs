@@ -60,8 +60,9 @@ test('actual npm ci refuses a missing lockfile without network',()=>fixture(dir=
 }));
 test('actual TypeScript compiler rejects an intentionally broken type',()=>fixture(dir=>{
  const input=join(dir,'invalid.ts');writeFileSync(input,'const count: number = "not a number";\n');
+ writeFileSync(join(dir,'tsconfig.json'),JSON.stringify({compilerOptions:{noEmit:true,strict:true,skipLibCheck:true,types:[]},files:['invalid.ts']}));
  const compiler=join(root,'node_modules','typescript','bin','tsc');
- const r=spawnSync(process.execPath,[compiler,input,'--noEmit','--skipLibCheck','--strict'],{cwd:root,encoding:'utf8',timeout:15000,maxBuffer:1024*1024});
+ const r=spawnSync(process.execPath,[compiler,'--project',dir],{cwd:root,encoding:'utf8',timeout:15000,maxBuffer:1024*1024});
  assert.notEqual(r.status,0);
  assert.match(r.stdout+r.stderr,/TS2322/);
 }));

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "HoriSift/HoriSift",
+  "reviewDate": "2026-10-10",
+  "candidateVersion": "0.1.0-rc.1",
+  "verifiedCandidateCommit": "e150397fbcda54609581265df7e75a3760b6522e",
+  "verifiedCandidateCi": "https://github.com/HoriSift/HoriSift/actions/runs/38011820467",
+  "publication": {
+    "npmPublished": false,
+    "githubReleaseCreated": false,
+    "siteDeployed": false,
+    "waveApplicationSubmitted": false
+  },
+  "checks": [
+    {
+      "id": "candidate-install",
+      "status": "verified",
+      "evidence": "https://github.com/HoriSift/HoriSift/actions/runs/38012055977",
+      "note": "Six cross-platform jobs installed and invoked the private npm tarball."
+    },
+    {
+      "id": "historical-sdk-coverage",
+      "status": "open",
+      "evidence": "https://github.com/HoriSift/HoriSift/issues/1",
+      "note": "A real historic StellarSdk.Server source is missed and reported as no-supported-evidence."
+    },
+    {
+      "id": "full-repository-accuracy",
+      "status": "unverified",
+      "evidence": "https://github.com/HoriSift/HoriSift/blob/main/docs/PUBLIC_VALIDATION.md",
+      "note": "Only four isolated real source files were sampled, not representative full repositories."
+    },
+    {
+      "id": "security-schema-review",
+      "status": "unverified",
+      "evidence": "https://github.com/HoriSift/HoriSift/blob/main/docs/LIMITATIONS.md",
+      "note": "Independent security/schema and published artifact review are not evidenced."
+    },
+    {
+      "id": "maintainer-authorization",
+      "status": "not-authorized",
+      "evidence": null,
+      "note": "Maintainer has not separately authorized an npm publish, GitHub release, or Wave submission."
+    },
+    {
+      "id": "wave-policy-review",
+      "status": "unverified",
+      "evidence": "https://docs.drips.network/wave/maintainers/participating-in-a-wave/",
+      "note": "Official docs reviewed but org onboarding, current submission limits and organizer approval remain unverified."
+    }
+  ]
+}

@@ -1,5 +1,13 @@
 # HoriSift canonical engineering handoff
 
+## Application update — maintainer screenshot, 2026-10-10
+
+**USER-REPORTED AND SCREENSHOT-SUPPORTED:** The maintainer supplied a Drips Wave dashboard screenshot dated 2026-10-10, approximately **07:15 Africa/Lagos**, showing **HoriSift/HoriSift → Stellar**, status **Pending review**. This supersedes the older historical statements below that the application had not been submitted. The image is private conversation evidence; it has **not** been uploaded to the public GitHub repository. Organizer approval, issue admission, budgets and eligibility have **not** been independently verified through an authenticated Drips connection.
+
+**VERIFIED REPOSITORY STATE (2026-10-10):** `main` commit `7ed84eaea7a14c2c0f8d96958a609dae33210bdb` has [six successful OS/Node CI jobs](https://github.com/HoriSift/HoriSift/actions/runs/38020079700). Exactly 15 original scoped issues (#1–#15) exist; #9 has been completed and closed, leaving 14 open. GitBook is publicly [published](https://oobayemi.gitbook.io/horisift-documentation/), but the repository-level Git Sync connection remains a separate setup step. The compiled CLI remains a **private release candidate**; **no public npm/GitHub release is implied by Wave submission**.
+
+**Decision:** Continue honest maintenance and respond to Drips review requests; do not create duplicate applications, state approval, or remove known coverage/security limits. The separate public-release gate stays on HOLD.
+
 ## Current verified state — 2026-10-10
 
 PRs #29 and #30 are merged. Production implementation `432e9ec694db232eb871d48921e703be65e2643e` passed all six Ubuntu/macOS/Windows × Node22/24 jobs: https://github.com/HoriSift/HoriSift/actions/runs/38019729027. Merge commit `7d42f870a6eec38ed0516d590df7917e6d23ee5f` contains the same implementation tree. Standard suite: 532/532; clean private candidate installation, schema validation and quality gates passed. Current tested package SHA256: `85de1150850d39ce01f7eb448ab90ca8bdf66f176d87753ea773e8a0e7125778` (29,067 bytes, 12 files).

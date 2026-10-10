@@ -231,7 +231,7 @@ export function detectHorizonUsage(file:string,source:string):HorizonDetection{
         const receiver=resolve(member.receiver,scope);
         if(receiver==='client'&&(COLLECTIONS.has(member.property)||DIRECT_SDK.has(member.property)))add('sdk-call',`sdk.Horizon.Server.${member.property}`,node.expression);
         if(receiver==='builder'&&member.property==='stream')add('stream','sdk.Horizon.stream',node.expression);
-        if(receiver==='client'&&!COLLECTIONS.has(member.property)&&!DIRECT_SDK.has(member.property)){ 
+        if(receiver==='client'&&!COLLECTIONS.has(member.property)&&!DIRECT_SDK.has(member.property)){
           // Non-listed methods may still be legitimate; leave unknown rather than fabricate a finding.
         }
       }

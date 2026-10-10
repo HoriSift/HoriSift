@@ -1,5 +1,11 @@
-# Byte-exact report fixtures: keep LF even on Windows checkout.
-# The report renderer writes LF on every supported operating system.
+# Golden output files are byte-exact fixtures. Do not rewrite their LF newlines
+# on Windows; the renderer emits LF on every supported operating system.
 tests/golden/*.json text eol=lf
 tests/golden/*.txt text eol=lf
 schemas/*.json text eol=lf
+# Prevent platform checkout transformations of source/policy inputs used by CI.
+*.ts text eol=lf
+*.mjs text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf

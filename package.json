@@ -13,7 +13,13 @@
     "check:foundation": "node scripts/check-foundation.mjs",
     "typecheck": "tsc --noEmit",
     "cli": "node bin/horisift.mjs",
-    "test:stress": "node --experimental-strip-types --test tests/stress/*.test.mjs"
+    "test:stress": "node --experimental-strip-types --test tests/stress/*.test.mjs",
+    "format:check": "node scripts/check-format.mjs",
+    "lint": "node scripts/check-lint.mjs",
+    "build": "tsc -p tsconfig.build.json",
+    "smoke:build": "node scripts/check-build.mjs",
+    "security:check": "node scripts/check-security.mjs",
+    "verify:gates": "node --test tests/quality/*.test.mjs"
   },
   "dependencies": {
     "typescript": "6.0.3"

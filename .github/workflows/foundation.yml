@@ -15,17 +15,33 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node: [22, 24]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, checked 2026-10-10
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0, checked 2026-10-10
         with:
           node-version: ${{ matrix.node }}
           cache: npm
-      - name: Install reproducibly
-        run: npm ci
+      - name: Install reproducibly without install scripts
+        run: npm ci --ignore-scripts
+      - name: Audit locked dependencies for high/critical advisories
+        run: npm audit --audit-level=high
       - name: Check foundation documents
         run: npm run check:foundation
+      - name: Check whitespace and JSON formatting
+        run: npm run format:check
+      - name: Lint inspected tool source against unsafe execution patterns
+        run: npm run lint
+      - name: Check workflow and dependency lock security policy
+        run: npm run security:check
       - name: Typecheck source
         run: npm run typecheck
+      - name: Emit standalone JavaScript build
+        run: npm run build
+      - name: Smoke emitted JavaScript executable
+        run: npm run smoke:build
+      - name: Verify CI gates reject deliberate failures
+        run: npm run verify:gates
       - name: Run all unit, integration and regression tests
         run: npm test
       - name: Verify JSON schemas and report golden snapshots
@@ -36,7 +52,6 @@ jobs:
         run: npm run cli -- --version
       - name: Smoke rule listing
         run: npm run cli -- rules --format json
-
       - name: Bounded stress and performance budgets (Ubuntu Node 24)
         if: matrix.os == 'ubuntu-latest' && matrix.node == 24
         run: npm run test:stress

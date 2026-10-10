@@ -9,7 +9,7 @@ const executable=resolve(root,'dist/cli/entry.js');
 const run=(...args)=>spawnSync(process.execPath,[executable,...args],{cwd:root,encoding:'utf8',shell:false,timeout:20000,maxBuffer:4*1024*1024});
 const check=(condition,message)=>{if(!condition)throw new Error('Build smoke failed: '+message);};
 const help=run('--help');check(help.status===0&&help.stdout.includes('scan <path>'),'compiled CLI help');
-const version=run('--version');check(version.status===0&&version.stdout.trim()==='0.0.0','compiled version');
+const version=run('--version');check(version.status===0&&version.stdout.trim()==='0.1.0-rc.1','compiled version');
 const rules=run('rules','--format','json');check(rules.status===0&&JSON.parse(rules.stdout).rules.length===25,'compiled catalog');
 const dir=mkdtempSync(join(tmpdir(),'horisift-build-'));
 try{

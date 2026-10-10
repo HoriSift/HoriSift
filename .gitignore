@@ -9,3 +9,6 @@ coverage/
 .vscode/
 .idea/
 dist-site/
+
+# Release candidate artifacts are generated and are not published.
+release-artifacts/

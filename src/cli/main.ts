@@ -7,7 +7,7 @@ import { RULES, type Severity, type MigrationRule } from '../rules/catalog.ts';
 import { DiscoveryInputError } from '../scanner/discover.ts';
 import { renderScanJson, renderScanText, renderRulesJson, renderRulesText } from '../reports/render.ts';
 
-export const CLI_VERSION = '0.0.0' as const;
+export const CLI_VERSION = '0.1.0-rc.1' as const;
 export type Format = 'text' | 'json';
 export type Command =
   | { kind:'scan'; path:string; format:Format; severity:Severity; failOn:Severity|null; allowIncomplete:boolean }

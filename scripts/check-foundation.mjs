@@ -47,7 +47,7 @@ export function validateFoundation(root) {
   }
   const p = JSON.parse(read('package.json'));
   const lock = JSON.parse(read('package-lock.json'));
-  if (p.name !== 'horisift' || p.private !== true || p.version !== '0.0.0') {
+  if (p.name !== 'horisift' || p.private !== true || !/^0\.1\.0-rc\.[1-9]\d*$/.test(p.version)) {
     errors.push('Foundation package metadata may not pretend a public package exists');
   }
   if (lock.name !== p.name || lock.version !== p.version) errors.push('Package lock out of sync');

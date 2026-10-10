@@ -65,7 +65,7 @@ for (const row of entries) {
       assert.deepEqual([...new Set(assessed.findings.map(f => f.detectorPattern))].sort(orders), [...row.expectedPatterns].sort(orders));
       assert.deepEqual(assessed.unknowns.map(u => u.code).sort(orders), [...row.expectedUnknowns].sort(orders));
       assert.ok(assessed.findings.every(f => f.location.file === row.upstreamPath));
-      const json = renderScanJson(assessed, '0.0.0');
+      const json = renderScanJson(assessed, '0.1.0-rc.1');
       assert.equal(json, readFileSync(resolve(goldenDir, `${row.id}.json`), 'utf8'));
       assert.ok(!json.includes(root));
       assert.doesNotMatch(json, /SOROSWAP_ADMIN_SECRET_KEY|keypair\.secret|Private key|Bearer |TOP_SECRET/);

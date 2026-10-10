@@ -1,8 +1,8 @@
 {
   "name": "horisift",
-  "version": "0.0.0",
+  "version": "0.1.0-rc.1",
   "private": true,
-  "description": "Local-first Horizon migration research tooling (in development)",
+  "description": "Local-first static analysis of Horizon dependencies in Stellar JavaScript and TypeScript (release candidate, unpublished)",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -24,7 +24,9 @@
     "test:public": "node --experimental-strip-types --test tests/integration/public-upstream.test.mjs",
     "site:build": "node scripts/build-site.mjs",
     "site:audit": "node scripts/check-site.mjs",
-    "site:verify": "npm run site:build && npm run site:audit && node --test tests/integration/site.test.mjs"
+    "site:verify": "npm run site:build && npm run site:audit && node --test tests/integration/site.test.mjs",
+    "release:pack": "node scripts/verify-release.mjs pack",
+    "release:verify": "node scripts/verify-release.mjs verify"
   },
   "dependencies": {
     "typescript": "6.0.3"
@@ -33,6 +35,11 @@
     "@types/node": "22.15.30"
   },
   "bin": {
-    "horisift": "./bin/horisift.mjs"
-  }
+    "horisift": "dist/cli/entry.js"
+  },
+  "files": [
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ]
 }

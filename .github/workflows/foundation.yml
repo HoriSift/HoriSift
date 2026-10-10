@@ -40,6 +40,8 @@ jobs:
         run: npm run build
       - name: Smoke emitted JavaScript executable
         run: npm run smoke:build
+      - name: Verify candidate tarball checksum and clean npm-consumer installation (never publish)
+        run: npm run release:verify
       - name: Verify CI gates reject deliberate failures
         run: npm run verify:gates
       - name: Run all unit, integration and regression tests

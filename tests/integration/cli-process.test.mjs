@@ -10,7 +10,7 @@ const processCli=(args)=>spawnSync(process.execPath,[executable,...args],{encodi
 function fixture(fn){const root=mkdtempSync(join(tmpdir(),'horisift-cli-'));try{return fn(root)}finally{rmSync(root,{force:true,recursive:true});}}
 test('executable help and version work without network or target code',()=>{
  const a=processCli(['--help']);assert.equal(a.status,0);assert.match(a.stdout,/scan <path>/);assert.equal(a.error,undefined);
- const b=processCli(['--version']);assert.equal(b.status,0);assert.equal(b.stdout.trim(),'0.0.0');
+ const b=processCli(['--version']);assert.equal(b.status,0);assert.equal(b.stdout.trim(),'0.1.0-rc.1');
 });
 test('real scan with supported Horizon usage exits according to --fail-on',()=>fixture(root=>{
  writeFileSync(join(root,'app.ts'),"import {Horizon} from '@stellar/stellar-sdk';\nconst c=new Horizon.Server('https://horizon.stellar.org');\nc.payments().call();");

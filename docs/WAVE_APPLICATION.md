@@ -72,3 +72,7 @@ The build has been reproduced on Node 24.19.0 with pinned TypeScript 6.0.3. An a
 ## Verified recovery commit
 
 Implementation/docs commit `6da7ae7db99aa7c6ce0503ac8cfd138589e542bd` has successful six-job CI: https://github.com/HoriSift/HoriSift/actions/runs/38018782224 (Windows/macOS/Ubuntu × Node 22/24). All 520 standard tests and package consumer checks passed. Local tested Git tree exactly matched remote tree `a758cc3dbc459514dd1b7eba4f1a330f526033cf`. Reviewable PR: https://github.com/HoriSift/HoriSift/pull/29, clean and unmerged when checked. Automatic approval review rejected direct default-branch push; a review branch was created instead. Owner approval to merge is the remaining repository gate. GitBook connection remains pending; no npm release or Wave submission occurred.
+
+## Additional production-preparation evidence
+
+PR #29 is merged; main CI https://github.com/HoriSift/HoriSift/actions/runs/38019076338 passed. Fifteen open issues were verified live. Three full fixed-commit public repository checkouts now have actual bounded JS/TS scans (203 files), all incomplete, with repeated byte-identical reports and licensing/provenance. See [production preparation](PRODUCTION_REVIEW.md). Independent Ajv implementation validates report schemas and rejects malformed/traversal inputs; this is automated validation, not an independent human audit. The corpus is not representative precision/recall, and public npm release remains HOLD. Apply using accurate repository/CLI/documentation claims rather than asserting production migration certification.

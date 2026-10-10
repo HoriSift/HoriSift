@@ -1,42 +1,16 @@
 import test from 'node:test';
+import Ajv2020 from 'ajv/dist/2020.js';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 const grab=(name)=>JSON.parse(readFileSync(fileURLToPath(new URL(`../../schemas/${name}`,import.meta.url)),'utf8'));
 const golden=(name)=>JSON.parse(readFileSync(fileURLToPath(new URL(`../golden/${name}`,import.meta.url)),'utf8'));
 const scan=grab('scan-report.v1.schema.json'),rules=grab('rules-report.v1.schema.json');
-/** Small validator for the schema features actually used by our committed Draft 2020-12 contracts.
- * The specs stay vendor-neutral JSON Schema, with no added npm runtime dependency. */
-function check(value,s,root){
- if(s.$ref){const fields=s.$ref.split('/');if(fields[0]!=='#')return false;
-  let target=root;for(const f of fields.slice(1))target=target?.[f];return !!target&&check(value,target,root);}
- if(Object.hasOwn(s,'const')&&!Object.is(value,s.const))return false;
- if(s.enum&&!s.enum.includes(value))return false;
- if(s.type){const allowed=Array.isArray(s.type)?s.type:[s.type];
-  const valid=t=>t==='null'?value===null:t==='array'?Array.isArray(value):t==='integer'?Number.isInteger(value):t==='object'?value!==null&&typeof value==='object'&&!Array.isArray(value):typeof value===t;
-  if(!allowed.some(valid))return false;}
- if(typeof value==='string'){
-  if(s.minLength!==undefined&&value.length<s.minLength)return false;
-  if(s.maxLength!==undefined&&value.length>s.maxLength)return false;
-  if(s.pattern&&!new RegExp(s.pattern,'u').test(value))return false;
- }
- if(typeof value==='number'){
-  if(s.minimum!==undefined&&value<s.minimum)return false;
-  if(s.maximum!==undefined&&value>s.maximum)return false;
- }
- if(Array.isArray(value)){
-  if(s.minItems!==undefined&&value.length<s.minItems)return false;
-  if(s.maxItems!==undefined&&value.length>s.maxItems)return false;
-  if(s.items&&!value.every(v=>check(v,s.items,root)))return false;
- }
- if(value!==null&&typeof value==='object'&&!Array.isArray(value)){
-  const keys=Object.keys(value);
-  if(s.required&&!s.required.every(k=>Object.hasOwn(value,k)))return false;
-  if(s.additionalProperties===false&&!keys.every(k=>Object.hasOwn(s.properties??{},k)))return false;
-  for(const [k,v] of Object.entries(value))if(s.properties?.[k]&&!check(v,s.properties[k],root))return false;
- }
- return true;
-}
+/** Independent Draft 2020-12 implementation; validates only our trusted schemas.
+ * Scanned repositories never supply schemas or get executed by Ajv. */
+const ajv=new Ajv2020({strict:true,allErrors:true});
+const validators=new Map([[scan,ajv.compile(scan)],[rules,ajv.compile(rules)]]);
+function check(value,s){return validators.get(s)(value);}
 for(const [file,s] of [['scan-complete.json',scan],['scan-incomplete.json',scan],['rules.json',rules]]){
  test(`golden ${file} conforms to public v1 JSON Schema`,()=>assert.equal(check(golden(file),s,s),true));
 }
@@ -55,6 +29,8 @@ for(const [name,mutation] of [
  ['missing evidence source',x=>x.findings[0].officialSources=[]],
  ['bad hash',x=>x.findings[0].id='XX'],
  ['bad diagnostic',x=>x.diagnostics=[{message:'a secret'}]],
+ ['absolute location path',x=>x.findings[0].location.file='/private/app.js'],
+ ['parent traversal location',x=>x.findings[0].location.file='../app.js'],
  ]){
  test(`schema rejects ${name}`,()=>{const x=structuredClone(golden('scan-complete.json'));mutation(x);assert.equal(check(x,scan,scan),false);});
 }
@@ -66,4 +42,20 @@ test('rules schema rejects modified/extra rule metadata',()=>{
 });
 test('every schema reference resolves and contracts use JSON Schema 2020-12',()=>{
  for(const x of [scan,rules]){assert.equal(x.$schema,'https://json-schema.org/draft/2020-12/schema');assert.ok(Object.keys(x.$defs).length);}
+});
+test('Unicode relative source paths remain valid without weakening traversal checks',()=>{
+ const x=golden('scan-complete.json');x.findings[0].location.file='应用/stellar-🪐.ts';assert.equal(check(x,scan),true);
+});
+test('forged unknown code is rejected by the independent validator',()=>{
+ const x=golden('scan-incomplete.json');x.unknowns[0].code='FORGED_UNKNOWN';assert.equal(check(x,scan),false);
+});
+test('malformed JSON is rejected before schema evaluation',()=>{
+ assert.throws(()=>JSON.parse('{"schemaVersion":'),SyntaxError);
+});
+test('location and diagnostic paths reject unsafe segments but diagnostic null remains valid',()=>{
+ for(const file of ['a/../app.js','./app.js','a//app.js','a\\app.js','a/./app.js','a\u0000.js']){
+  const x=golden('scan-complete.json');x.findings[0].location.file=file;assert.equal(check(x,scan),false,file);
+  const y=golden('scan-incomplete.json');y.diagnostics=[{code:'INVALID_SYNTAX',file,message:'Source has a syntax error.'}];assert.equal(check(y,scan),false,file);
+ }
+ const x=golden('scan-incomplete.json');x.diagnostics=[{code:'INVALID_SYNTAX',file:null,message:'Coverage is incomplete.'}];assert.equal(check(x,scan),true);
 });

@@ -2,7 +2,7 @@
 
 **Find Horizon dependencies before migrating your Stellar application.**
 
-HoriSift is a planned local-first command-line analyzer for JavaScript and TypeScript Stellar applications. Its goal is to identify supported Horizon SDK and HTTP usage, distinguish straightforward API changes from indexing or data-model work, and produce evidence-backed migration findings.
+HoriSift is a local-first development command-line analyzer for JavaScript and TypeScript Stellar applications. Its goal is to identify supported Horizon SDK and HTTP usage, distinguish straightforward API changes from indexing or data-model work, and produce evidence-backed migration findings.
 
 **Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. A public npm package, bundled distribution, and independent real-application migration validation are **not yet implemented**. **Known limitation:** historical `StellarSdk.Server` Horizon usage was missed in a real public sample; an empty scan is never a Horizon-free or migration-ready certification. Do not treat the proposed examples in the product specification as working commands.
 
@@ -25,6 +25,7 @@ The intended initial analyzer targets JavaScript and TypeScript source files, wi
 - [Test hardening, fixture provenance and stress limits](docs/TEST_HARDENING.md)
 - [Reproduced public Stellar source examples and known detection gaps](docs/PUBLIC_VALIDATION.md)
 - [Reproducible CI and security-focused quality gates](docs/CI_HARDENING.md)
+- [Static landing page source](site/index.html) and [brand/accessibility checks](docs/BRAND_SITE.md) — source-only, not deployed
 - [Testing approach](docs/TESTING.md)
 - [Known limitations](docs/LIMITATIONS.md)
 - [Contributing](CONTRIBUTING.md) and [security](SECURITY.md)
@@ -44,13 +45,14 @@ npm run security:check
 npm run build
 npm run smoke:build
 npm run verify:gates
+npm run site:verify
 # Optional bounded stress suite (also runs in the Ubuntu/Node 24 CI job)
 npm run test:stress
 ```
 
 These commands verify foundation, discovery, parsing, bounded Horizon detection, advisory rules, static risk triage and the development CLI. The application-style fixtures are synthetic; successful tests do not prove application migration readiness or publish an npm release. Report JSON v1 is now schema-versioned and checked against committed golden outputs.
 
-To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. To reproduce a pinned public example (without executing scanned code), run `npm run example -- axelar-faucet --format json --allow-incomplete` or `npm run test:public`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
+To preview the static source-only landing page, run `npm run site:build` and serve `dist-site/` locally; there is no public website deployment. To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. To reproduce a pinned public example (without executing scanned code), run `npm run example -- axelar-faucet --format json --allow-incomplete` or `npm run test:public`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
 
 ## License
 

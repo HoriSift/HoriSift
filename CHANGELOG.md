@@ -79,3 +79,10 @@ All meaningful public releases will be recorded here. No public release has been
 - Verified Axelar and Soroswap Horizon constructor detection with dynamic source URLs marked incomplete; a non-Horizon upstream control stayed empty.
 - **Recorded a confirmed historical-SDK false negative:** legacy `StellarSdk.Server` source incorrectly produces no supported evidence, tracked at https://github.com/HoriSift/HoriSift/issues/1.
 - Added dedicated public example CI step on Ubuntu/Windows/macOS × Node 22/24; no npm release, full public app scan, measured population accuracy, or upstream approval claimed.
+
+## Unreleased — Original brand and offline static website
+
+- Added original hand-authored editable horizon-sieve SVG mark and HoriSift wordmark, self-contained dark responsive HTML/CSS homepage and honest fixed public-source examples/limitations.
+- Added deterministic four-file offline site build (ignored dist-site/) without JavaScript, trackers, remote fonts, hosted infrastructure or deployment, and linked current checkout-only usage and historical false negative (issue #1).
+- Added static accessibility/semantic/link/contrast/security/responsiveness checks and 33 adversarial/regression tests (475 standard tests). Every Ubuntu/Windows/macOS × Node 22/24 CI job builds and verifies the site independently; pinned npm audit/CLI/golden tests remain intact.
+- Browser-rendered/assistive-technology audit, hosting HTTP headers, public site deployment and npm release **not** completed. Further live accessibility/hosting review requires owner approval before deployment.

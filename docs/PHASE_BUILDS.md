@@ -237,10 +237,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Real brand assets and verified demo, no deployment without approval.
 - **Required CI checks:** Site build and accessibility CI.
 - **Known risks:** Design asset provenance and stale screenshots.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED (static source/site verification only; no deployment).
+- **Verified implementation commit:** 0d8aa1c545746eb8ef3effcba649e44103a82f5c (original SVG logo + wordmark, no-script static site, offline byte-exact build, 33 positive/negative site checks, reproducible six-platform CI).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38010802527 — SUCCESS on 0d8aa1c545746eb8ef3effcba649e44103a82f5c, 6/6 Ubuntu/Windows/macOS × Node 22/24 jobs; dedicated site:verify (33 site tests and byte-exact build) passed on every job alongside 475 standard tests, 24 negative quality-gate tests, pinned npm install/audit/typecheck/build/smoke, golden/schema and public-source examples; 8 stress tests additionally on Ubuntu/Node24 (checked 2026-10-10). Site assets in site/, design/test limitations in docs/BRAND_SITE.md. Independent browser/axe/screen-reader audit not completed; local Chromium navigation blocked by administrator policy.
+- **Remaining work:** Phase 12 source/artwork/offline build/static accessibility/link/contrast/responsive-rule checks accepted. This is NOT a public deployment or independent browser accessibility certification. Before deployment: get owner authorization, complete manual/automated actual-browser and screen-reader testing, and confirm hosting security headers. Historical SDK false negative issue #1 remains. Phase 13 release candidate hardening not started.
 
 ## Phase 13 — Release Hardening
 

@@ -34,3 +34,9 @@ python -m http.server 8000 --bind 127.0.0.1
 ## Maintenance and release safeguards
 
 Maintainers must keep site examples tied to pinned genuine source observations; when a detector bug is fixed, update evidence and this page to avoid stale misleading results. Do not remove the historical false-negative disclaimer until issue #1 is actually fixed and cross-platform CI verifies it. The source contains no `<script>`, third-party CSS/font, tracking or hosted action. Never add claimed downloads/install instructions unless a real public package and release verification exist. Preserve root README without internal phase numbers. Site publishing, domain setup, production config changes and any grant application require explicit owner authorization; current site remains source-only.
+
+## GitHub code and CI evidence (2026-10-10)
+
+- Verified site/source implementation commit: `0d8aa1c545746eb8ef3effcba649e44103a82f5c`.
+- Six-platform source/check CI: https://github.com/HoriSift/HoriSift/actions/runs/38010802527 — **SUCCESS**. All Ubuntu/Windows/macOS × Node 22/24 jobs passed site build, static audit and 33 dedicated site tests, alongside 475 standard tests per job, 24 CI negative-gate tests; Ubuntu/Node24 additionally ran 8 stress tests.
+- Public site deployment URL: **none**. The artifact remains an offline static website. Browser rendering and independent accessibility certification are **not verified**; see limitations above.

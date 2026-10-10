@@ -51,3 +51,7 @@ The tarball includes the HoriSift MIT license and repository README, not copied 
 ## Later readiness-audit correction (2026-10-10)
 
 A public README regression was found during the subsequent Phase 14 review: the original test candidate inadvertently packaged an outdated README that said the scanner was unimplemented. The full accurate public README is restored in the follow-up code/doc commit. The previous 27,494-byte checksum above remains evidence for its **historical archive only**. Since README is included in the tarball, **do not reuse that SHA-256 for a newly built archive**; rerun `npm run release:pack`, `release:verify`, checksum and consumer tests against the final SHA. Release still HOLD; see docs/RELEASE_REVIEW_2026-10-10.md.
+
+### GitBook-and-Wave review build (2026-10-10)
+
+Following verified conservative historical SDK unknown detection and the accurate GitBook-linked README, the private candidate was repacked at `cedf8e94ed9abaf8beb660f717393ce0dbdd474d`. The [six-platform CI](https://github.com/HoriSift/HoriSift/actions/runs/38015163199) passed clean consumer installation on all jobs; Ubuntu24: **28,832 bytes**, 12 files, SHA-256 `16ca86f5b381f7e894875b5fd326c3272cc05743b943e22a05da13ded7b5afb3`. Older 27,494-byte and 28,400-byte historical tarball hashes identify their own old source states and **must not** be used to verify this current build. This is an **unpublished** tarball, not a public npm release. Public documentation lives in GitBook; no Vercel landing page has been deployed.

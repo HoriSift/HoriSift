@@ -57,3 +57,10 @@ Official policy (checked 2026-10-10): https://docs.drips.network/wave/maintainer
 ## Verified follow-up evidence
 
 The historical constructor correction on code commit `3955813e40e8ab828f32607829b28d91af87f758` is CI-verified (https://github.com/HoriSift/HoriSift/actions/runs/38014903027, six successful jobs, 503 standard tests). The public Stellar Wind example now yields explicit incomplete/manual review rather than an incorrect clean scan. This **does not close issue #1**, which covers broader historical SDK semantics. GitBook was publicly published at https://oobayemi.gitbook.io/horisift-documentation/; user account onboarding/Drips approval still require confirmation.
+
+## Final reviewed source and candidate identity (2026-10-10)
+
+- Reviewed source/doc SHA: `cedf8e94ed9abaf8beb660f717393ce0dbdd474d`, CI https://github.com/HoriSift/HoriSift/actions/runs/38015163199 — completed SUCCESS, six OS × Node jobs; 503 standard tests, 35 intentional quality-gate tests, 15 public-source tests and 8 Ubuntu24 stress tests. Each job also verified private package consumer installation.
+- Ubuntu/Node24 produced the corrected source/README `0.1.0-rc.1` private tarball with **12 entries, 28,832 bytes**, SHA-256 `16ca86f5b381f7e894875b5fd326c3272cc05743b943e22a05da13ded7b5afb3`. This digest identifies that specific build. Earlier package hashes from older README/code are not current.
+- Public GitBook: https://oobayemi.gitbook.io/horisift-documentation/ ; 7 pages; 15 open issues #1–#15, with no Wave approval or application submission.
+- **Assessment:** source, docs, tests, GitBook and contributor queue are prepared for maintainer-controlled Drips *repository application review*. The private npm/GitHub release gate remains HOLD and whole-repo precision/recall remains unmeasured (issue #2); these must be disclosed and not represented as completed.

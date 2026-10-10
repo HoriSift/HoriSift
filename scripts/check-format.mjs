@@ -3,8 +3,8 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const INCLUDED = new Set(['.ts', '.mjs', '.json', '.yml', '.yaml']);
-const FOLDERS = ['src', 'scripts', 'bin', '.github', 'schemas', 'tests'];
+const INCLUDED = new Set(['.ts', '.mjs', '.json', '.yml', '.yaml', '.html', '.css', '.svg']);
+const FOLDERS = ['src', 'scripts', 'bin', '.github', 'schemas', 'tests', 'site'];
 const ROOT_FILES = ['package.json', 'package-lock.json', 'tsconfig.json', 'tsconfig.build.json'];
 const SKIP = new Set(['node_modules', 'dist', '.git', 'coverage', 'golden']);
 export function validateText(text, filename) {

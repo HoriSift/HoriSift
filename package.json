@@ -21,7 +21,10 @@
     "security:check": "node scripts/check-security.mjs",
     "verify:gates": "node --test tests/quality/*.test.mjs",
     "example": "node scripts/public-example.mjs",
-    "test:public": "node --experimental-strip-types --test tests/integration/public-upstream.test.mjs"
+    "test:public": "node --experimental-strip-types --test tests/integration/public-upstream.test.mjs",
+    "site:build": "node scripts/build-site.mjs",
+    "site:audit": "node scripts/check-site.mjs",
+    "site:verify": "npm run site:build && npm run site:audit && node --test tests/integration/site.test.mjs"
   },
   "dependencies": {
     "typescript": "6.0.3"

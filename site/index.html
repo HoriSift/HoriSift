@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#071527">
+  <meta name="description" content="HoriSift is a local-first developer CLI that surfaces supported Stellar Horizon usage and migration investigation work. Early developer preview, not a migration certification.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>HoriSift — Find the Horizon work hiding in your code</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/horisift-mark.svg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="HoriSift, back to top">
+        <img src="./assets/horisift-wordmark.svg" alt="HoriSift" width="221" height="58">
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#real-world">Evidence</a>
+        <a href="#limitations">Limitations</a>
+        <a class="nav-source" href="https://github.com/HoriSift/HoriSift">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-main">
+          <p class="eyebrow"><span class="signal" aria-hidden="true"></span> Local-first tooling · Development preview</p>
+          <h1 id="hero-title">Find the <em>Horizon work</em> hiding in your code.</h1>
+          <p class="hero-description">A read-only CLI for spotting supported Stellar Horizon dependencies in JavaScript and TypeScript, with source-level evidence and honest uncertainty about what migration may require.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#get-started">Run from source <span aria-hidden="true">↗</span></a>
+            <a class="button secondary" href="https://github.com/HoriSift/HoriSift/blob/main/docs/PUBLIC_VALIDATION.md">See verified examples <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="hero-footnote">No hosted scanner. No source upload. No published npm package yet.</p>
+        </div>
+        <div class="hero-art" aria-label="Illustration of source files being filtered into evidence and uncertainty">
+          <div class="graphic-topline"><span class="graphic-dot"></span> LOCAL ANALYSIS / EXAMPLE</div>
+          <div class="graph-line"><span class="number">01</span><span class="code-white">const server = new </span><span class="code-green">Horizon.Server</span><span class="code-white">(url)</span></div>
+          <div class="graph-line"><span class="number">02</span><span class="code-white">server.</span><span class="code-green">friendbot</span><span class="code-white">(account).call()</span></div>
+          <div class="graph-divider"><span class="graph-curve" aria-hidden="true">↓</span><span>source evidence</span></div>
+          <div class="graphic-card"><div class="mini-icon" aria-hidden="true">⌁</div><div><strong>Horizon usage detected</strong><small>SDK constructor and method</small></div><span class="chip">2 findings</span></div>
+          <div class="graphic-card caution"><div class="mini-icon" aria-hidden="true">?</div><div><strong>URL could not be resolved</strong><small>Requires human review</small></div><span class="chip">1 unknown</span></div>
+          <p class="graphic-disclaimer">Illustration based on the pinned Axelar source-file test; not a claim of migration readiness.</p>
+        </div>
+      </section>
+
+      <section class="capability-section" id="how-it-works" aria-labelledby="capability-title">
+        <div class="section-intro"><div><p class="eyebrow">THE WORKFLOW</p><h2 id="capability-title">Evidence first. Guesswork last.</h2></div><p>HoriSift examines source files without running your application. Its findings are starting points for engineers, not automated rewrites.</p></div>
+        <div class="card-grid">
+          <article class="feature-card"><span class="feature-index">01 / DETECT</span><div class="feature-symbol" aria-hidden="true">⌁</div><h3>Trace supported usage</h3><p>Locate recognized Horizon SDK and HTTP patterns, including source paths and positions.</p></article>
+          <article class="feature-card"><span class="feature-index">02 / CLASSIFY</span><div class="feature-symbol" aria-hidden="true">▤</div><h3>Map investigation work</h3><p>Review 25 versioned advisory rules distinguishing direct, conditional and indexing-dependent cases.</p></article>
+          <article class="feature-card"><span class="feature-index">03 / PRESERVE</span><div class="feature-symbol" aria-hidden="true">◇</div><h3>Keep the unknowns</h3><p>Dynamic URLs and incomplete coverage stay visible. A clean report never proves that a repository is Horizon-free.</p></article>
+        </div>
+      </section>
+
+      <section class="terminal-section" id="get-started" aria-labelledby="terminal-title">
+        <div class="terminal-copy"><p class="eyebrow">START WITH THE SOURCE</p><h2 id="terminal-title">Your code stays on your machine.</h2><p>HoriSift is not available as a published npm package. Clone the repository and run the development CLI with Node.js 22.12+ or 24.</p><a class="text-link" href="https://github.com/HoriSift/HoriSift/blob/main/docs/CLI_USAGE.md">Read the complete CLI guide <span aria-hidden="true">↗</span></a></div>
+        <div class="terminal" role="group" aria-label="Commands to run HoriSift from a source checkout"><div class="terminal-header"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span>terminal · local checkout</span></div><pre><code><span class="comment"># Node 22.12+ or 24; no target app installed</span>
+<span class="prompt">$</span> git clone https://github.com/HoriSift/HoriSift.git
+<span class="prompt">$</span> cd HoriSift
+<span class="prompt">$</span> npm ci --ignore-scripts
+<span class="prompt">$</span> npm run cli -- scan ./my-stellar-app --format json
+
+<span class="comment"># Reproduce a pinned public-source example</span>
+<span class="prompt">$</span> npm run example -- axelar-faucet --format json --allow-incomplete</code></pre></div>
+      </section>
+
+      <section class="evidence-section" id="real-world" aria-labelledby="evidence-title"><div class="section-intro"><div><p class="eyebrow">REPRODUCIBLE PUBLIC SOURCE</p><h2 id="evidence-title">What the scanner actually saw.</h2></div><p>Four individual files from three third-party repositories, preserved at immutable Git commits and tested in CI. Not a whole-repository accuracy benchmark.</p></div>
+        <div class="table-scroll" role="region" aria-label="Public-source scan evidence" tabindex="0"><table><caption>Observed results from pinned source files, not production application validation</caption><thead><tr><th scope="col">Pinned source</th><th scope="col">Findings</th><th scope="col">Unknowns</th><th scope="col">Interpretation</th></tr></thead><tbody>
+          <tr><th scope="row">Axelar · Stellar faucet</th><td>2</td><td>1</td><td><span class="state partial">Incomplete</span> Dynamic Horizon URL</td></tr>
+          <tr><th scope="row">Soroswap · configuration</th><td>1</td><td>1</td><td><span class="state partial">Incomplete</span> Dynamic Horizon URL</td></tr>
+          <tr><th scope="row">Stellar Wind · legacy SDK</th><td>0</td><td>0</td><td><span class="state missed">False negative</span> Known Horizon call missed</td></tr>
+          <tr><th scope="row">Stellar Wind · queue control</th><td>0</td><td>0</td><td><span class="state neutral">Control</span> No Horizon usage in this file</td></tr>
+        </tbody></table></div>
+        <div class="evidence-footer"><p>Every row corresponds to an original file checked against upstream SHA-256 and Git blob identity. The observed miss remains tracked as <a href="https://github.com/HoriSift/HoriSift/issues/1">GitHub issue #1</a>.</p><a class="text-link" href="https://github.com/HoriSift/HoriSift/blob/main/docs/PUBLIC_VALIDATION.md">Read the source-by-source evidence <span aria-hidden="true">↗</span></a></div>
+      </section>
+
+      <section class="limits-section" id="limitations" aria-labelledby="limits-title"><div class="limits-marker" aria-hidden="true">!</div><div><p class="eyebrow">IMPORTANT LIMITATIONS</p><h2 id="limits-title">A report is a question list, not a green light.</h2><p>HoriSift can miss historical SDK forms, custom hosts, wrappers and cross-file behavior. A real public sample using <code>StellarSdk.Server</code> was missed. Even a complete scan with zero findings is <strong>not proof of a Horizon-free application</strong> or an approved migration.</p><p>Stellar RPC is not a drop-in Horizon replacement; data shapes and historical indexing can require application changes. Read the <a href="https://developers.stellar.org/docs/data/apis/migrate-from-horizon-to-rpc">official Stellar migration guide</a> and the <a href="https://github.com/HoriSift/HoriSift/blob/main/docs/LIMITATIONS.md">full HoriSift limitations</a>.</p></div></section>
+
+      <section class="closing" aria-labelledby="closing-title"><p class="eyebrow">BUILD ON VERIFIED EVIDENCE</p><h2 id="closing-title">Start with the code. Keep the caveats.</h2><p>The project is open source and in development. Explore the tests, reproduce the examples, and help improve detection coverage.</p><a class="button primary" href="https://github.com/HoriSift/HoriSift">Explore the repository <span aria-hidden="true">↗</span></a></section>
+    </main>
+    <footer class="footer"><div class="footer-left"><img src="./assets/horisift-mark.svg" width="36" height="36" alt="HoriSift mark"><span>HoriSift · Independent open-source tooling</span></div><div class="footer-links"><a href="https://github.com/HoriSift/HoriSift/blob/main/LICENSE">MIT license</a><a href="https://github.com/HoriSift/HoriSift/blob/main/SECURITY.md">Security</a><a href="https://github.com/HoriSift/HoriSift">Source</a></div><p class="foot-legal">Not affiliated with or endorsed by the Stellar Development Foundation. Site source is included in this repository; no public deployment has been made.</p></footer>
+  </div>
+</body>
+</html>

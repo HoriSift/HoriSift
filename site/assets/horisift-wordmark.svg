@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 286 74" role="img" aria-labelledby="name">
+  <title id="name">HoriSift</title>
+  <g transform="translate(3 3) scale(.7)">
+    <rect x="3" y="3" width="90" height="90" rx="24" fill="#0d2438" stroke="#35586b" stroke-width="2"/>
+    <path d="M21 32h54M21 48h54M21 64h54" stroke="#91a9b7" stroke-width="4" stroke-linecap="round" opacity=".52"/>
+    <path d="M23 33a25 25 0 0 1 50 0" fill="none" stroke="#69edc9" stroke-width="7" stroke-linecap="round"/>
+    <path d="M31 47h34M39 61h18" fill="none" stroke="#b7ef91" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="48" cy="75" r="4" fill="#b7ef91"/>
+  </g>
+  <text x="85" y="49" fill="#f1f8ff" font-size="39" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-weight="700" letter-spacing="-1.6">Hori<tspan fill="#69edc9">Sift</tspan></text>
+</svg>

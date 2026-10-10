@@ -48,6 +48,8 @@ jobs:
         run: node --experimental-strip-types --test tests/unit/report-schema.test.mjs tests/integration/report-process.test.mjs
       - name: Verify pinned public-source examples and golden CLI outputs
         run: npm run test:public
+      - name: Build and audit accessible static site (never deploy)
+        run: npm run site:verify
       - name: Smoke executable help
         run: npm run cli -- --help
       - name: Smoke executable version

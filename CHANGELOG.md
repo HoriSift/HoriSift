@@ -93,3 +93,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Added reproducible `release:pack` script writing ignored local tarball and SHA-256; `release:verify` checks two identical packs, payload allowlist, clean temporary consumer install, npm executable shim help/version/rules and actual scan/CI threshold/privacy on all six OS×Node jobs.
 - Added 17 archive, lockfile, bin, path, security and checksum negative/positive tests (492 standard cases), retaining 24 CI-negative, 33 site, 15 public-source and 8 bounded stress tests.
 - Real-world historical SDK false negative remains issue #1; private candidate verified, **no publication, tag, release, website deployment or Stellar Wave submission**.
+
+## Unreleased — Public release and Stellar Wave evidence review (HOLD)
+
+- Researched official Drips maintainers, Wave terms and repository limits, distinguishing these live primary sources from the user-supplied undated nonofficial project-building playbook.
+- Created `docs/RELEASE_REVIEW_2026-10-10.md` with evidenced private-candidate capabilities, unknown organizer/application status, blockers, draft project summary and P0/P1 next actions.
+- Added read-only local readiness preflight with fail-closed HOLD exit, six-platform `--expect-hold` CI verification and 11 malicious/invalid evidence regression cases (35 total CI-gate tests). No publish/apply/deploy action is included.
+- Documented historical SDK false negative issue #1 and created full-repository measurement issue #2; no representative accuracy metric claimed.
+- Fixed stale public README carried into the earlier candidate; a newly built tarball needs a new SHA-256 since README bytes are packaged. Public release, GitHub tag, deployment and Wave application remain on HOLD.

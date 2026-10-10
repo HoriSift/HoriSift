@@ -47,3 +47,7 @@ The tarball includes the HoriSift MIT license and repository README, not copied 
 - Local Node22.16/TS5.8.3 produced two byte-identical tarballs, 27,494 bytes with SHA-256 `c49c1e2a15fd9535cffd1eb16eecb24e942a85a481e8a0ba73cc95b54c7aa8fa`. Ubuntu24 pinned TypeScript6 CI independently reported the same hash/size. This is the hash of that candidate build, not a guarantee for altered code/tooling.
 - **Local clean npm registry-backed install not run** (registry inaccessible in model container); six successful online CI consumer installs are the verification evidence.
 - No npm registry package, git tag, GitHub release, deployment or Wave application has been published/submitted.
+
+## Later readiness-audit correction (2026-10-10)
+
+A public README regression was found during the subsequent Phase 14 review: the original test candidate inadvertently packaged an outdated README that said the scanner was unimplemented. The full accurate public README is restored in the follow-up code/doc commit. The previous 27,494-byte checksum above remains evidence for its **historical archive only**. Since README is included in the tarball, **do not reuse that SHA-256 for a newly built archive**; rerun `npm run release:pack`, `release:verify`, checksum and consumer tests against the final SHA. Release still HOLD; see docs/RELEASE_REVIEW_2026-10-10.md.

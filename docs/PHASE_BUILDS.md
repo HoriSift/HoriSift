@@ -277,10 +277,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Actual published artifacts and application evidence verified.
 - **Required CI checks:** Published release and CI validation.
 - **Known risks:** Program eligibility may change; no guaranteed approval.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** REVIEWED — HOLD; public release/application acceptance NOT MET.
+- **Verified implementation commit:** 6c620105f0e4fec1ddc9cdbd07f05a746487c742 (read-only official-policy/evidence review, machine-readable HOLD, 11 adversarial readiness-gate tests and six-platform check). This is NOT a published release.
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38012964896 — SUCCESS on 6c620105f0e4fec1ddc9cdbd07f05a746487c742: 6/6 Ubuntu/Windows/macOS × Node 22/24 jobs, baseline 492 standard tests, 35 CI gate tests (11 new), private candidate install, site/public-fixture checks and Ubuntu24 stress; explicit readiness:verify-hold passed on every job (2026-10-10). Review https://github.com/HoriSift/HoriSift/blob/main/docs/RELEASE_REVIEW_2026-10-10.md; open blockers https://github.com/HoriSift/HoriSift/issues/1 and https://github.com/HoriSift/HoriSift/issues/2. Official sources: https://docs.drips.network/wave/maintainers/participating-in-a-wave/ and https://docs.drips.network/wave/terms-and-rules/ (checked 2026-10-10).
+- **Remaining work:** DO NOT mark Phase 14 VERIFIED until an explicitly authorized published artifact and actual application/status evidence exist. Fix or conservatively flag issue #1, complete full-repository evaluation (#2), obtain independent security/schema and real-browser review if site deploys, reverify evolving Drips eligibility/limits, and get explicit owner approval before any publish/tag/deploy/apply. 2026-10-10 release decision HOLD. The private v0.1.0-rc.1 archive is testable but its old checksum must not be applied to a changed packaged README; rerun pack/checksum after this docs correction.
 
 ## Phase 15 — Maintenance & Adoption
 

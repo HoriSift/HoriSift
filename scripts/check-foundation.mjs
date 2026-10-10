@@ -9,7 +9,9 @@ const required = [
   'docs/PHASE_BUILDS.md', 'docs/PROJECT_HANDOFF.md', 'docs/ARCHITECTURE.md',
   'docs/PRODUCT_SPEC.md', 'docs/RULE_CATALOG.md', 'docs/TESTING.md',
   'docs/RELEASE_PROCESS.md', 'docs/LIMITATIONS.md',
-  'docs/decisions/0001-local-first-static-analysis.md'
+  'docs/decisions/0001-local-first-static-analysis.md',
+  'docs/RELEASE_READINESS.json', 'docs/RELEASE_REVIEW_2026-10-10.md',
+  'scripts/release-readiness.mjs'
 ];
 const labels = [
   'Objective', 'Problem', 'Deliverables', 'Files/components', 'Dependencies',
@@ -41,9 +43,10 @@ export function validateFoundation(root) {
     for (const label of labels) {
       if (!chunk.includes(`**${label}:**`)) errors.push(`Phase ${i+1} missing ${label}`);
     }
-    if (!/\*\*Status:\*\* (NOT STARTED|IN PROGRESS|IMPLEMENTED — UNVERIFIED|VERIFIED|BLOCKED)/.test(chunk)) {
-      errors.push(`Phase ${i+1} has unsupported status`);
-    }
+    const normalStatus = /\*\*Status:\*\* (NOT STARTED|IN PROGRESS|IMPLEMENTED — UNVERIFIED|VERIFIED|BLOCKED)/.test(chunk);
+    const reviewedHold = i === 13 && /\*\*Status:\*\* REVIEWED — HOLD; public release\/application acceptance NOT MET\./.test(chunk) &&
+      read('docs/RELEASE_REVIEW_2026-10-10.md').includes('**Decision: HOLD');
+    if (!normalStatus && !reviewedHold) errors.push(`Phase ${i+1} has unsupported status`);
   }
   const p = JSON.parse(read('package.json'));
   const lock = JSON.parse(read('package-lock.json'));

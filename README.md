@@ -4,7 +4,7 @@
 
 HoriSift is a planned local-first command-line analyzer for JavaScript and TypeScript Stellar applications. Its goal is to identify supported Horizon SDK and HTTP usage, distinguish straightforward API changes from indexing or data-model work, and produce evidence-backed migration findings.
 
-**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. A public npm package, bundled distribution, and independent real-application migration validation are **not yet implemented**. Do not treat the proposed examples in the product specification as working commands.
+**Current availability:** This repository has internal local-first discovery, JS/TS parsing, Horizon usage detection, versioned migration guidance and static risk triage. A **checkout-based development CLI with versioned text/JSON reports** is now available. A public npm package, bundled distribution, and independent real-application migration validation are **not yet implemented**. **Known limitation:** historical `StellarSdk.Server` Horizon usage was missed in a real public sample; an empty scan is never a Horizon-free or migration-ready certification. Do not treat the proposed examples in the product specification as working commands.
 
 ## Why this matters
 
@@ -23,6 +23,7 @@ The intended initial analyzer targets JavaScript and TypeScript source files, wi
 - [Development CLI usage and exit codes](docs/CLI_USAGE.md)
 - [Versioned report schema and security contract](docs/REPORTING.md)
 - [Test hardening, fixture provenance and stress limits](docs/TEST_HARDENING.md)
+- [Reproduced public Stellar source examples and known detection gaps](docs/PUBLIC_VALIDATION.md)
 - [Reproducible CI and security-focused quality gates](docs/CI_HARDENING.md)
 - [Testing approach](docs/TESTING.md)
 - [Known limitations](docs/LIMITATIONS.md)
@@ -49,7 +50,7 @@ npm run test:stress
 
 These commands verify foundation, discovery, parsing, bounded Horizon detection, advisory rules, static risk triage and the development CLI. The application-style fixtures are synthetic; successful tests do not prove application migration readiness or publish an npm release. Report JSON v1 is now schema-versioned and checked against committed golden outputs.
 
-To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
+To use the source-checkout CLI, run `npm run cli -- --help`, `npm run cli -- rules`, or `npm run cli -- scan <path> --format json`. To reproduce a pinned public example (without executing scanned code), run `npm run example -- axelar-faucet --format json --allow-incomplete` or `npm run test:public`. See [development CLI usage](docs/CLI_USAGE.md) for exit codes and incomplete-scan behavior.
 
 ## License
 

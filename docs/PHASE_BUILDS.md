@@ -217,10 +217,10 @@ Canonical plan authored 2026-10-09. All entries are planned; this file is NOT pr
 - **Acceptance criteria:** Document evidenced utility with known limits.
 - **Required CI checks:** Docs examples CI, fixture checks.
 - **Known risks:** Samples change upstream.
-- **Status:** NOT STARTED.
-- **Verified implementation commit:** Not yet verified.
-- **Evidence links:** None verified yet.
-- **Remaining work:** Implement deliverables; run all listed tests; record SHA, real logs/CI URLs, unresolved risks, and acceptance decision.
+- **Status:** VERIFIED.
+- **Verified implementation commit:** 89bbde8c52374bf25aa2e7c2300e7b4a589d239d (4 byte-pinned third-party source files from 3 public repositories, offline CLI harness, JSON goldens, 15 new tests and all-platform docs-example CI).
+- **Evidence links:** https://github.com/HoriSift/HoriSift/actions/runs/38009046725 — SUCCESS on 89bbde8c52374bf25aa2e7c2300e7b4a589d239d, six Ubuntu/Windows/macOS × Node 22/24 jobs: 442 standard tests each, 15 dedicated public-fixture tests on every platform, 24 deliberate CI-gate tests, pinned dependency audit/build/typecheck/CLI golden checks on all jobs, plus 8 stress tests on Ubuntu/Node24. Local Node 22.16.0/TS5.8.3: format/lint/security/typecheck/emitted build/CI-gate 24/24, standard 442/442, stress 8/8, public tests 15/15. Upstream file/blob identities checked 2026-10-10 in manifest; source references and observed outputs in docs/PUBLIC_VALIDATION.md. Confirmed historical SDK false negative tracked in https://github.com/HoriSift/HoriSift/issues/1.
+- **Remaining work:** Accepted only for explicitly scoped reproducible **single-file public examples**, license/provenance evidence and transparent known misses. **Open blocker:** historical `StellarSdk.Server` syntax is silently missed (issue #1); do not treat `no-supported-evidence` as proof of a Horizon-free repo. No full external repository scan, representative precision/recall, SDK-version support matrix, upstream maintainership endorsement, production RPC migration, or package release. Prioritize detection gap before broad release claims.
 
 ## Phase 12 — Brand Identity & Landing Page
 

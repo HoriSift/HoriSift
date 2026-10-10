@@ -71,3 +71,11 @@ All meaningful public releases will be recorded here. No public release has been
 - Added strict TypeScript emitted-JS build and compiled CLI smokes, with 24 isolated deliberately failing input checks (missing-lock npm ci, invalid type, unsafe imports, mutable action refs, insecure permissions, whitespace and invalid JSON).
 - Existing 427 standard tests and Ubuntu Node24 eight stress tests all remain enforced. Initial TS6-only negative-fixture failure was fixed using a temporary isolated tsconfig; the successful six-job CI is linked in the handoff.
 - No npm release, representative real-app migration study, full external lint/SAST/security audit or published binary.
+
+## Unreleased — Pinned public-source examples and independent source observations
+
+- Added four original source snapshots from three third-party public Stellar codebases at immutable commits, retaining upstream MIT/Apache notices and Git-blob/SHA-256 provenance.
+- Added offline source-checkout example runner, four authentic byte-locked scan JSON reports and 15 integrity, process, result and false-negative regression tests (442 standard tests total).
+- Verified Axelar and Soroswap Horizon constructor detection with dynamic source URLs marked incomplete; a non-Horizon upstream control stayed empty.
+- **Recorded a confirmed historical-SDK false negative:** legacy `StellarSdk.Server` source incorrectly produces no supported evidence, tracked at https://github.com/HoriSift/HoriSift/issues/1.
+- Added dedicated public example CI step on Ubuntu/Windows/macOS × Node 22/24; no npm release, full public app scan, measured population accuracy, or upstream approval claimed.

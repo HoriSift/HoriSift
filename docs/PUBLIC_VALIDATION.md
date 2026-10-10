@@ -70,3 +70,5 @@ npm run cli -- --help
 ```
 
 A whole-directory scan of the upstream projects may behave differently, including additional diagnostics or detections; we have not asserted its result. Outputs may evolve as detectors improve. No adoption, upstream maintainer approval, npm publishing, grant decision, or RPC correctness is asserted.
+
+**Known historical detector issue:** https://github.com/HoriSift/HoriSift/issues/1. **Verified Phase 11 source commit:** `89bbde8c52374bf25aa2e7c2300e7b4a589d239d`. **Six-job CI evidence:** https://github.com/HoriSift/HoriSift/actions/runs/38009046725.

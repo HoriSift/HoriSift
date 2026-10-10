@@ -108,3 +108,10 @@ All meaningful public releases will be recorded here. No public release has been
 - Added 15 scoped open GitHub issues (including existing #1 historical SDK work and #2 whole-repo benchmark), a transparent docs/WAVE_APPLICATION.md evidence pack and issues registry.
 - Conservatively detect trusted historical `stellar-sdk` `.Server` constructors as unknown/incomplete, mitigating the previously measured false-clean baseline; updated report schema, pinned upstream golden and 11 positive/negative tests (503 standard cases).
 - Six-platform GitHub Actions successful on 3955813e40e8ab828f32607829b28d91af87f758; full historical semantics and broad application accuracy remain unverified, Drips admission/submission not claimed.
+
+## Unreleased — build and documentation recovery (2026-10-10)
+
+- Flag proven legacy named/destructured Server aliases as incomplete manual-review items; respect type-only imports, lexical shadowing, rest/fallback patterns and reassignment.
+- Preserve the seven existing GitBook pages in Git, add schema-valid site-level Git Sync configuration and documentation navigation/link/version checks.
+- Correct stale documentation verification wording and add source-checkout quick-start instructions.
+- Keep public release and Wave acceptance claims unchanged; no publication or submission performed.
